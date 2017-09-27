@@ -7,7 +7,7 @@ SPACE [ \t\n]
 COMMENT "{"([^}]|"/}")*"}"
 IDENTIFIER  {CHAR}({CHAR}|{DIGIT})*
 AUX {NUMBER},{NUMBER}
-REALLIT [+|-]?{NUMBER}","{NUMBER}((e|E){NUMBER})?
+REALLIT [+|-]?{NUMBER}"."{NUMBER}((e|E){NUMBER})?
 INTLIT [+|-]?{NUMBER}((e|E){NUMBER})?
 
 %%
