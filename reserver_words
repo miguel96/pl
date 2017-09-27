@@ -1,4 +1,42 @@
-1 2 3 4 5 6 accion, algoritmo, booleano, cadena, caracter,
-const, continuar, de, dev, div, ent, entero, e/s, faccion, falgoritmo, falso, fconst, ffuncion, fmientras, fpara, fsi,
-ftipo, ftupla, funcion, fvar, hacer, hasta, mientras, mod, no, o, para, real, ref, sal, si, tabla, tipo, tupla, var,
-verdadero, y
+accion
+algoritmo
+booleano
+cadena
+caracter
+const
+continuar
+de
+dev
+div
+ent
+entero
+e/s
+faccion
+falgoritmo
+falso
+fconst
+ffuncion
+fmientras
+fpara
+fsi,
+ftipo
+ftupla
+funcion
+fvar
+hacer
+hasta
+mientras
+mod
+no
+o
+para
+real
+ref
+sal
+si
+tabla
+tipo
+tupla
+var
+verdadero
+y
