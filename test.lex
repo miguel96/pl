@@ -1,13 +1,8 @@
-<<<<<<< HEAD
-  int identifiers=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0;
-=======
 %top{
     #include <stdio.h>
     #include <stdlib.h>
 }
-  int identifiers=0,err=0,coments=0,intLits=0,realLits=0;
->>>>>>> c8a122e7e7e4b3fde50d65666c1ce719e8448416
-
+  int identifiers=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0;
 DIGIT   [0-9]
 NUMBER {DIGIT}{DIGIT}*
 CHAR [a-zA-z]
@@ -55,11 +50,6 @@ int main(int argc, char *argv[]) {
       yyin = stdin;
   }
   yylex();
-<<<<<<< HEAD
   printf("identifiers:%d err:%d com:%d,intLits:%d,realLits:%d,boolLits:%d,charLits:%d\n",
   identifiers,err,coments,intLits,realLits,boolLits,charLits);
-=======
-  printf("identifiers:%d err:%d com:%d,intLits:%d\n,realLits:%d\n",identifiers,err,coments,intLits,realLits);
-  
->>>>>>> c8a122e7e7e4b3fde50d65666c1ce719e8448416
 }

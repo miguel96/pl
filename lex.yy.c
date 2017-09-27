@@ -1,5 +1,7 @@
+    #include <stdio.h>
+    #include <stdlib.h>
 
-#line 3 "lex.yy.c"
+#line 5 "lex.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -499,8 +501,9 @@ int yy_flex_debug = 0;
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
 #line 1 "test.lex"
+
 int identifiers=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0;
-#line 504 "lex.yy.c"
+#line 507 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -718,9 +721,9 @@ YY_DECL
 		}
 
 	{
-#line 15 "test.lex"
+#line 18 "test.lex"
 
-#line 724 "lex.yy.c"
+#line 727 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -779,57 +782,57 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 16 "test.lex"
+#line 19 "test.lex"
 ++realLits;printf("RealLit:%s\n",yytext);
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 17 "test.lex"
+#line 20 "test.lex"
 
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 18 "test.lex"
+#line 21 "test.lex"
 ++charLits;printf("CharLit:%s\n",yytext);
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 19 "test.lex"
+#line 22 "test.lex"
 ++boolLits;printf("Boolean:%s\n",yytext);
 	YY_BREAK
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 20 "test.lex"
+#line 23 "test.lex"
 ++coments;printf("Comment:%s\n",yytext);
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 21 "test.lex"
+#line 24 "test.lex"
 ++identifiers;printf("Identifier:%s\n",yytext);
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 22 "test.lex"
+#line 25 "test.lex"
 ++realLits;printf("RealLit:%s\n",yytext);
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 23 "test.lex"
+#line 26 "test.lex"
 ++intLits;printf("IntLit:%s\n",yytext);
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 24 "test.lex"
+#line 27 "test.lex"
 err++;
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 25 "test.lex"
+#line 28 "test.lex"
 ECHO;
 	YY_BREAK
-#line 833 "lex.yy.c"
+#line 836 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1830,11 +1833,25 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 25 "test.lex"
+#line 28 "test.lex"
 
 
 
 int main(int argc, char *argv[]) {
+  FILE *reservadas = fopen("reserver_words", "r");
+    char buffer[16];
+    int maxreserved = 100;
+    char *b = buffer;
+    size_t bufsize = 16;
+    size_t palabra;
+    char** arrayreservadas = malloc(maxreserved * sizeof(char));
+    int i = 0;
+    while(palabra = getline(&b, &bufsize, reservadas) != EOF) {
+        *(arrayreservadas + i) = buffer;
+        i++;
+    }
+
+
   if ( argc > 0 ) {
     FILE *myfile = fopen(argv[1], "r");
     yyin=myfile;
