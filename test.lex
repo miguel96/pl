@@ -42,7 +42,6 @@ int main(int argc, char *argv[]) {
         stringpalabra = strtok(buffer, "\n");
         *(arrayreservadas + i) = stringpalabra;
         i++;
-        printf("%s\n", stringpalabra);
     }
 
 
