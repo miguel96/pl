@@ -1,6 +1,7 @@
 %top{
     #include <stdio.h>
     #include <stdlib.h>
+    #include <string.h>
 }
   int identifiers=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0;
 DIGIT   [0-9]
@@ -30,15 +31,18 @@ CHARLIT \"{CHAR}\"
 int main(int argc, char *argv[]) {
   FILE *reservadas = fopen("reserver_words", "r");
     char buffer[16];
+    char *stringpalabra;
     int maxreserved = 100;
     char *b = buffer;
     size_t bufsize = 16;
-    size_t palabra;
+    size_t leido;
     char** arrayreservadas = malloc(maxreserved * sizeof(char));
     int i = 0;
-    while(palabra = getline(&b, &bufsize, reservadas) != EOF) {
-        *(arrayreservadas + i) = buffer;
+    while(leido = getline(&b, &bufsize, reservadas) != EOF) {
+        stringpalabra = strtok(buffer, "\n");
+        *(arrayreservadas + i) = stringpalabra;
         i++;
+        printf("%s\n", stringpalabra);
     }
 
 
