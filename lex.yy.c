@@ -503,9 +503,9 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "test.lex"
 
-int identifiers=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0,reservedWords;
+int identifiers=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0,reservedWords, numPalabras;
 char** arrayreservadas;
-boolean isReservedWord();
+int isReservedWord();
 #line 510 "lex.yy.c"
 
 #define INITIAL 0
@@ -813,7 +813,7 @@ YY_RULE_SETUP
 case 6:
 YY_RULE_SETUP
 #line 28 "test.lex"
-if(isReservedWord(yytext)) {++reservedWords;printf("Identifier:%s\n",yytext);} else {++identifiers;printf("Identifier:%s\n",yytext);}
+if(isReservedWord(yytext) == 1) {++reservedWords;printf("Identifier:%s\n",yytext);} else {++identifiers;printf("Identifier:%s\n",yytext);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
@@ -1840,6 +1840,14 @@ void yyfree (void * ptr )
 
 
 
+int isReservedWord(char* string) {
+    for (int j = 0; j++; j < numPalabras) {
+        if (strcmp(string, *(arrayreservadas + j)))
+            return 1;
+    }
+    return 0;
+}
+
 int main(int argc, char *argv[]) {
   FILE *reservadas = fopen("reserver_words", "r");
     char buffer[16];
@@ -1849,11 +1857,11 @@ int main(int argc, char *argv[]) {
     size_t bufsize = 16;
     size_t leido;
     arrayreservadas = malloc(maxreserved * sizeof(char));
-    int i = 0;
+    numPalabras = 0;
     while(leido = getline(&b, &bufsize, reservadas) != EOF) {
         stringpalabra = strtok(buffer, "\n");
-        *(arrayreservadas + i) = stringpalabra;
-        i++;
+        *(arrayreservadas + numPalabras) = stringpalabra;
+        numPalabras++;
     }
 
 

@@ -3,9 +3,9 @@
     #include <stdlib.h>
     #include <string.h>
 }
-  int identifiers=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0,reservedWords;
+  int identifiers=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0,reservedWords, numPalabras;
   char** arrayreservadas;
-  boolean isReservedWord();
+  int isReservedWord();
 DIGIT   [0-9]
 NUMBER {DIGIT}{DIGIT}*
 CHAR [a-zA-z]
@@ -25,11 +25,19 @@ CHARLIT \"{CHAR}\"
 {CHARLIT} ++charLits;printf("CharLit:%s\n",yytext);
 {BOOLEAN} ++boolLits;printf("Boolean:%s\n",yytext);
 {COMMENT} ++coments;printf("Comment:%s\n",yytext);
-{IDENTIFIER} if(isReservedWord(yytext)) {++reservedWords;printf("Identifier:%s\n",yytext);} else {++identifiers;printf("Identifier:%s\n",yytext);}
+{IDENTIFIER} if(isReservedWord(yytext) == 1) {++reservedWords;printf("Identifier:%s\n",yytext);} else {++identifiers;printf("Identifier:%s\n",yytext);}
 {REALLIT}  ++realLits;printf("RealLit:%s\n",yytext);
 {INTLIT}  ++intLits;printf("IntLit:%s\n",yytext);
 . err++;
 %%
+
+int isReservedWord(char* string) {
+    for (int j = 0; j++; j < numPalabras) {
+        if (strcmp(string, *(arrayreservadas + j)))
+            return 1;
+    }
+    return 0;
+}
 
 int main(int argc, char *argv[]) {
   FILE *reservadas = fopen("reserver_words", "r");
@@ -40,11 +48,11 @@ int main(int argc, char *argv[]) {
     size_t bufsize = 16;
     size_t leido;
     arrayreservadas = malloc(maxreserved * sizeof(char));
-    int i = 0;
+    numPalabras = 0;
     while(leido = getline(&b, &bufsize, reservadas) != EOF) {
         stringpalabra = strtok(buffer, "\n");
-        *(arrayreservadas + i) = stringpalabra;
-        i++;
+        *(arrayreservadas + numPalabras) = stringpalabra;
+        numPalabras++;
     }
 
 
