@@ -1,3 +1,7 @@
+%top{
+    #include <stdio.h>
+    #include <stdlib.h>
+}
   int identifiers=0,err=0,coments=0,intLits=0,realLits=0;
 
 DIGIT   [0-9]
@@ -21,6 +25,20 @@ INTLIT [+|-]?{NUMBER}((e|E){NUMBER})?
 %%
 
 int main(int argc, char *argv[]) {
+  FILE *reservadas = fopen("reserver_words", "r");
+    char buffer[16];
+    int maxreserved = 100;
+    char *b = buffer;
+    size_t bufsize = 16;
+    size_t palabra;
+    char** arrayreservadas = malloc(maxreserved * sizeof(char));
+    int i = 0;
+    while(palabra = getline(&b, &bufsize, reservadas) != EOF) {
+        *(arrayreservadas + i) = buffer;
+        i++;
+    }
+
+
   if ( argc > 0 ) {
     FILE *myfile = fopen(argv[1], "r");
     yyin=myfile;
@@ -30,4 +48,5 @@ int main(int argc, char *argv[]) {
   }
   yylex();
   printf("identifiers:%d err:%d com:%d,intLits:%d\n,realLits:%d\n",identifiers,err,coments,intLits,realLits);
+  
 }
