@@ -2,3 +2,8 @@
 -127e10 A
  HAHA
  2A
+ VERDADERO
+ FALSO
+ FAL
+ verdadero falso
+ "a" " b " "" c
