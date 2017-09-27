@@ -7,3 +7,7 @@
  FAL
  verdadero falso
  "a" " b " "" c
+ de
+ dev
+ div
+ ent
