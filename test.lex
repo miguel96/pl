@@ -3,7 +3,9 @@
     #include <stdlib.h>
     #include <string.h>
 }
-  int identifiers=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0;
+  int identifiers=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0,reservedWords;
+  char** arrayreservadas;
+  boolean isReservedWord();
 DIGIT   [0-9]
 NUMBER {DIGIT}{DIGIT}*
 CHAR [a-zA-z]
@@ -14,6 +16,7 @@ IDENTIFIER  {CHAR}({CHAR}|{DIGIT})*
 AUX {NUMBER},{NUMBER}
 REALLIT [+|-]?{NUMBER}"."{NUMBER}((e|E){NUMBER})?
 INTLIT [+|-]?{NUMBER}((e|E){NUMBER})?
+
 CHARLIT \"{CHAR}\"
 
 %%
@@ -22,7 +25,7 @@ CHARLIT \"{CHAR}\"
 {CHARLIT} ++charLits;printf("CharLit:%s\n",yytext);
 {BOOLEAN} ++boolLits;printf("Boolean:%s\n",yytext);
 {COMMENT} ++coments;printf("Comment:%s\n",yytext);
-{IDENTIFIER} ++identifiers;printf("Identifier:%s\n",yytext);
+{IDENTIFIER} if(isReservedWord(yytext)) {++reservedWords;printf("Identifier:%s\n",yytext);} else {++identifiers;printf("Identifier:%s\n",yytext);}
 {REALLIT}  ++realLits;printf("RealLit:%s\n",yytext);
 {INTLIT}  ++intLits;printf("IntLit:%s\n",yytext);
 . err++;
@@ -36,7 +39,7 @@ int main(int argc, char *argv[]) {
     char *b = buffer;
     size_t bufsize = 16;
     size_t leido;
-    char** arrayreservadas = malloc(maxreserved * sizeof(char));
+    arrayreservadas = malloc(maxreserved * sizeof(char));
     int i = 0;
     while(leido = getline(&b, &bufsize, reservadas) != EOF) {
         stringpalabra = strtok(buffer, "\n");
