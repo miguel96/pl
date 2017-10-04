@@ -54,20 +54,20 @@ RESERVEDWORDtipo ?i:"tipo"
 RESERVEDWORDtupla ?i:"tupla"
 RESERVEDWORDvar ?i:"var"
 RESERVEDWORDy ?i:"y"
-OPERATOR:= ":="
-OPERATOR; ";"
-OPERATOR, ","
-OPERATOR.. ".."
-OPERATOR: ":"
-OPERATOR-> "->"
-OPERATOR[ "["
-OPERATOR] "]"
-OPERATOR= "="
-OPERATOR[] "[]"
-OPERATOR( "("
-OPERATOR) ")"
+OPERATORASIGN ":="
+OPERATORDOTCOMMA ";"
+OPERATORCOMMA ","
+OPERATORDOTDOT ".."
+OPERATORDOUBLEDOT ":"
+OPERATORTHEN "->"
+OPERATORINITARR "["
+OPERATORENDARR "]"
+OPERATOREQUAL "="
+OPERATORINITEND "[]"
+OPERATORINITPARENT "("
+OPERATORENPARENT ")"
 ARITOP  "+"|"-"|"*"|"^"|"/"|"%"
-COMPCOP ">"|"<"|">="|"<="|"=="|"!="
+COMPOP ">"|"<"|">="|"<="|"=="|"!="
 LOGICOP "&"|"\|"
 
 %%
@@ -111,7 +111,21 @@ LOGICOP "&"|"\|"
 {RESERVEDWORDtupla}
 {RESERVEDWORDvar}
 {RESERVEDWORDy}
-{OPERATOR} ++operators;printf("Operador:%s\n", yytext);
+OPERATORASIGN operators++;printf("OPERATOR %s,yytext);
+OPERATORDOTCOMMA operators++;printf("OPERATOR %s,yytext);
+OPERATORCOMMA, operators++;printf("OPERATOR %s,yytext);
+OPERATORDOTDOT operators++;printf("OPERATOR %s,yytext);
+OPERATORDOUBLEDOT operators++;printf("OPERATOR %s,yytext);
+OPERATORTHEN operators++;printf("OPERATOR %s,yytext);
+OPERATORINITARR operators++;printf("OPERATOR %s,yytext);
+OPERATORENDARR operators++;printf("OPERATOR %s,yytext);
+OPERATOREQUAL operators++;printf("OPERATOR %s,yytext);
+OPERATORINITEND operators++;printf("OPERATOR %s,yytext);
+OPERATORINITPARENT operators++;printf("OPERATOR %s,yytext);
+OPERATORENPARENT operators++;printf("OPERATOR %s,yytext);
+ARITOP  "+"|"-"|"*"|"^"|"/"|"%" operators++;printf("ARITOP %s,yytext);
+COMPOP ">"|"<"|">="|"<="|"=="|"!=" operators++;printf("COMPOP %s,yytext);
+LOGICOP "&"|"\|" operators++;printf("LOGICOP %s,yytext);
 {BOOLEAN} ++boolLits;printf("Boolean:%s\n",yytext);
 {AUX} ++realLits;printf("RealLit:%s\n",yytext);
 {SPACE}{SPACE}*
