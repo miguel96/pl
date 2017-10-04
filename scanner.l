@@ -12,7 +12,6 @@ IDENTIFIER  {CHAR}({CHAR}|{DIGIT})*
 AUX {NUMBER},{NUMBER}
 REALLIT [+|-]?{NUMBER}"."{NUMBER}((e|E){NUMBER})?
 INTLIT [+|-]?{NUMBER}((e|E){NUMBER})?
-OPERATOR ":="|";"|","|".."|":"|"->"|"[]"|"="|"["|"]"|"+"|"-"|"*"|"^"|"/"|"%"|">"|"<"|">="|"<="|"&"|"\|"|"!="|"=="|"("|")"
 CHARLIT \"{CHAR}\"
 BOOLEAN ?i:"verdadero"|?i:"falso"
 RESERVEDWORDaccion ?i:"accion"
@@ -55,9 +54,63 @@ RESERVEDWORDtipo ?i:"tipo"
 RESERVEDWORDtupla ?i:"tupla"
 RESERVEDWORDvar ?i:"var"
 RESERVEDWORDy ?i:"y"
+OPERATOR:= ":="
+OPERATOR; ";"
+OPERATOR, ","
+OPERATOR.. ".."
+OPERATOR: ":"
+OPERATOR-> "->"
+OPERATOR[ "["
+OPERATOR] "]"
+OPERATOR= "="
+OPERATOR[] "[]"
+OPERATOR( "("
+OPERATOR) ")"
+ARITOP  "+"|"-"|"*"|"^"|"/"|"%"
+COMPCOP ">"|"<"|">="|"<="|"=="|"!="
+LOGICOP "&"|"\|"
 
 %%
-{RESERVEDWORD} ++reservadas;printf("Reservada:%s\n",yytext);
+{RESERVEDWORDaccion}
+{RESERVEDWORDalgoritmo}
+{RESERVEDWORDbooleano}
+{RESERVEDWORDcadena}
+{RESERVEDWORDcaracter}
+{RESERVEDWORDconst}
+{RESERVEDWORDcontinuar}
+{RESERVEDWORDde}
+{RESERVEDWORDdev}
+{RESERVEDWORDdiv}
+{RESERVEDWORDent}
+{RESERVEDWORDentero}
+{RESERVEDWORDes}
+{RESERVEDWORDfaccion}
+{RESERVEDWORDfalgoritmo}
+{RESERVEDWORDfconst}
+{RESERVEDWORDffuncion}
+{RESERVEDWORDfmientras}
+{RESERVEDWORDfpara}
+{RESERVEDWORDfsi,}
+{RESERVEDWORDftipo}
+{RESERVEDWORDftupla}
+{RESERVEDWORDfuncion}
+{RESERVEDWORDfvar}
+{RESERVEDWORDhacer}
+{RESERVEDWORDhasta}
+{RESERVEDWORDmientras}
+{RESERVEDWORDmod}
+{RESERVEDWORDno}
+{RESERVEDWORDo}
+{RESERVEDWORDpara}
+{RESERVEDWORDreal}
+{RESERVEDWORDref}
+{RESERVEDWORDsal}
+{RESERVEDWORDsi}
+{RESERVEDWORDtabla}
+{RESERVEDWORDtipo}
+{RESERVEDWORDtupla}
+{RESERVEDWORDvar}
+{RESERVEDWORDy}
 {OPERATOR} ++operators;printf("Operador:%s\n", yytext);
 {BOOLEAN} ++boolLits;printf("Boolean:%s\n",yytext);
 {AUX} ++realLits;printf("RealLit:%s\n",yytext);
