@@ -2,7 +2,6 @@
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
-    #include <ctype.h>
 }
   int identifiers=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0,reservedWords, numPalabras;
   char** arrayreservadas;
@@ -27,8 +26,8 @@ CHARLIT \"{CHAR}\"
 {BOOLEAN} ++boolLits;printf("Boolean:%s\n",yytext);
 {COMMENT} ++coments;printf("Comment:%s\n",yytext);
 {IDENTIFIER} if(isReservedWord(yytext) == 1) {++reservedWords;printf("Identifier:%s\n",yytext);} else {++identifiers;printf("Identifier:%s\n",yytext);}
-{REALLIT}  ++realLits;printf("RealLit:%s\n",yytext);
-{INTLIT}  ++intLits;printf("IntLit:%s\n",yytext);
+{REALLIT}  ++realLits;printf("RealLit:%f\n",atof(yytext));
+{INTLIT}  ++intLits;printf("IntLit:%d\n",atoi(yytext));
 . err++;
 %%
 
