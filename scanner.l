@@ -111,21 +111,21 @@ LOGICOP "&"|"\|"
 {RESERVEDWORDtupla}
 {RESERVEDWORDvar}
 {RESERVEDWORDy}
-{OPERATORASIGN} operators++;printf("OPERATOR %s",yytext);
-{OPERATORDOTCOMMA} operators++;printf("OPERATOR %s",yytext);
-{OPERATORCOMMA} operators++;printf("OPERATOR %s",yytext);
-{OPERATORDOTDOT} operators++;printf("OPERATOR %s",yytext);
-{OPERATORDOUBLEDOT} operators++;printf("OPERATOR %s",yytext);
-{OPERATORTHEN} operators++;printf("OPERATOR %s",yytext);
-{OPERATORINITARR} operators++;printf("OPERATOR %s",yytext);
-{OPERATORENDARR} operators++;printf("OPERATOR %s",yytext);
-{OPERATOREQUAL} operators++;printf("OPERATOR %s",yytext);
-{OPERATORINITEND} operators++;printf("OPERATOR %s",yytext);
-{OPERATORINITPARENT} operators++;printf("OPERATOR %s",yytext);
-{OPERATORENPARENT} operators++;printf("OPERATOR %s",yytext);
-{ARITOP} operators++;printf("ARITOP %s",yytext);
-{COMPOP} operators++;printf("COMPOP %s",yytext);
-{LOGICOP} operators++;printf("LOGICOP %s",yytext);
+{OPERATORASIGN} operators++;printf("OPERATOR %s\n",yytext);
+{OPERATORDOTCOMMA} operators++;printf("OPERATOR %s\n",yytext);
+{OPERATORCOMMA} operators++;printf("OPERATOR %s\n",yytext);
+{OPERATORDOTDOT} operators++;printf("OPERATOR %s\n",yytext);
+{OPERATORDOUBLEDOT} operators++;printf("OPERATOR %s\n",yytext);
+{OPERATORTHEN} operators++;printf("OPERATOR %s\n",yytext);
+{OPERATORINITARR} operators++;printf("OPERATOR %s\n",yytext);
+{OPERATORENDARR} operators++;printf("OPERATOR %s\n",yytext);
+{OPERATOREQUAL} operators++;printf("OPERATOR %s\n",yytext);
+{OPERATORINITEND} operators++;printf("OPERATOR %s\n",yytext);
+{OPERATORINITPARENT} operators++;printf("OPERATOR %s\n",yytext);
+{OPERATORENPARENT} operators++;printf("OPERATOR %s\n",yytext);
+{ARITOP} operators++;printf("ARITOP %s\n",yytext);
+{COMPOP} operators++;printf("COMPOP %s\n",yytext);
+{LOGICOP} operators++;printf("LOGICOP %s\n",yytext);
 {BOOLEAN} ++boolLits;printf("Boolean:%s\n",yytext);
 {AUX} ++realLits;printf("RealLit:%s\n",yytext);
 {SPACE}{SPACE}*
