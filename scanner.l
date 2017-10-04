@@ -1,7 +1,5 @@
 %top{
     #include <stdio.h>
-    #include <stdlib.h>
-    #include <string.h>
 }
   int identifiers=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0, reservadas = 0,operators=0;
   
@@ -14,7 +12,7 @@ IDENTIFIER  {CHAR}({CHAR}|{DIGIT})*
 AUX {NUMBER},{NUMBER}
 REALLIT [+|-]?{NUMBER}"."{NUMBER}((e|E){NUMBER})?
 INTLIT [+|-]?{NUMBER}((e|E){NUMBER})?
-OPERATOR ":="|";"|","|".."|":"|"->"|"[]"|"="|"["|"]"|"+"|"-"|"*"|"^"|"/"|"%"|">"|"<"|">="|"<="|"&"|"\|"|"!="|"=="
+OPERATOR ":="|";"|","|".."|":"|"->"|"[]"|"="|"["|"]"|"+"|"-"|"*"|"^"|"/"|"%"|">"|"<"|">="|"<="|"&"|"\|"|"!="|"=="|"("|")"
 CHARLIT \"{CHAR}\"
 BOOLEAN "verdadero"|"falso"
 RESERVEDWORD ?i:"accion"|"algoritmo"|"booleano"|"cadena"|"caracter"|"const"|"continuar"|"de"|"dev"|"div"|"ent"|"entero"|"es"|"faccion"|"falgoritmo"|"falso"|"fconst"|"ffuncion"|"fmientras"|"fpara"|"fsi,"|"ftipo"|"ftupla"|"funcion"|"fvar"|"hacer"|"hasta"|"mientras"|"mod"|"no"|"o"|"para"|"real"|"ref"|"sal"|"si"|"tabla"|"tipo"|"tupla"|"var"|"verdadero"|"y"
