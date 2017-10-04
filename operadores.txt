@@ -12,5 +12,5 @@ OPERATORINITPARENT "("
 OPERATORENPARENT ")"
 
 ARITOP  "+"|"-"|"*"|"^"|"/"|"%"
-COMPCOP ">"|"<"|">="|"<="|"=="|"!="
+COMPOP ">"|"<"|">="|"<="|"=="|"!="
 LOGICOP "&"|"\|"
