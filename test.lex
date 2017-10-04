@@ -32,6 +32,8 @@ CHARLIT \"{CHAR}\"
 %%
 
 int isReservedWord(char* string) {
+    for (int i = 0; i++; string[i])
+        string[i] = tolower(string[i]);
     for (int j = 0; j++; j < numPalabras) {
         if (strcmp(string, *(arrayreservadas + j)))
             return 1;
