@@ -4,8 +4,7 @@
     #include <string.h>
 }
   int identifiers=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0, reservadas = 0,operators=0;
-  char** arrayreservadas;
-  int isReservedWord();
+  
 DIGIT   [0-9]
 NUMBER {DIGIT}{DIGIT}*
 CHAR [a-zA-z]
@@ -15,15 +14,15 @@ IDENTIFIER  {CHAR}({CHAR}|{DIGIT})*
 AUX {NUMBER},{NUMBER}
 REALLIT [+|-]?{NUMBER}"."{NUMBER}((e|E){NUMBER})?
 INTLIT [+|-]?{NUMBER}((e|E){NUMBER})?
-RESERVEDWORD ?i:"accion"|"algoritmo"|"booleano"|"cadena"|"caracter"|"const"|"continuar"|"de"|"dev"|"div"|"ent"|"entero"|"es"|"faccion"|"falgoritmo"|"falso"|"fconst"|"ffuncion"|"fmientras"|"fpara"|"fsi,"|"ftipo"|"ftupla"|"funcion"|"fvar"|"hacer"|"hasta"|"mientras"|"mod"|"no"|"o"|"para"|"real"|"ref"|"sal"|"si"|"tabla"|"tipo"|"tupla"|"var"|"verdadero"|"y"
 OPERATOR ":="|";"|","|".."|":"|"->"|"[]"|"="|"["|"]"|"+"|"-"|"*"|"^"|"/"|"%"|">"|"<"|">="|"<="|"&"|"\|"|"!="|"=="
 CHARLIT \"{CHAR}\"
 BOOLEAN "verdadero"|"falso"
+RESERVEDWORD ?i:"accion"|"algoritmo"|"booleano"|"cadena"|"caracter"|"const"|"continuar"|"de"|"dev"|"div"|"ent"|"entero"|"es"|"faccion"|"falgoritmo"|"falso"|"fconst"|"ffuncion"|"fmientras"|"fpara"|"fsi,"|"ftipo"|"ftupla"|"funcion"|"fvar"|"hacer"|"hasta"|"mientras"|"mod"|"no"|"o"|"para"|"real"|"ref"|"sal"|"si"|"tabla"|"tipo"|"tupla"|"var"|"verdadero"|"y"
 
 %%
-{OPERATOR} ++operators;printf("Operadores:%s\n", yytext);
-{BOOLEAN} ++boolLits;printf("Boolean:%s\n",yytext);
 {RESERVEDWORD} ++reservadas;printf("Reservada:%s\n",yytext);
+{OPERATOR} ++operators;printf("Operador:%s\n", yytext);
+{BOOLEAN} ++boolLits;printf("Boolean:%s\n",yytext);
 {AUX} ++realLits;printf("RealLit:%s\n",yytext);
 {SPACE}{SPACE}*
 {CHARLIT} ++charLits;printf("CharLit:%s\n",yytext);
