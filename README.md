@@ -1,8 +1,8 @@
 # Parser PROCESADORES DEL LENGUAJE
 
 ## Alumnos
- Aitor Chordá
- Miguel Echenique
+ *Aitor Chordá
+ *Miguel Echenique
 
 ## Instrucciones
   Para compilar el fichero simplemente ejecute el make sin ningún argumento
