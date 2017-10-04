@@ -13,7 +13,7 @@ AUX {NUMBER},{NUMBER}
 REALLIT [+|-]?{NUMBER}"."{NUMBER}((e|E){NUMBER})?
 INTLIT [+|-]?{NUMBER}((e|E){NUMBER})?
 CHARLIT \"{CHAR}\"
-BOOLEAN ?i:"verdadero"|?i:"falso"
+BOOLEAN ?i:"verdadero"|"falso"
 RESERVEDWORDaccion ?i:"accion"
 RESERVEDWORDalgoritmo ?i:"algoritmo"
 RESERVEDWORDbooleano ?i:"booleano"
@@ -90,7 +90,7 @@ LOGICOP "&"|"\|"
 {RESERVEDWORDffuncion}
 {RESERVEDWORDfmientras}
 {RESERVEDWORDfpara}
-{RESERVEDWORDfsi,}
+{RESERVEDWORDfsi}
 {RESERVEDWORDftipo}
 {RESERVEDWORDftupla}
 {RESERVEDWORDfuncion}
@@ -111,21 +111,21 @@ LOGICOP "&"|"\|"
 {RESERVEDWORDtupla}
 {RESERVEDWORDvar}
 {RESERVEDWORDy}
-OPERATORASIGN operators++;printf("OPERATOR %s,yytext);
-OPERATORDOTCOMMA operators++;printf("OPERATOR %s,yytext);
-OPERATORCOMMA, operators++;printf("OPERATOR %s,yytext);
-OPERATORDOTDOT operators++;printf("OPERATOR %s,yytext);
-OPERATORDOUBLEDOT operators++;printf("OPERATOR %s,yytext);
-OPERATORTHEN operators++;printf("OPERATOR %s,yytext);
-OPERATORINITARR operators++;printf("OPERATOR %s,yytext);
-OPERATORENDARR operators++;printf("OPERATOR %s,yytext);
-OPERATOREQUAL operators++;printf("OPERATOR %s,yytext);
-OPERATORINITEND operators++;printf("OPERATOR %s,yytext);
-OPERATORINITPARENT operators++;printf("OPERATOR %s,yytext);
-OPERATORENPARENT operators++;printf("OPERATOR %s,yytext);
-ARITOP  "+"|"-"|"*"|"^"|"/"|"%" operators++;printf("ARITOP %s,yytext);
-COMPOP ">"|"<"|">="|"<="|"=="|"!=" operators++;printf("COMPOP %s,yytext);
-LOGICOP "&"|"\|" operators++;printf("LOGICOP %s,yytext);
+{OPERATORASIGN} operators++;printf("OPERATOR %s",yytext);
+{OPERATORDOTCOMMA} operators++;printf("OPERATOR %s",yytext);
+{OPERATORCOMMA} operators++;printf("OPERATOR %s",yytext);
+{OPERATORDOTDOT} operators++;printf("OPERATOR %s",yytext);
+{OPERATORDOUBLEDOT} operators++;printf("OPERATOR %s",yytext);
+{OPERATORTHEN} operators++;printf("OPERATOR %s",yytext);
+{OPERATORINITARR} operators++;printf("OPERATOR %s",yytext);
+{OPERATORENDARR} operators++;printf("OPERATOR %s",yytext);
+{OPERATOREQUAL} operators++;printf("OPERATOR %s",yytext);
+{OPERATORINITEND} operators++;printf("OPERATOR %s",yytext);
+{OPERATORINITPARENT} operators++;printf("OPERATOR %s",yytext);
+{OPERATORENPARENT} operators++;printf("OPERATOR %s",yytext);
+{ARITOP} operators++;printf("ARITOP %s",yytext);
+{COMPOP} operators++;printf("COMPOP %s",yytext);
+{LOGICOP} operators++;printf("LOGICOP %s",yytext);
 {BOOLEAN} ++boolLits;printf("Boolean:%s\n",yytext);
 {AUX} ++realLits;printf("RealLit:%s\n",yytext);
 {SPACE}{SPACE}*
