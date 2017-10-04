@@ -28,7 +28,7 @@ CHARLIT \"{CHAR}\"
 {IDENTIFIER} if(isReservedWord(yytext) == 1) {++reservedWords;printf("Identifier:%s\n",yytext);} else {++identifiers;printf("Identifier:%s\n",yytext);}
 {REALLIT}  ++realLits;printf("RealLit:%f\n",atof(yytext));
 {INTLIT}  ++intLits;printf("IntLit:%d\n",atoi(yytext));
-. err++;
+. err++;printf("Err:%s\n",yytext);
 %%
 
 int isReservedWord(char* string) {

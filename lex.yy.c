@@ -828,7 +828,7 @@ YY_RULE_SETUP
 case 9:
 YY_RULE_SETUP
 #line 31 "test.lex"
-err++;
+err++;printf("Err:%s",yytext);
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
