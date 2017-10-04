@@ -28,7 +28,7 @@ BOOLEAN "verdadero"|"falso"
 {SPACE}{SPACE}*
 {CHARLIT} ++charLits;printf("CharLit:%s\n",yytext);
 {COMMENT} ++coments;printf("Comment:%s\n",yytext);
-{IDENTIFIER} printf("Identifier:%s\n",yytext);
+{IDENTIFIER} ++identifiers;printf("Identifier:%s\n",yytext);
 {REALLIT}  ++realLits;printf("RealLit:%f\n",atof(yytext));
 {INTLIT}  ++intLits;printf("IntLit:%d\n",atoi(yytext));
 . err++;printf("Err:%s\n",yytext);
