@@ -1,8 +1,9 @@
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
+    #include <ctype.h>
 
-#line 6 "lex.yy.c"
+#line 7 "lex.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -506,7 +507,7 @@ char *yytext;
 int identifiers=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0,reservedWords, numPalabras;
 char** arrayreservadas;
 int isReservedWord();
-#line 510 "lex.yy.c"
+#line 511 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -724,9 +725,9 @@ YY_DECL
 		}
 
 	{
-#line 22 "test.lex"
+#line 23 "test.lex"
 
-#line 730 "lex.yy.c"
+#line 731 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -785,57 +786,57 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 23 "test.lex"
+#line 24 "test.lex"
 ++realLits;printf("RealLit:%s\n",yytext);
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 24 "test.lex"
+#line 25 "test.lex"
 
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 25 "test.lex"
+#line 26 "test.lex"
 ++charLits;printf("CharLit:%s\n",yytext);
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 26 "test.lex"
+#line 27 "test.lex"
 ++boolLits;printf("Boolean:%s\n",yytext);
 	YY_BREAK
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 27 "test.lex"
+#line 28 "test.lex"
 ++coments;printf("Comment:%s\n",yytext);
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 28 "test.lex"
+#line 29 "test.lex"
 if(isReservedWord(yytext) == 1) {++reservedWords;printf("Identifier:%s\n",yytext);} else {++identifiers;printf("Identifier:%s\n",yytext);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 29 "test.lex"
+#line 30 "test.lex"
 ++realLits;printf("RealLit:%s\n",yytext);
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 30 "test.lex"
+#line 31 "test.lex"
 ++intLits;printf("IntLit:%s\n",yytext);
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 31 "test.lex"
+#line 32 "test.lex"
 err++;
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 32 "test.lex"
+#line 33 "test.lex"
 ECHO;
 	YY_BREAK
-#line 839 "lex.yy.c"
+#line 840 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1836,11 +1837,13 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 32 "test.lex"
+#line 33 "test.lex"
 
 
 
 int isReservedWord(char* string) {
+    for (int i = 0; i++; string[i])
+        string[i] = tolower(string[i]);
     for (int j = 0; j++; j < numPalabras) {
         if (strcmp(string, *(arrayreservadas + j)))
             return 1;
