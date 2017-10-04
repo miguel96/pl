@@ -2,7 +2,7 @@
     #include <stdio.h>
 }
   int identifiers=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0, reservadas = 0,operators=0;
-  
+
 DIGIT   [0-9]
 NUMBER {DIGIT}{DIGIT}*
 CHAR [a-zA-z]
@@ -71,46 +71,46 @@ COMPOP ">"|"<"|">="|"<="|"=="|"!="
 LOGICOP "&"|"\|"
 
 %%
-{RESERVEDWORDaccion}
-{RESERVEDWORDalgoritmo}
-{RESERVEDWORDbooleano}
-{RESERVEDWORDcadena}
-{RESERVEDWORDcaracter}
-{RESERVEDWORDconst}
-{RESERVEDWORDcontinuar}
-{RESERVEDWORDde}
-{RESERVEDWORDdev}
-{RESERVEDWORDdiv}
-{RESERVEDWORDent}
-{RESERVEDWORDentero}
-{RESERVEDWORDes}
-{RESERVEDWORDfaccion}
-{RESERVEDWORDfalgoritmo}
-{RESERVEDWORDfconst}
-{RESERVEDWORDffuncion}
-{RESERVEDWORDfmientras}
-{RESERVEDWORDfpara}
-{RESERVEDWORDfsi}
-{RESERVEDWORDftipo}
-{RESERVEDWORDftupla}
-{RESERVEDWORDfuncion}
-{RESERVEDWORDfvar}
-{RESERVEDWORDhacer}
-{RESERVEDWORDhasta}
-{RESERVEDWORDmientras}
-{RESERVEDWORDmod}
-{RESERVEDWORDno}
-{RESERVEDWORDo}
-{RESERVEDWORDpara}
-{RESERVEDWORDreal}
-{RESERVEDWORDref}
-{RESERVEDWORDsal}
-{RESERVEDWORDsi}
-{RESERVEDWORDtabla}
-{RESERVEDWORDtipo}
-{RESERVEDWORDtupla}
-{RESERVEDWORDvar}
-{RESERVEDWORDy}
+{RESERVEDWORDaccion} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDalgoritmo} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDbooleano} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDcadena} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDcaracter} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDconst} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDcontinuar} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDde} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDdev} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDdiv} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDent} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDentero} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDes} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDfaccion} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDfalgoritmo} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDfconst} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDffuncion} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDfmientras} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDfpara} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDfsi} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDftipo} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDftupla} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDfuncion} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDfvar} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDhacer} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDhasta} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDmientras} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDmod} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDno} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDo} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDpara} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDreal} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDref} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDsal} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDsi} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDtabla} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDtipo} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDtupla} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDvar} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDy} reservadas++;printf("RESERVADA: %s\n",yytext);
 {OPERATORASIGN} operators++;printf("OPERATOR %s\n",yytext);
 {OPERATORDOTCOMMA} operators++;printf("OPERATOR %s\n",yytext);
 {OPERATORCOMMA} operators++;printf("OPERATOR %s\n",yytext);
