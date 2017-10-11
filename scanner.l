@@ -1,5 +1,6 @@
 %top{
     #include <stdio.h>
+    #include "parser.tab.h"
 }
   int identifiers=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0, reservadas = 0,operators=0;
 
@@ -137,18 +138,3 @@ LOGICOP "&"|"\|"
 . err++;printf("Err:%s\n",yytext);
 
 %%
-
-
-int main(int argc, char *argv[]) {
-
-  if ( argc > 0 ) {
-    FILE *myfile = fopen(argv[1], "r");
-    yyin=myfile;
-  }
-  else {
-      yyin = stdin;
-  }
-  yylex();
-  printf("identifiers:%d err:%d com:%d,intLits:%d,realLits:%d,boolLits:%d,charLits:%d,reservadas:%d,operadores:%d\n",
-  identifiers,err,coments,intLits,realLits,boolLits,charLits,reservadas,operators);
-}

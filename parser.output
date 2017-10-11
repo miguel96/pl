@@ -1,0 +1,184 @@
+Gramática
+
+    0 $accept: input $end
+
+    1 input: %empty
+    2      | input line
+
+    3 line: '\n'
+    4     | INTLIT '\n'
+
+    5 INTLIT: NUM
+    6       | INTLIT INTLIT '+'
+    7       | INTLIT INTLIT '-'
+    8       | INTLIT INTLIT '*'
+    9       | INTLIT INTLIT '/'
+   10       | INTLIT INTLIT '^'
+   11       | INTLIT 'n'
+
+
+Terminales con las reglas donde aparecen
+
+$end (0) 0
+'\n' (10) 3 4
+'*' (42) 8
+'+' (43) 6
+'-' (45) 7
+'/' (47) 9
+'^' (94) 10
+'n' (110) 11
+error (256)
+NUM (258) 5
+
+
+No terminales con las reglas donde aparecen
+
+$accept (11)
+    en la izquierda: 0
+input (12)
+    en la izquierda: 1 2, en la derecha: 0 2
+line (13)
+    en la izquierda: 3 4, en la derecha: 2
+INTLIT (14)
+    en la izquierda: 5 6 7 8 9 10 11, en la derecha: 4 6 7 8 9 10 11
+
+
+Estado 0
+
+    0 $accept: . input $end
+
+    $default  reduce usando la regla 1 (input)
+
+    input  ir al estado 1
+
+
+Estado 1
+
+    0 $accept: input . $end
+    2 input: input . line
+
+    $end  desplazar e ir al estado 2
+    NUM   desplazar e ir al estado 3
+    '\n'  desplazar e ir al estado 4
+
+    line    ir al estado 5
+    INTLIT  ir al estado 6
+
+
+Estado 2
+
+    0 $accept: input $end .
+
+    $default  aceptar
+
+
+Estado 3
+
+    5 INTLIT: NUM .
+
+    $default  reduce usando la regla 5 (INTLIT)
+
+
+Estado 4
+
+    3 line: '\n' .
+
+    $default  reduce usando la regla 3 (line)
+
+
+Estado 5
+
+    2 input: input line .
+
+    $default  reduce usando la regla 2 (input)
+
+
+Estado 6
+
+    4 line: INTLIT . '\n'
+    6 INTLIT: INTLIT . INTLIT '+'
+    7       | INTLIT . INTLIT '-'
+    8       | INTLIT . INTLIT '*'
+    9       | INTLIT . INTLIT '/'
+   10       | INTLIT . INTLIT '^'
+   11       | INTLIT . 'n'
+
+    NUM   desplazar e ir al estado 3
+    '\n'  desplazar e ir al estado 7
+    'n'   desplazar e ir al estado 8
+
+    INTLIT  ir al estado 9
+
+
+Estado 7
+
+    4 line: INTLIT '\n' .
+
+    $default  reduce usando la regla 4 (line)
+
+
+Estado 8
+
+   11 INTLIT: INTLIT 'n' .
+
+    $default  reduce usando la regla 11 (INTLIT)
+
+
+Estado 9
+
+    6 INTLIT: INTLIT . INTLIT '+'
+    6       | INTLIT INTLIT . '+'
+    7       | INTLIT . INTLIT '-'
+    7       | INTLIT INTLIT . '-'
+    8       | INTLIT . INTLIT '*'
+    8       | INTLIT INTLIT . '*'
+    9       | INTLIT . INTLIT '/'
+    9       | INTLIT INTLIT . '/'
+   10       | INTLIT . INTLIT '^'
+   10       | INTLIT INTLIT . '^'
+   11       | INTLIT . 'n'
+
+    NUM  desplazar e ir al estado 3
+    '+'  desplazar e ir al estado 10
+    '-'  desplazar e ir al estado 11
+    '*'  desplazar e ir al estado 12
+    '/'  desplazar e ir al estado 13
+    '^'  desplazar e ir al estado 14
+    'n'  desplazar e ir al estado 8
+
+    INTLIT  ir al estado 9
+
+
+Estado 10
+
+    6 INTLIT: INTLIT INTLIT '+' .
+
+    $default  reduce usando la regla 6 (INTLIT)
+
+
+Estado 11
+
+    7 INTLIT: INTLIT INTLIT '-' .
+
+    $default  reduce usando la regla 7 (INTLIT)
+
+
+Estado 12
+
+    8 INTLIT: INTLIT INTLIT '*' .
+
+    $default  reduce usando la regla 8 (INTLIT)
+
+
+Estado 13
+
+    9 INTLIT: INTLIT INTLIT '/' .
+
+    $default  reduce usando la regla 9 (INTLIT)
+
+
+Estado 14
+
+   10 INTLIT: INTLIT INTLIT '^' .
+
+    $default  reduce usando la regla 10 (INTLIT)
