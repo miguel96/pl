@@ -3,33 +3,42 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-
-// stuff from flex that bison needs to know about:
-extern "C" int yylex();
-extern "C" int yyparse();
-extern "C" FILE *yyin;
+int yylex();
+int yyparse();
+FILE *yyin;
 
 void yyerror (char const *);
 %}
-%define api.value.type {double}
-%token NUM
+
+%union {
+	int ival;
+	float fval;
+	char *sval;
+  char cval;
+}
+
+
+%token <ival> INTLIT
+%token <sval> ARITOP
+%type <ival> exp
 %% /* Grammar rules and actions follow.  */
 input:
 %empty
 | input line
+| ARITOP {printf("%s\n", $1);}
 ;
 line:
 '\n'
-| INTLIT '\n'      { printf ("%.10g\n", $1); }
+| exp '\n'      { printf ("%d\n", $1); }
 ;
-INTLIT:
-NUM           { $$ = $1;           }
-| INTLIT INTLIT '+'   { $$ = $1 + $2;      }
-| INTLIT INTLIT '-'   { $$ = $1 - $2;      }
-| INTLIT INTLIT '*'   { $$ = $1 * $2;      }
-| INTLIT INTLIT '/'   { $$ = $1 / $2;      }
-| INTLIT INTLIT '^'   { $$ = pow ($1, $2); }  /* INTLITonentiation */
-| INTLIT 'n'       { $$ = -$1;          }  /* Unary minus    */
+exp:
+INTLIT           { $$ = $1;          }
+| exp exp ARITOP  { $$ = $1 + $2;    printf("%d\n", $$);  }
+| exp exp '-'   { $$ = $1 - $2;      }
+| exp exp '*'   { $$ = $1 * $2;      }
+| exp exp '/'   { $$ = $1 / $2;      }
+| exp exp '^'   { $$ = pow ($1, $2); }  /* Exponentiation */
+| exp 'n'       { $$ = -$1;          }  /* Unary minus    */
 ;
 %%
 void yyerror(char const * error){
@@ -46,7 +55,11 @@ int main(int argc, char *argv[]) {
   else {
       yyin = stdin;
   }
-  yylex();
+
+  do{
+    printf("%s\n","parsing" );
+    yyparse();
+  } while(!feof(yyin));
   //printf("identifiers:%d err:%d com:%d,intLits:%d,realLits:%d,boolLits:%d,charLits:%d,reservadas:%d,operadores:%d\n",
   //identifiers,err,coments,intLits,realLits,boolLits,charLits,reservadas,operators);
 }

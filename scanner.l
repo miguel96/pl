@@ -124,7 +124,7 @@ LOGICOP "&"|"\|"
 {OPERATORINITEND} operators++;printf("OPERATOR %s\n",yytext);
 {OPERATORINITPARENT} operators++;printf("OPERATOR %s\n",yytext);
 {OPERATORENPARENT} operators++;printf("OPERATOR %s\n",yytext);
-{ARITOP} operators++;printf("ARITOP %s\n",yytext);
+{ARITOP} operators++;printf("ARITOP %s\n",yytext);yylval.sval=yytext;return ARITOP;
 {COMPOP} operators++;printf("COMPOP %s\n",yytext);
 {LOGICOP} operators++;printf("LOGICOP %s\n",yytext);
 {BOOLEAN} ++boolLits;printf("Boolean:%s\n",yytext);
@@ -134,7 +134,5 @@ LOGICOP "&"|"\|"
 {COMMENT} ++coments;printf("Comment:%s\n",yytext);
 {IDENTIFIER} ++identifiers;printf("Identifier:%s\n",yytext);
 {REALLIT}  ++realLits;printf("RealLit:%f\n",atof(yytext));
-{INTLIT}  ++intLits;printf("IntLit:%d\n",atoi(yytext));
-. err++;printf("Err:%s\n",yytext);
-
+{INTLIT}  ++intLits;printf("IntLit:%d\n",atoi(yytext));yylval.ival=atoi(yytext);return INTLIT;
 %%
