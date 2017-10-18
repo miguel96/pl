@@ -17,15 +17,72 @@ void yyerror (char const *);
   char cval;
 }
 
-
-%token <ival> INTLIT
-%token <sval> ARITOP
+%token <sval> RESERVEDWORDaccion
 %token <sval> RESERVEDWORDalgoritmo
+%token <sval> RESERVEDWORDbooleano
+%token <sval> RESERVEDWORDcadena
+%token <sval> RESERVEDWORDcaracter
+%token <sval> RESERVEDWORDconst
+%token <sval> RESERVEDWORDcontinuar
+%token <sval> RESERVEDWORDde
+%token <sval> RESERVEDWORDdev
+%token <sval> RESERVEDWORDdiv
+%token <sval> RESERVEDWORDent
+%token <sval> RESERVEDWORDentero
+%token <sval> RESERVEDWORDes
+%token <sval> RESERVEDWORDfaccion
 %token <sval> RESERVEDWORDfalgoritmo
-%token <sval> IDENTIFIER
+%token <sval> RESERVEDWORDfconst
+%token <sval> RESERVEDWORDffuncion
+%token <sval> RESERVEDWORDfmientras
+%token <sval> RESERVEDWORDfpara
+%token <sval> RESERVEDWORDfsi
+%token <sval> RESERVEDWORDftipo
+%token <sval> RESERVEDWORDftupla
+%token <sval> RESERVEDWORDfuncion
+%token <sval> RESERVEDWORDfvar
+%token <sval> RESERVEDWORDhacer
+%token <sval> RESERVEDWORDhasta
+%token <sval> RESERVEDWORDmientras
+%token <sval> RESERVEDWORDmod
+%token <sval> RESERVEDWORDno
+%token <sval> RESERVEDWORDo
+%token <sval> RESERVEDWORDpara
+%token <sval> RESERVEDWORDreal
+%token <sval> RESERVEDWORDref
+%token <sval> RESERVEDWORDsal
+%token <sval> RESERVEDWORDsi
+%token <sval> RESERVEDWORDtabla
+%token <sval> RESERVEDWORDtipo
+%token <sval> RESERVEDWORDtupla
+%token <sval> RESERVEDWORDvar
+%token <sval> RESERVEDWORDy
+%token <sval> OPERATORASIGN
 %token <sval> OPERATORDOTCOMMA
+%token <sval> OPERATORCOMMA
+%token <sval> OPERATORDOTDOT
+%token <sval> OPERATORDOUBLEDOT
+%token <sval> OPERATORTHEN
+%token <sval> OPERATORINITARR
+%token <sval> OPERATORENDARR
+%token <sval> OPERATOREQUAL
+%token <sval> OPERATORINITEND
+%token <sval> OPERATORINITPARENT
+%token <sval> OPERATORENPARENT
+%token <sval> ARITOP
+%token <sval> COMPOP
+%token <sval> LOGICOP
+%token <sval> BOOLEAN
+%token <sval> AUX
+%token <sval> SPACE
+%token <sval> CHARLIT
 %token <sval> COMMENTPREC
 %token <sval> COMMENTPOST
+%token <sval> COMMENT
+%token <sval> IDENTIFIER
+%token <fval> REALLIT
+%token <ival> INTLIT
+
 %% /* Grammar rules and actions follow.  */
 algoritmo:
 cabeceraAlgoritmo precondicion cuerpo postcondicion finAlgoritmo {printf("BISON: Encontre un algoritmo completo, enhorabuena\n");}
@@ -60,12 +117,57 @@ RESERVEDWORDfalgoritmo {printf("BISON:fin de algoritmo correcto\n");}
 ;
 
 declaraciones:
-declaracion_tipo | declaracion_const | declaracion_var declaraciones | %empty
+declaracion_tipo declaraciones {}
+| declaracion_const declaraciones {}
+| declaracion_var declaraciones {}
+| %empty {}
 ;
 
 instrucciones:
-//TODO
+instruccion OPERATORDOTCOMMA instrucciones {}
+| instruccion {}
 ;
+
+instruccion:
+RESERVEDWORDcontinuar {}
+| asignacion {}
+| alternativa {}
+| iteracion {}
+| accion_ll {}
+;
+
+asignacion:
+operando OPERATORASIGN expresion {}
+;
+
+alternativa:
+RESERVEDWORDsi expresion OPERATORTHEN instrucciones lista_opciones RESERVEDWORDfsi {}
+;
+
+iteracion:
+it_cota_fija {}
+| it_cota_exp {}
+;
+
+funcion_ll:
+IDENTIFIER OPERATORINITPARENT l_ll OPERATORENPARENT {}
+;
+/***********************por qué***************************************/
+accion_ll:
+IDENTIFIER OPERATORINITPARENT l_ll OPERATORENPARENT {}
+;
+
+l_ll:
+expresion OPERATORCOMMA l_ll {}
+| expresion {}
+;
+
+lista_opciones:
+OPERATORINITEND expresion OPERATORTHEN instrucciones lista_opciones {}
+| %empty {}
+;
+
+
 
 %%
 void yyerror(char const * error){
