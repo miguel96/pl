@@ -133,9 +133,9 @@ LOGICOP "&"|"\|"
 {AUX} ++realLits;printf("RealLit:%s\n",yytext);
 {SPACE}{SPACE}*
 {CHARLIT} ++charLits;printf("CharLit:%s\n",yytext);
-{COMMENTPREC} ++coments;printf("Comment:%s\n",yytext);
-{COMMENTPOST} ++coments;printf("Comment:%s\n",yytext);
-{COMMENT} ++coments;printf("Comment:%s\n",yytext);
+{COMMENTPREC} ++coments;printf("Comment:%s\n",yytext);return COMMENTPREC;
+{COMMENTPOST} ++coments;printf("Comment:%s\n",yytext);return COMMENTPOST;
+{COMMENT} ++coments;printf("Comment:%s\n",yytext);return COMMENT;
 {IDENTIFIER} ++identifiers;printf("Identifier:%s\n",yytext);yylval.sval=yytext;return IDENTIFIER;
 {REALLIT}  ++realLits;printf("RealLit:%f\n",atof(yytext));
 {INTLIT}  ++intLits;printf("IntLit:%d\n",atoi(yytext));yylval.ival=atoi(yytext);return INTLIT;
