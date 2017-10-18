@@ -30,27 +30,43 @@ void yyerror (char const *);
 algoritmo:
 cabeceraAlgoritmo precondicion cuerpo postcondicion finAlgoritmo {printf("BISON: Encontre un algoritmo completo, enhorabuena\n");}
 ;
+
 cabeceraAlgoritmo:
 declaracionAlgoritmo variablesAlgoritmo {printf("BISON Algoritmo declarado, animo\n");}
 ;
+
 declaracionAlgoritmo:
 RESERVEDWORDalgoritmo IDENTIFIER OPERATORDOTCOMMA {printf("BISON:Start algoritmo: %s",$2);}
 ;
+
 variablesAlgoritmo:
 //TODO variables algoritmo
 ;
+
 precondicion:
 COMMENTPREC {printf("BISON: precondicion detectada, ¡Bien hecho!");}
 ;
+
 cuerpo:
-//TODO el cuerpo
+declaraciones instrucciones
 ;
+
 postcondicion:
 COMMENTPOST {printf("BISON: postcondicion detectada, ¡Bien hecho!");}
 ;
+
 finAlgoritmo:
 RESERVEDWORDfalgoritmo {printf("BISON:fin de algoritmo correcto\n");}
 ;
+
+declaraciones:
+declaracion_tipo | declaracion_const | declaracion_var declaraciones | %empty
+;
+
+instrucciones:
+//TODO
+;
+
 %%
 void yyerror(char const * error){
   printf("Error:%s\n",error);
