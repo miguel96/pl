@@ -86,7 +86,7 @@ LOGICOP "&"|"\|"
 {RESERVEDWORDentero} reservadas++;printf("RESERVADA: %s\n",yytext);
 {RESERVEDWORDes} reservadas++;printf("RESERVADA: %s\n",yytext);
 {RESERVEDWORDfaccion} reservadas++;printf("RESERVADA: %s\n",yytext);
-{RESERVEDWORDfalgoritmo} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDfalgoritmo} reservadas++;printf("RESERVADA: %s\n",yytext);return RESERVEDWORDfalgoritmo;
 {RESERVEDWORDfconst} reservadas++;printf("RESERVADA: %s\n",yytext);
 {RESERVEDWORDffuncion} reservadas++;printf("RESERVADA: %s\n",yytext);
 {RESERVEDWORDfmientras} reservadas++;printf("RESERVADA: %s\n",yytext);

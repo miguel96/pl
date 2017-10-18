@@ -21,6 +21,7 @@ void yyerror (char const *);
 %token <ival> INTLIT
 %token <sval> ARITOP
 %token <sval> RESERVEDWORDalgoritmo
+%token <sval> RESERVEDWORDfalgoritmo
 %token <sval> IDENTIFIER
 %token <sval> OPERATORDOTCOMMA
 %% /* Grammar rules and actions follow.  */
@@ -28,7 +29,7 @@ algoritmo:
 cabeceraAlgoritmo precondicion cuerpo postcondicion finAlgoritmo {printf("BISON: Encontre un algoritmo completo, enhorabuena\n");}
 ;
 cabeceraAlgoritmo:
-declaracionAlgoritmo variablesAlgoritmo {printf("Algoritmo declarado, animo");}
+declaracionAlgoritmo variablesAlgoritmo {printf("BISON Algoritmo declarado, animo\n");}
 ;
 declaracionAlgoritmo:
 RESERVEDWORDalgoritmo IDENTIFIER OPERATORDOTCOMMA {printf("BISON:Start algoritmo: %s",$2);}
@@ -46,7 +47,7 @@ postcondicion:
 //TODO postcondicion
 ;
 finAlgoritmo:
-//TODO fin de algoritmo
+RESERVEDWORDfalgoritmo {printf("BISON:fin de algoritmo correcto\n");}
 ;
 %%
 void yyerror(char const * error){
