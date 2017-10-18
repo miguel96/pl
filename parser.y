@@ -3,9 +3,9 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-int yylex();
-int yyparse();
-FILE *yyin;
+int yylex(void);
+int yyparse(void);
+extern FILE *yyin;
 
 void yyerror (char const *);
 %}
@@ -32,13 +32,43 @@ cabeceraAlgoritmo precondicion cuerpo postcondicion finAlgoritmo {printf("BISON:
 ;
 
 cabeceraAlgoritmo:
-declaracionAlgoritmo variablesAlgoritmo {printf("BISON Algoritmo declarado, animo\n");}
+declaracionAlgoritmo declaracionGlobales declaracionAccionesFunciones declaracionEntradaSalida{printf("BISON Algoritmo declarado, animo\n");}
 ;
-
 declaracionAlgoritmo:
 RESERVEDWORDalgoritmo IDENTIFIER OPERATORDOTCOMMA {printf("BISON:Start algoritmo: %s",$2);}
 ;
-
+declaracionGlobales:
+declaracion_tipo declaracionGlobales {printf("BISON: declaracion_tipo");}
+| declaracionConstante declaracionGlobales {printf("BISON: declaracionConstante");}
+| %empty {}
+;
+declaracion_tipo:
+RESERVERWORDtipo lista_d_tipo RESERVERWORDFtipo OPERATORDOTCOMMA {printf("BISON: declaracion de tipo");}
+;
+lista_d_tipo:
+IDENTIFIER OPERATOREQUAL d_tipo OPERATORDOTCOMMA lista_d_tipo {printf("BISON: lista_d_tipo:%s",$1);}
+| %empty {}
+;
+d_tipo:
+RESERVEDWORDtupla lista_campos RESERVEDWORDftupla {printf("BISON: d_tipo");}
+| RESERVERWORDtabla OPERATORINITARR expresion_t RESERVEDWORDDOTDOT expresion_t OPERATORENDARR RESERVEDWORDde d_tipo {printf("BISON: d_tipo");}
+| IDENTIFIER {printf("BISON: d_tipo");}
+| expresion_t OPERATORDOTDOT expresion_t {printf("BISON: d_tipo");}
+| RESERVEDWORDref d_tipo {printf("BISON: d_tipo");}
+| RESERVEDWORDentero {printf("BISON: d_tipo");}
+| RESERVEDWORDbooleano {printf("BISON: d_tipo");}
+| RESERVEDWORDcaracter {printf("BISON: d_tipo");}
+| RESERVEDWORDreal {printf("BISON: d_tipo");}
+| RESERVEDWORDcadena {printf("BISON: d_tipo");}
+;
+expresion_t:
+expresion {printf("Expression:_t+%s\n",$1);}
+|CHARLIT {printf("Expression_t with c+%c",$1);}
+;
+lista_campos:
+IDENTIFIER /OPERATORDOUBLEDOT dtipo OPERATORDOTCOMMA lista_campos {printf("Lista de campos\n");}
+| %empty {}
+;
 variablesAlgoritmo:
 //TODO variables algoritmo
 ;
@@ -56,11 +86,13 @@ COMMENTPOST {printf("BISON: postcondicion detectada, ¡Bien hecho!");}
 ;
 
 finAlgoritmo:
-RESERVEDWORDfalgoritmo {printf("BISON:fin de algoritmo correcto\n");}
+RESERVEDWORDfalgoritmo OPERATORDOT {printf("BISON:fin de algoritmo correcto\n");}
 ;
 
 declaraciones:
-declaracion_tipo | declaracion_const | declaracion_var declaraciones | %empty
+declaracion_tipo {}
+| declaracion_const {}
+| declaracion_var declaraciones | %empty
 ;
 
 instrucciones:
