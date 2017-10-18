@@ -24,6 +24,8 @@ void yyerror (char const *);
 %token <sval> RESERVEDWORDfalgoritmo
 %token <sval> IDENTIFIER
 %token <sval> OPERATORDOTCOMMA
+%token <sval> COMMENTPREC
+%token <sval> COMMENTPOST
 %% /* Grammar rules and actions follow.  */
 algoritmo:
 cabeceraAlgoritmo precondicion cuerpo postcondicion finAlgoritmo {printf("BISON: Encontre un algoritmo completo, enhorabuena\n");}
@@ -38,13 +40,13 @@ variablesAlgoritmo:
 //TODO variables algoritmo
 ;
 precondicion:
-//TODO comentario PREC
+COMMENTPREC {printf("BISON: precondicion detectada, ¡Bien hecho!");}
 ;
 cuerpo:
 //TODO el cuerpo
 ;
 postcondicion:
-//TODO postcondicion
+COMMENTPOST {printf("BISON: postcondicion detectada, ¡Bien hecho!");}
 ;
 finAlgoritmo:
 RESERVEDWORDfalgoritmo {printf("BISON:fin de algoritmo correcto\n");}
