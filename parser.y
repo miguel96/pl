@@ -29,14 +29,17 @@ algoritmo:
 cabeceraAlgoritmo precondicion cuerpo postcondicion finAlgoritmo {printf("BISON: Encontre un algoritmo completo, enhorabuena\n");}
 ;
 cabeceraAlgoritmo:
-declaracionAlgoritmo variablesAlgoritmo {printf("BISON Algoritmo declarado, animo\n");}
+declaracionAlgoritmo declaracionEntradaSalida {printf("BISON Algoritmo declarado, animo\n");}
 ;
 declaracionAlgoritmo:
 RESERVEDWORDalgoritmo IDENTIFIER OPERATORDOTCOMMA {printf("BISON:Start algoritmo: %s",$2);}
 ;
-variablesAlgoritmo:
-//TODO variables algoritmo
+declaracionVariables:
+RESERVEDWORDvar lista_d_var RESERVEDWORDfvar
 ;
+lista_d_var:
+lista_id RESERVEDWORD
+
 precondicion:
 //TODO comentario PREC
 ;

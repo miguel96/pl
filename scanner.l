@@ -97,7 +97,7 @@ LOGICOP "&"|"\|"
 {RESERVEDWORDftipo} reservadas++;printf("RESERVADA: %s\n",yytext);
 {RESERVEDWORDftupla} reservadas++;printf("RESERVADA: %s\n",yytext);
 {RESERVEDWORDfuncion} reservadas++;printf("RESERVADA: %s\n",yytext);
-{RESERVEDWORDfvar} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDfvar} reservadas++;printf("RESERVADA: %s\n",yytext);return RESERVERWORDfvar;
 {RESERVEDWORDhacer} reservadas++;printf("RESERVADA: %s\n",yytext);
 {RESERVEDWORDhasta} reservadas++;printf("RESERVADA: %s\n",yytext);
 {RESERVEDWORDmientras} reservadas++;printf("RESERVADA: %s\n",yytext);
@@ -112,7 +112,7 @@ LOGICOP "&"|"\|"
 {RESERVEDWORDtabla} reservadas++;printf("RESERVADA: %s\n",yytext);
 {RESERVEDWORDtipo} reservadas++;printf("RESERVADA: %s\n",yytext);
 {RESERVEDWORDtupla} reservadas++;printf("RESERVADA: %s\n",yytext);
-{RESERVEDWORDvar} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDvar} reservadas++;printf("RESERVADA: %s\n",yytext);return RESERVERWORDvar;
 {RESERVEDWORDy} reservadas++;printf("RESERVADA: %s\n",yytext);
 {OPERATORASIGN} operators++;printf("OPERATOR %s\n",yytext);
 {OPERATORDOTCOMMA} operators++;printf("OPERATOR %s\n",yytext);return OPERATORDOTCOMMA;
