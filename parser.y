@@ -20,19 +20,22 @@ void yyerror (char const *);
 
 %token <ival> INTLIT
 %token <sval> ARITOP
+%token <sval> RESERVEDWORDalgoritmo
+%token <sval> IDENTIFIER
+%token <sval> OPERATORDOTCOMMA
 %type <ival> exp
 %% /* Grammar rules and actions follow.  */
 input:
 %empty
 | input line
-| ARITOP {printf("%s\n", $1);}
 ;
 line:
 '\n'
 | exp '\n'      { printf ("%d\n", $1); }
 ;
 exp:
-INTLIT           { $$ = $1;          }
+RESERVEDWORDalgoritmo IDENTIFIER OPERATORDOTCOMMA {printf("BISON:Start algoritmo: %s",$2);}
+| INTLIT           { $$ = $1;          }
 | exp ARITOP exp   {printf("%d %s %d\n", $1,$2,$3);}
 | exp 'n'       { $$ = -$1;          }  /* Unary minus    */
 ;
