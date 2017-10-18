@@ -24,34 +24,49 @@ void yyerror (char const *);
 %token <sval> RESERVEDWORDfalgoritmo
 %token <sval> IDENTIFIER
 %token <sval> OPERATORDOTCOMMA
+%token <sval> COMMENTPREC
+%token <sval> COMMENTPOST
 %% /* Grammar rules and actions follow.  */
 algoritmo:
 cabeceraAlgoritmo precondicion cuerpo postcondicion finAlgoritmo {printf("BISON: Encontre un algoritmo completo, enhorabuena\n");}
 ;
+
 cabeceraAlgoritmo:
-declaracionAlgoritmo declaracionEntradaSalida {printf("BISON Algoritmo declarado, animo\n");}
+declaracionAlgoritmo variablesAlgoritmo {printf("BISON Algoritmo declarado, animo\n");}
 ;
+
 declaracionAlgoritmo:
 RESERVEDWORDalgoritmo IDENTIFIER OPERATORDOTCOMMA {printf("BISON:Start algoritmo: %s",$2);}
 ;
-declaracionVariables:
-RESERVEDWORDvar lista_d_var RESERVEDWORDfvar
+
+variablesAlgoritmo:
+//TODO variables algoritmo
 ;
-lista_d_var:
-lista_id RESERVEDWORD
 
 precondicion:
-//TODO comentario PREC
+COMMENTPREC {printf("BISON: precondicion detectada, ¡Bien hecho!");}
 ;
+
 cuerpo:
-//TODO el cuerpo
+declaraciones instrucciones
 ;
+
 postcondicion:
-//TODO postcondicion
+COMMENTPOST {printf("BISON: postcondicion detectada, ¡Bien hecho!");}
 ;
+
 finAlgoritmo:
 RESERVEDWORDfalgoritmo {printf("BISON:fin de algoritmo correcto\n");}
 ;
+
+declaraciones:
+declaracion_tipo | declaracion_const | declaracion_var declaraciones | %empty
+;
+
+instrucciones:
+//TODO
+;
+
 %%
 void yyerror(char const * error){
   printf("Error:%s\n",error);
