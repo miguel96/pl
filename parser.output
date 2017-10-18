@@ -1,195 +1,163 @@
+Terminales no usados en la gramática
+
+   INTLIT
+   ARITOP
+
+
 Gramática
 
-    0 $accept: input $end
+    0 $accept: algoritmo $end
 
-    1 input: %empty
-    2      | input line
-    3      | ARITOP
+    1 algoritmo: cabeceraAlgoritmo precondicion cuerpo postcondicion finAlgoritmo
 
-    4 line: '\n'
-    5     | exp '\n'
+    2 cabeceraAlgoritmo: declaracionAlgoritmo variablesAlgoritmo
 
-    6 exp: INTLIT
-    7    | exp exp ARITOP
-    8    | exp exp '-'
-    9    | exp exp '*'
-   10    | exp exp '/'
-   11    | exp exp '^'
-   12    | exp 'n'
+    3 declaracionAlgoritmo: RESERVEDWORDalgoritmo IDENTIFIER OPERATORDOTCOMMA
+
+    4 variablesAlgoritmo: %empty
+
+    5 precondicion: %empty
+
+    6 cuerpo: %empty
+
+    7 postcondicion: %empty
+
+    8 finAlgoritmo: %empty
 
 
 Terminales con las reglas donde aparecen
 
 $end (0) 0
-'\n' (10) 4 5
-'*' (42) 9
-'-' (45) 8
-'/' (47) 10
-'^' (94) 11
-'n' (110) 12
 error (256)
-INTLIT (258) 6
-ARITOP (259) 3 7
+INTLIT (258)
+ARITOP (259)
+RESERVEDWORDalgoritmo (260) 3
+IDENTIFIER (261) 3
+OPERATORDOTCOMMA (262) 3
 
 
 No terminales con las reglas donde aparecen
 
-$accept (11)
+$accept (8)
     en la izquierda: 0
-input (12)
-    en la izquierda: 1 2 3, en la derecha: 0 2
-line (13)
-    en la izquierda: 4 5, en la derecha: 2
-exp (14)
-    en la izquierda: 6 7 8 9 10 11 12, en la derecha: 5 7 8 9 10 11
-    12
+algoritmo (9)
+    en la izquierda: 1, en la derecha: 0
+cabeceraAlgoritmo (10)
+    en la izquierda: 2, en la derecha: 1
+declaracionAlgoritmo (11)
+    en la izquierda: 3, en la derecha: 2
+variablesAlgoritmo (12)
+    en la izquierda: 4, en la derecha: 2
+precondicion (13)
+    en la izquierda: 5, en la derecha: 1
+cuerpo (14)
+    en la izquierda: 6, en la derecha: 1
+postcondicion (15)
+    en la izquierda: 7, en la derecha: 1
+finAlgoritmo (16)
+    en la izquierda: 8, en la derecha: 1
 
 
 Estado 0
 
-    0 $accept: . input $end
+    0 $accept: . algoritmo $end
 
-    ARITOP  desplazar e ir al estado 1
+    RESERVEDWORDalgoritmo  desplazar e ir al estado 1
 
-    $default  reduce usando la regla 1 (input)
-
-    input  ir al estado 2
+    algoritmo             ir al estado 2
+    cabeceraAlgoritmo     ir al estado 3
+    declaracionAlgoritmo  ir al estado 4
 
 
 Estado 1
 
-    3 input: ARITOP .
+    3 declaracionAlgoritmo: RESERVEDWORDalgoritmo . IDENTIFIER OPERATORDOTCOMMA
 
-    $default  reduce usando la regla 3 (input)
+    IDENTIFIER  desplazar e ir al estado 5
 
 
 Estado 2
 
-    0 $accept: input . $end
-    2 input: input . line
+    0 $accept: algoritmo . $end
 
-    $end    desplazar e ir al estado 3
-    INTLIT  desplazar e ir al estado 4
-    '\n'    desplazar e ir al estado 5
-
-    line  ir al estado 6
-    exp   ir al estado 7
+    $end  desplazar e ir al estado 6
 
 
 Estado 3
 
-    0 $accept: input $end .
+    1 algoritmo: cabeceraAlgoritmo . precondicion cuerpo postcondicion finAlgoritmo
 
-    $default  aceptar
+    $default  reduce usando la regla 5 (precondicion)
+
+    precondicion  ir al estado 7
 
 
 Estado 4
 
-    6 exp: INTLIT .
+    2 cabeceraAlgoritmo: declaracionAlgoritmo . variablesAlgoritmo
 
-    $default  reduce usando la regla 6 (exp)
+    $default  reduce usando la regla 4 (variablesAlgoritmo)
+
+    variablesAlgoritmo  ir al estado 8
 
 
 Estado 5
 
-    4 line: '\n' .
+    3 declaracionAlgoritmo: RESERVEDWORDalgoritmo IDENTIFIER . OPERATORDOTCOMMA
 
-    $default  reduce usando la regla 4 (line)
+    OPERATORDOTCOMMA  desplazar e ir al estado 9
 
 
 Estado 6
 
-    2 input: input line .
+    0 $accept: algoritmo $end .
 
-    $default  reduce usando la regla 2 (input)
+    $default  aceptar
 
 
 Estado 7
 
-    5 line: exp . '\n'
-    7 exp: exp . exp ARITOP
-    8    | exp . exp '-'
-    9    | exp . exp '*'
-   10    | exp . exp '/'
-   11    | exp . exp '^'
-   12    | exp . 'n'
+    1 algoritmo: cabeceraAlgoritmo precondicion . cuerpo postcondicion finAlgoritmo
 
-    INTLIT  desplazar e ir al estado 4
-    '\n'    desplazar e ir al estado 8
-    'n'     desplazar e ir al estado 9
+    $default  reduce usando la regla 6 (cuerpo)
 
-    exp  ir al estado 10
+    cuerpo  ir al estado 10
 
 
 Estado 8
 
-    5 line: exp '\n' .
+    2 cabeceraAlgoritmo: declaracionAlgoritmo variablesAlgoritmo .
 
-    $default  reduce usando la regla 5 (line)
+    $default  reduce usando la regla 2 (cabeceraAlgoritmo)
 
 
 Estado 9
 
-   12 exp: exp 'n' .
+    3 declaracionAlgoritmo: RESERVEDWORDalgoritmo IDENTIFIER OPERATORDOTCOMMA .
 
-    $default  reduce usando la regla 12 (exp)
+    $default  reduce usando la regla 3 (declaracionAlgoritmo)
 
 
 Estado 10
 
-    7 exp: exp . exp ARITOP
-    7    | exp exp . ARITOP
-    8    | exp . exp '-'
-    8    | exp exp . '-'
-    9    | exp . exp '*'
-    9    | exp exp . '*'
-   10    | exp . exp '/'
-   10    | exp exp . '/'
-   11    | exp . exp '^'
-   11    | exp exp . '^'
-   12    | exp . 'n'
+    1 algoritmo: cabeceraAlgoritmo precondicion cuerpo . postcondicion finAlgoritmo
 
-    INTLIT  desplazar e ir al estado 4
-    ARITOP  desplazar e ir al estado 11
-    '-'     desplazar e ir al estado 12
-    '*'     desplazar e ir al estado 13
-    '/'     desplazar e ir al estado 14
-    '^'     desplazar e ir al estado 15
-    'n'     desplazar e ir al estado 9
+    $default  reduce usando la regla 7 (postcondicion)
 
-    exp  ir al estado 10
+    postcondicion  ir al estado 11
 
 
 Estado 11
 
-    7 exp: exp exp ARITOP .
+    1 algoritmo: cabeceraAlgoritmo precondicion cuerpo postcondicion . finAlgoritmo
 
-    $default  reduce usando la regla 7 (exp)
+    $default  reduce usando la regla 8 (finAlgoritmo)
+
+    finAlgoritmo  ir al estado 12
 
 
 Estado 12
 
-    8 exp: exp exp '-' .
+    1 algoritmo: cabeceraAlgoritmo precondicion cuerpo postcondicion finAlgoritmo .
 
-    $default  reduce usando la regla 8 (exp)
-
-
-Estado 13
-
-    9 exp: exp exp '*' .
-
-    $default  reduce usando la regla 9 (exp)
-
-
-Estado 14
-
-   10 exp: exp exp '/' .
-
-    $default  reduce usando la regla 10 (exp)
-
-
-Estado 15
-
-   11 exp: exp exp '^' .
-
-    $default  reduce usando la regla 11 (exp)
+    $default  reduce usando la regla 1 (algoritmo)

@@ -23,21 +23,30 @@ void yyerror (char const *);
 %token <sval> RESERVEDWORDalgoritmo
 %token <sval> IDENTIFIER
 %token <sval> OPERATORDOTCOMMA
-%type <ival> exp
 %% /* Grammar rules and actions follow.  */
-input:
-%empty
-| input line
+algoritmo:
+cabeceraAlgoritmo precondicion cuerpo postcondicion finAlgoritmo {printf("BISON: Encontre un algoritmo completo, enhorabuena\n");}
 ;
-line:
-'\n'
-| exp '\n'      { printf ("%d\n", $1); }
+cabeceraAlgoritmo:
+declaracionAlgoritmo variablesAlgoritmo {printf("Algoritmo declarado, animo");}
 ;
-exp:
+declaracionAlgoritmo:
 RESERVEDWORDalgoritmo IDENTIFIER OPERATORDOTCOMMA {printf("BISON:Start algoritmo: %s",$2);}
-| INTLIT           { $$ = $1;          }
-| exp ARITOP exp   {printf("%d %s %d\n", $1,$2,$3);}
-| exp 'n'       { $$ = -$1;          }  /* Unary minus    */
+;
+variablesAlgoritmo:
+//TODO variables algoritmo
+;
+precondicion:
+//TODO comentario PREC
+;
+cuerpo:
+//TODO el cuerpo
+;
+postcondicion:
+//TODO postcondicion
+;
+finAlgoritmo:
+//TODO fin de algoritmo
 ;
 %%
 void yyerror(char const * error){

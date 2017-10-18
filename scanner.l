@@ -73,7 +73,7 @@ LOGICOP "&"|"\|"
 
 %%
 {RESERVEDWORDaccion} reservadas++;printf("RESERVADA: %s\n",yytext);
-{RESERVEDWORDalgoritmo} reservadas++;printf("RESERVADA: %s\n",yytext);
+{RESERVEDWORDalgoritmo} reservadas++;printf("RESERVADA: %s\n",yytext);yylval.sval=yytext;return RESERVEDWORDalgoritmo;
 {RESERVEDWORDbooleano} reservadas++;printf("RESERVADA: %s\n",yytext);
 {RESERVEDWORDcadena} reservadas++;printf("RESERVADA: %s\n",yytext);
 {RESERVEDWORDcaracter} reservadas++;printf("RESERVADA: %s\n",yytext);
@@ -113,7 +113,7 @@ LOGICOP "&"|"\|"
 {RESERVEDWORDvar} reservadas++;printf("RESERVADA: %s\n",yytext);
 {RESERVEDWORDy} reservadas++;printf("RESERVADA: %s\n",yytext);
 {OPERATORASIGN} operators++;printf("OPERATOR %s\n",yytext);
-{OPERATORDOTCOMMA} operators++;printf("OPERATOR %s\n",yytext);
+{OPERATORDOTCOMMA} operators++;printf("OPERATOR %s\n",yytext);return OPERATORDOTCOMMA;
 {OPERATORCOMMA} operators++;printf("OPERATOR %s\n",yytext);
 {OPERATORDOTDOT} operators++;printf("OPERATOR %s\n",yytext);
 {OPERATORDOUBLEDOT} operators++;printf("OPERATOR %s\n",yytext);
@@ -132,7 +132,7 @@ LOGICOP "&"|"\|"
 {SPACE}{SPACE}*
 {CHARLIT} ++charLits;printf("CharLit:%s\n",yytext);
 {COMMENT} ++coments;printf("Comment:%s\n",yytext);
-{IDENTIFIER} ++identifiers;printf("Identifier:%s\n",yytext);
+{IDENTIFIER} ++identifiers;printf("Identifier:%s\n",yytext);yylval.sval=yytext;return IDENTIFIER;
 {REALLIT}  ++realLits;printf("RealLit:%f\n",atof(yytext));
 {INTLIT}  ++intLits;printf("IntLit:%d\n",atoi(yytext));yylval.ival=atoi(yytext);return INTLIT;
 %%

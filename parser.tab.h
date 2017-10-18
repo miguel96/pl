@@ -46,7 +46,10 @@ extern int yydebug;
   enum yytokentype
   {
     INTLIT = 258,
-    ARITOP = 259
+    ARITOP = 259,
+    RESERVEDWORDalgoritmo = 260,
+    IDENTIFIER = 261,
+    OPERATORDOTCOMMA = 262
   };
 #endif
 
@@ -62,7 +65,7 @@ union YYSTYPE
 	char *sval;
   char cval;
 
-#line 66 "parser.tab.h" /* yacc.c:1909  */
+#line 69 "parser.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
