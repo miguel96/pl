@@ -33,11 +33,7 @@ line:
 ;
 exp:
 INTLIT           { $$ = $1;          }
-| exp exp ARITOP  { $$ = $1 + $2;    printf("%d\n", $$);  }
-| exp exp '-'   { $$ = $1 - $2;      }
-| exp exp '*'   { $$ = $1 * $2;      }
-| exp exp '/'   { $$ = $1 / $2;      }
-| exp exp '^'   { $$ = pow ($1, $2); }  /* Exponentiation */
+| exp ARITOP exp   {printf("%d %s %d\n", $1,$2,$3);}
 | exp 'n'       { $$ = -$1;          }  /* Unary minus    */
 ;
 %%
