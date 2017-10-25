@@ -190,7 +190,7 @@ exp_b:
 exp_b RESERVEDWORDy exp_b {}
 | exp_b RESERVEDWORDo exp_b {}
 | RESERVEDWORDno exp_b {}
-//| operando {}
+| operando {}
 | BOOLEAN {}
 | expresion COMPOP expresion {}
 | OPERATORINITPARENT exp_b OPERATORENPARENT {}
