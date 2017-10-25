@@ -149,6 +149,26 @@ RESERVEDWORDsal lista_d_var {printf("BISON: decl sal");}
 ;
 /**EXpresiones*/
 
+exp_b:
+exp_b RESERVEDWORDy exp_b {}
+| exp_b RESERVEDWORDo exp_b {}
+| RESERVEDWORDno exp_b {}
+| operando {}
+| BOOLEAN {}
+;
+
+exp_b:
+expresion COMPOP expresion {}
+| OPERATORINITPARENT exp_b OPERATORENPARENT {}
+;
+
+operando:
+IDENTIFIER {}
+| operando OPERATORDOT operando {}
+| operando OPERATORINITARR expresion OPERATORENDARR {}
+| operando RESERVEDWORDref {}
+;
+
 precondicion:
 COMMENTPREC {printf("BISON: precondicion detectada, ¡Bien hecho!");}
 ;
