@@ -126,9 +126,28 @@ lista_campos:
 IDENTIFIER /OPERATORDOUBLEDOT dtipo OPERATORDOTCOMMA lista_campos {printf("Lista de campos\n");}
 | %empty {}
 ;
-variablesAlgoritmo:
-//TODO variables algoritmo
+lista_d_var:
+lista_id OPERATORDOUBLEDOT IDENTIFIER OPERATORDOTCOMMA lista_d_var {printf("Lista de var\n");}
+| lista_id OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA lista_d_var {printf("Lista de var\n");}
+| %empty {printf("Lista vacia de var\n");}
 ;
+lista_id:
+IDENTIFIER OPERATORCOMMA lista_id
+| IDENTIFIER
+;
+/**Variables ent sal No se si hay que delcararlas*/
+decl_ent_sal:
+decl_ent {printf("BISON: declaracion entrada-salida (ent)");}
+| decl ent decl_salida {printf("BISON: declaracion entrada-salida(ent)(sal)");}
+| decl_salida {printf("BISON: declaracion entrada-salida (sal)");}
+;
+decl_ent:
+RESERVEDWORDent lista_d_var {printf("BISON: decl ent");}
+;
+decl_sal:
+RESERVEDWORDsal lista_d_var {printf("BISON: decl sal");}
+;
+/**EXpresiones*/
 
 precondicion:
 COMMENTPREC {printf("BISON: precondicion detectada, ¡Bien hecho!");}
