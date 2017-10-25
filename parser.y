@@ -95,13 +95,16 @@ decl_globales decl_a_f decl_ent_sal COMMENT{printf("BISON Algoritmo declarado, a
 ;
 decl_globales:
 declaracion_tipo decl_globales {printf("BISON: declaracion_tipo");}
-| declaracionConstante decl_globales {printf("BISON: declaracionConstante");}
+| declaracion_cte decl_globales {printf("BISON: declaracionConstante");}
 | %empty {}
 ;
 decl_a_f:
 accion_d decl_a_f {printf("BISON: decl_a_f (accion");}
 | funcion_d decl_a_f {printf("BISON: decl_a_f (funcion)");}
 | %empty {printf("BISON: decl_a_f (empty)");}
+;
+declaracion_cte:
+RESERVEDWORDconst lista_d_cte RESERVEDWORDfconst {printf("BISON: decl_cte");}
 ;
 
 declaracion_tipo:
@@ -131,6 +134,14 @@ lista_campos:
 IDENTIFIER OPERATORDOUBLEDOT dtipo OPERATORDOTCOMMA lista_campos {printf("Lista de campos\n");}
 | %empty {}
 ;
+lista_d_cte:
+IDENTIFIER OPERATOREQUAL INTLIT OPERATORDOTCOMMA lista_d_cte {printf("BISON lista_d_cte (intlit)");}
+|IDENTIFIER OPERATOREQUAL REALLIT OPERATORDOTCOMMA lista_d_cte {printf("BISON lista_d_cte (reallit)");}
+|IDENTIFIER OPERATOREQUAL CHARLIT OPERATORDOTCOMMA lista_d_cte {printf("BISON lista_d_cte (charlit)");}
+|IDENTIFIER OPERATOREQUAL BOOLEAN OPERATORDOTCOMMA lista_d_cte {printf("BISON lista_d_cte (boolean)");}
+| %empty {}
+;
+
 lista_d_var:
 lista_id OPERATORDOUBLEDOT IDENTIFIER OPERATORDOTCOMMA lista_d_var {printf("Lista de var\n");}
 | lista_id OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA lista_d_var {printf("Lista de var\n");}
@@ -205,7 +216,7 @@ RESERVEDWORDfalgoritmo OPERATORDOT {printf("BISON:fin de algoritmo correcto\n");
 
 declaraciones:
 declaracion_tipo declaraciones {}
-| declaracion_const declaraciones {}
+| declaracion_cte declaraciones {}
 | declaracion_var declaraciones {}
 | %empty {}
 ;
