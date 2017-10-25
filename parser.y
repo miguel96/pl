@@ -147,16 +147,10 @@ RESERVEDWORDfalgoritmo OPERATORDOT {printf("BISON:fin de algoritmo correcto\n");
 ;
 
 declaraciones:
-<<<<<<< HEAD
-declaracion_tipo {}
-| declaracion_const {}
-| declaracion_var declaraciones | %empty
-=======
 declaracion_tipo declaraciones {}
 | declaracion_const declaraciones {}
 | declaracion_var declaraciones {}
 | %empty {}
->>>>>>> 4770af4023e977c7cd3f5cec350145bddb6a01e6
 ;
 
 instrucciones:
@@ -203,7 +197,32 @@ OPERATORINITEND expresion OPERATORTHEN instrucciones lista_opciones {}
 | %empty {}
 ;
 
+accion_d:
+RESERVEDWORDaccion a_cabecera cuerpo RESERVEDWORDfaccion {}
+;
 
+funcion_d:
+RESERVEDWORDfuncion f_cabecera cuerpo RESERVEDWORDdev expresion RESERVEDWORDffuncion {}
+;
+
+a_cabecera:
+IDENTIFIER OPERATORINITPARENT d_par_form OPERATORENPARENT OPERATORDOTCOMMA {}
+;
+
+f_cabecera:
+IDENTIFIER OPERATORINITPARENT lista_d_var OPERATORENPARENT RESERVEDWORDdev d_tipo OPERATORDOTCOMMA {}
+;
+
+d_par_form:
+d_p_form OPERATORDOTCOMMA d_par_form {}
+| %empty {}
+;
+
+d_p_form:
+RESERVEDWORDent lista_id OPERATORDOUBLEDOT  d_tipo {}
+| RESERVEDWORDsal lista_id OPERATORDOUBLEDOT  d_tipo {}
+| RESERVEDWORDes lista_id OPERATORDOUBLEDOT  d_tipo {}
+;
 
 %%
 void yyerror(char const * error){
