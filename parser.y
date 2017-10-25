@@ -124,7 +124,7 @@ expresion {printf("Expression:_t+%s\n",$1);}
 |CHARLIT {printf("Expression_t with c+%c",$1);}
 ;
 lista_campos:
-IDENTIFIER /OPERATORDOUBLEDOT dtipo OPERATORDOTCOMMA lista_campos {printf("Lista de campos\n");}
+IDENTIFIER OPERATORDOUBLEDOT dtipo OPERATORDOTCOMMA lista_campos {printf("Lista de campos\n");}
 | %empty {}
 ;
 lista_d_var:
