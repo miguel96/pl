@@ -154,6 +154,7 @@ exp_a {printf("BISON: expresTion (exp_a)");}
 | exp_b {printf("BISON: expresion (exp_b)");}
 | funcion_ll {printf("BISON: expresion (funcion_ll)");}
 ;
+
 exp_a:
 exp_a ARITOP exp_a {printf("BISON: exp_a (aritop)");}
 | exp_a MINUSOP exp_a {printf("BISON: exp_a (minusop)");}
@@ -164,6 +165,24 @@ exp_a ARITOP exp_a {printf("BISON: exp_a (aritop)");}
 | REALLIT {printf("BISON: exp_a (lit numerico (real))");}
 | MINUSOP exp_a {printf("BISON: exp_a (lit numerico (-exp_a))");}
 ;
+
+exp_b:
+exp_b RESERVEDWORDy exp_b {}
+| exp_b RESERVEDWORDo exp_b {}
+| RESERVEDWORDno exp_b {}
+| operando {}
+| BOOLEAN {}
+| expresion COMPOP expresion {}
+| OPERATORINITPARENT exp_b OPERATORENPARENT {}
+;
+
+operando:
+IDENTIFIER {}
+| operando OPERATORDOT operando {}
+| operando OPERATORINITARR expresion OPERATORENDARR {}
+| operando RESERVEDWORDref {}
+;
+
 precondicion:
 COMMENTPREC {printf("BISON: precondicion detectada, ¡Bien hecho!");}
 ;
@@ -231,7 +250,32 @@ OPERATORINITEND expresion OPERATORTHEN instrucciones lista_opciones {}
 | %empty {}
 ;
 
+accion_d:
+RESERVEDWORDaccion a_cabecera cuerpo RESERVEDWORDfaccion {}
+;
 
+funcion_d:
+RESERVEDWORDfuncion f_cabecera cuerpo RESERVEDWORDdev expresion RESERVEDWORDffuncion {}
+;
+
+a_cabecera:
+IDENTIFIER OPERATORINITPARENT d_par_form OPERATORENPARENT OPERATORDOTCOMMA {}
+;
+
+f_cabecera:
+IDENTIFIER OPERATORINITPARENT lista_d_var OPERATORENPARENT RESERVEDWORDdev d_tipo OPERATORDOTCOMMA {}
+;
+
+d_par_form:
+d_p_form OPERATORDOTCOMMA d_par_form {}
+| %empty {}
+;
+
+d_p_form:
+RESERVEDWORDent lista_id OPERATORDOUBLEDOT  d_tipo {}
+| RESERVEDWORDsal lista_id OPERATORDOUBLEDOT  d_tipo {}
+| RESERVEDWORDes lista_id OPERATORDOUBLEDOT  d_tipo {}
+;
 
 %%
 void yyerror(char const * error){
