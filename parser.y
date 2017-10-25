@@ -110,6 +110,11 @@ RESERVEDWORDconst lista_d_cte RESERVEDWORDfconst {printf("BISON: decl_cte");}
 declaracion_tipo:
 RESERVEDWORDtipo lista_d_tipo RESERVEDWORDftipo OPERATORDOTCOMMA {printf("BISON: declaracion de tipo");}
 ;
+
+declaracion_var:
+RESERVEDWORDvar lista_d_var RESERVEDWORDfvar OPERATORDOTCOMMA{}
+;
+
 lista_d_tipo:
 IDENTIFIER OPERATOREQUAL d_tipo OPERATORDOTCOMMA lista_d_tipo {printf("BISON: lista_d_tipo:%s",$1);}
 | %empty {}
