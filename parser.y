@@ -58,6 +58,7 @@ void yyerror (char const *);
 %token <sval> RESERVEDWORDvar
 %token <sval> RESERVEDWORDy
 %token <sval> OPERATORASIGN
+%token <sval> OPERATORDOT
 %token <sval> OPERATORDOTCOMMA
 %token <sval> OPERATORCOMMA
 %token <sval> OPERATORDOTDOT
@@ -101,7 +102,7 @@ declaracion_tipo declaracionGlobales {printf("BISON: declaracion_tipo");}
 | %empty {}
 ;
 declaracion_tipo:
-RESERVERWORDtipo lista_d_tipo RESERVERWORDFtipo OPERATORDOTCOMMA {printf("BISON: declaracion de tipo");}
+RESERVEDWORDtipo lista_d_tipo RESERVEDWORDftipo OPERATORDOTCOMMA {printf("BISON: declaracion de tipo");}
 ;
 lista_d_tipo:
 IDENTIFIER OPERATOREQUAL d_tipo OPERATORDOTCOMMA lista_d_tipo {printf("BISON: lista_d_tipo:%s",$1);}
@@ -109,7 +110,7 @@ IDENTIFIER OPERATOREQUAL d_tipo OPERATORDOTCOMMA lista_d_tipo {printf("BISON: li
 ;
 d_tipo:
 RESERVEDWORDtupla lista_campos RESERVEDWORDftupla {printf("BISON: d_tipo");}
-| RESERVERWORDtabla OPERATORINITARR expresion_t RESERVEDWORDDOTDOT expresion_t OPERATORENDARR RESERVEDWORDde d_tipo {printf("BISON: d_tipo");}
+| RESERVEDWORDtabla OPERATORINITARR expresion_t OPERATORDOTDOT expresion_t OPERATORENDARR RESERVEDWORDde d_tipo {printf("BISON: d_tipo");}
 | IDENTIFIER {printf("BISON: d_tipo");}
 | expresion_t OPERATORDOTDOT expresion_t {printf("BISON: d_tipo");}
 | RESERVEDWORDref d_tipo {printf("BISON: d_tipo");}
@@ -124,7 +125,7 @@ expresion {printf("Expression:_t+%s\n",$1);}
 |CHARLIT {printf("Expression_t with c+%c",$1);}
 ;
 lista_campos:
-IDENTIFIER /OPERATORDOUBLEDOT dtipo OPERATORDOTCOMMA lista_campos {printf("Lista de campos\n");}
+IDENTIFIER OPERATORDOUBLEDOT dtipo OPERATORDOTCOMMA lista_campos {printf("Lista de campos\n");}
 | %empty {}
 ;
 lista_d_var:

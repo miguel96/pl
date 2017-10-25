@@ -60,6 +60,7 @@ RESERVEDWORDy ?i:"y"
 OPERATORASIGN ":="
 OPERATORDOTCOMMA ";"
 OPERATORCOMMA ","
+OPERATORDOT "."
 OPERATORDOTDOT ".."
 OPERATORDOUBLEDOT ":"
 OPERATORTHEN "->"
@@ -116,6 +117,7 @@ LOGICOP "&"|"\|"
 {RESERVEDWORDvar} reservadas++;printf("RESERVADA: %s\n",yytext);return RESERVERWORDvar;
 {RESERVEDWORDy} reservadas++;printf("RESERVADA: %s\n",yytext);
 {OPERATORASIGN} operators++;printf("OPERATOR %s\n",yytext);
+{OPERATORDOT} operators++;printf("OPERATOR %s\n",yytext);
 {OPERATORDOTCOMMA} operators++;printf("OPERATOR %s\n",yytext);return OPERATORDOTCOMMA;
 {OPERATORCOMMA} operators++;printf("OPERATOR %s\n",yytext);
 {OPERATORDOTDOT} operators++;printf("OPERATOR %s\n",yytext);
