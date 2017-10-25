@@ -86,21 +86,24 @@ void yyerror (char const *);
 %token <ival> INTLIT
 
 %% /* Grammar rules and actions follow.  */
-algoritmo:
-cabeceraAlgoritmo precondicion cuerpo postcondicion finAlgoritmo {printf("BISON: Encontre un algoritmo completo, enhorabuena\n");}
+desc_algoritmo:
+RESERVEDWORDalgoritmo IDENTIFIER OPERATORDOTCOMMA cabecera_alg bloque postcondicion finAlgoritmo {printf("BISON: Encontre un algoritmo completo, enhorabuena\n");}
 ;
 
-cabeceraAlgoritmo:
-declaracionAlgoritmo declaracionGlobales declaracionAccionesFunciones declaracionEntradaSalida{printf("BISON Algoritmo declarado, animo\n");}
+cabecera_alg:
+decl_globales decl_a_f decl_ent_sal COMMENT{printf("BISON Algoritmo declarado, animo\n");}
 ;
-declaracionAlgoritmo:
-RESERVEDWORDalgoritmo IDENTIFIER OPERATORDOTCOMMA {printf("BISON:Start algoritmo: %s",$2);}
-;
-declaracionGlobales:
-declaracion_tipo declaracionGlobales {printf("BISON: declaracion_tipo");}
-| declaracionConstante declaracionGlobales {printf("BISON: declaracionConstante");}
+decl_globales:
+declaracion_tipo decl_globales {printf("BISON: declaracion_tipo");}
+| declaracionConstante decl_globales {printf("BISON: declaracionConstante");}
 | %empty {}
 ;
+decl_a_f:
+accion_d decl_a_f {printf("BISON: decl_a_f (accion");}
+| funcion_d decl_a_f {printf("BISON: decl_a_f (funcion)");}
+| %empty {printf("BISON: decl_a_f (empty)");}
+;
+
 declaracion_tipo:
 RESERVEDWORDtipo lista_d_tipo RESERVEDWORDftipo OPERATORDOTCOMMA {printf("BISON: declaracion de tipo");}
 ;
@@ -140,8 +143,8 @@ IDENTIFIER OPERATORCOMMA lista_id
 /**Variables ent sal No se si hay que delcararlas*/
 decl_ent_sal:
 decl_ent {printf("BISON: declaracion entrada-salida (ent)");}
-| decl ent decl_salida {printf("BISON: declaracion entrada-salida(ent)(sal)");}
-| decl_salida {printf("BISON: declaracion entrada-salida (sal)");}
+| decl_ent decl_sal {printf("BISON: declaracion entrada-salida(ent)(sal)");}
+| decl_sal {printf("BISON: declaracion entrada-salida (sal)");}
 ;
 decl_ent:
 RESERVEDWORDent lista_d_var {printf("BISON: decl ent");}
