@@ -78,8 +78,6 @@ void yyerror (char const *);
 %token <sval> AUX
 %token <sval> SPACE
 %token <sval> CHARLIT
-%token <sval> COMMENTPREC
-%token <sval> COMMENTPOST
 %token <sval> COMMENT
 %token <sval> IDENTIFIER
 %token <fval> REALLIT
@@ -112,7 +110,7 @@ RESERVEDWORDtipo lista_d_tipo RESERVEDWORDftipo OPERATORDOTCOMMA {printf("BISON:
 ;
 
 declaracion_var:
-RESERVEDWORDvar lista_d_var RESERVEDWORDfvar OPERATORDOTCOMMA{}
+RESERVEDWORDvar lista_d_var RESERVEDWORDfvar OPERATORDOTCOMMA{printf("BISON: declaracion de variables");}
 ;
 
 lista_d_tipo:
@@ -148,12 +146,12 @@ IDENTIFIER OPERATOREQUAL INTLIT OPERATORDOTCOMMA lista_d_cte {printf("BISON list
 ;
 
 lista_d_var:
-lista_id OPERATORDOUBLEDOT IDENTIFIER OPERATORDOTCOMMA lista_d_var {printf("Lista de var\n");}
-| lista_id OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA lista_d_var {printf("Lista de var\n");}
-| %empty {printf("Lista vacia de var\n");}
+lista_id OPERATORDOUBLEDOT IDENTIFIER OPERATORDOTCOMMA lista_d_var {printf("BISON: Lista de var\n");}
+| lista_id OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA lista_d_var {printf("BISON: Lista de var\n");}
+| %empty {printf("BISON: Lista vacia de var\n");}
 ;
 lista_id:
-IDENTIFIER OPERATORCOMMA lista_id
+IDENTIFIER OPERATORCOMMA lista_id {printf("BISON: declaracion de ids");}
 | IDENTIFIER
 ;
 /**Variables ent sal No se si hay que delcararlas*/
@@ -187,32 +185,28 @@ exp_a ARITOP exp_a {printf("BISON: exp_a (aritop)");}
 ;
 
 exp_b:
-exp_b RESERVEDWORDy exp_b {}
-| exp_b RESERVEDWORDo exp_b {}
-| RESERVEDWORDno exp_b {}
-| operando {}
-| BOOLEAN {}
-| expresion COMPOP expresion {}
-| OPERATORINITPARENT exp_b OPERATORENPARENT {}
+exp_b RESERVEDWORDy exp_b {printf("BISON: exp_b (y)");}
+| exp_b RESERVEDWORDo exp_b {printf("BISON: exp_b (o)");}
+| RESERVEDWORDno exp_b {printf("BISON: exp_b (no)");}
+| operando {printf("BISON: exp_b (operando)");}
+| BOOLEAN {printf("BISON: exp_b (booleano)");}
+| expresion COMPOP expresion {printf("BISON: exp_b (comparacion)");}
+| OPERATORINITPARENT exp_b OPERATORENPARENT {printf("BISON: exp_b (parentesis)");}
 ;
 
 operando:
-IDENTIFIER {}
-| operando OPERATORDOT operando {}
-| operando OPERATORINITARR expresion OPERATORENDARR {}
-| operando RESERVEDWORDref {}
+IDENTIFIER {printf("BISON: operando (identificador)");}
+| operando OPERATORDOT operando {"BISON: operando (punto)");}
+| operando OPERATORINITARR expresion OPERATORENDARR {"BISON: operando (expresion entre corchetes)");}
+| operando RESERVEDWORDref {"BISON: operando (ref)");}
 ;
-/**
-precondicion:
-COMMENTPREC {printf("BISON: precondicion detectada, ¡Bien hecho!\n");}
-;*/
 
 bloque:
-declaraciones instrucciones
+declaraciones instrucciones {"BISON: bloque algoritmo");}
 ;
 
 postcondicion:
-COMMENTPOST {printf("BISON: postcondicion detectada, ¡Bien hecho!\n");}
+COMMENT {printf("BISON: postcondicion detectada, ¡Bien hecho!\n");}
 ;
 
 finAlgoritmo:
