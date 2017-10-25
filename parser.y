@@ -99,9 +99,9 @@ declaracion_tipo decl_globales {printf("BISON: declaracion_tipo");}
 | %empty {}
 ;
 decl_a_f:
-accion_d decl_a_f {printf("BISON: decl_a_f (accion");}
-| funcion_d decl_a_f {printf("BISON: decl_a_f (funcion)");}
-| %empty {printf("BISON: decl_a_f (empty)");}
+accion_d decl_a_f {printf("BISON: decl_a_f (accion\n");}
+| funcion_d decl_a_f {printf("BISON: decl_a_f (funcion)\n");}
+| %empty {}
 ;
 declaracion_cte:
 RESERVEDWORDconst lista_d_cte RESERVEDWORDfconst {printf("BISON: decl_cte");}
