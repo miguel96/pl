@@ -69,7 +69,8 @@ OPERATOREQUAL "="
 OPERATORINITEND "[]"
 OPERATORINITPARENT "("
 OPERATORENPARENT ")"
-ARITOP  "+"|"-"|"*"|"^"|"/"|"%"
+ARITOP  "+"|"*"|"^"|"/"|"%"
+MINUSOP "-"
 COMPOP ">"|"<"|">="|"<="|"=="|"!="
 LOGICOP "&"|"\|"
 
@@ -127,6 +128,7 @@ LOGICOP "&"|"\|"
 {OPERATORINITPARENT} operators++;printf("OPERATOR %s\n",yytext);
 {OPERATORENPARENT} operators++;printf("OPERATOR %s\n",yytext);
 {ARITOP} operators++;printf("ARITOP %s\n",yytext);yylval.sval=yytext;return ARITOP;
+{MINUSOP} operators++;printf("MINUSOP %s\n",yytext),yyval.sval=yytext;return MINUSOP;
 {COMPOP} operators++;printf("COMPOP %s\n",yytext);
 {LOGICOP} operators++;printf("LOGICOP %s\n",yytext);
 {BOOLEAN} ++boolLits;printf("Boolean:%s\n",yytext);

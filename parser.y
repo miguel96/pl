@@ -70,6 +70,7 @@ void yyerror (char const *);
 %token <sval> OPERATORINITPARENT
 %token <sval> OPERATORENPARENT
 %token <sval> ARITOP
+%token <sval> MINUSOP
 %token <sval> COMPOP
 %token <sval> LOGICOP
 %token <sval> BOOLEAN
@@ -148,7 +149,21 @@ decl_sal:
 RESERVEDWORDsal lista_d_var {printf("BISON: decl sal");}
 ;
 /**EXpresiones*/
-
+expresion:
+exp_a {printf("BISON: expresTion (exp_a)");}
+| exp_b {printf("BISON: expresion (exp_b)");}
+| funcion_ll {printf("BISON: expresion (funcion_ll)");}
+;
+exp_a:
+exp_a ARITOP exp_a {printf("BISON: exp_a (aritop)");}
+| exp_a MINUSOP exp_a {printf("BISON: exp_a (minusop)");}
+| exp_a RESERVEDWORDmod exp_a {printf("BISON: exp_a (mod)");}
+| exp_a RESERVEDWORDdiv exp_a {printf("BISON: exp_a (div)");}
+| OPERATORINITPARENT exp_a OPERATORENPARENT {printf("BISON: exp_a (parentesis)");}
+| operando {printf("BISON: exp_a (operando)");}
+| REALLIT {printf("BISON: exp_a (lit numerico (real))");}
+| MINUSOP exp_a {printf("BISON: exp_a (lit numerico (-exp_a))");}
+;
 precondicion:
 COMMENTPREC {printf("BISON: precondicion detectada, ¡Bien hecho!");}
 ;
