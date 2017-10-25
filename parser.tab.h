@@ -45,11 +45,73 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    INTLIT = 258,
-    ARITOP = 259,
-    RESERVEDWORDalgoritmo = 260,
-    IDENTIFIER = 261,
-    OPERATORDOTCOMMA = 262
+    RESERVEDWORDaccion = 258,
+    RESERVEDWORDalgoritmo = 259,
+    RESERVEDWORDbooleano = 260,
+    RESERVEDWORDcadena = 261,
+    RESERVEDWORDcaracter = 262,
+    RESERVEDWORDconst = 263,
+    RESERVEDWORDcontinuar = 264,
+    RESERVEDWORDde = 265,
+    RESERVEDWORDdev = 266,
+    RESERVEDWORDdiv = 267,
+    RESERVEDWORDent = 268,
+    RESERVEDWORDentero = 269,
+    RESERVEDWORDes = 270,
+    RESERVEDWORDfaccion = 271,
+    RESERVEDWORDfalgoritmo = 272,
+    RESERVEDWORDfconst = 273,
+    RESERVEDWORDffuncion = 274,
+    RESERVEDWORDfmientras = 275,
+    RESERVEDWORDfpara = 276,
+    RESERVEDWORDfsi = 277,
+    RESERVEDWORDftipo = 278,
+    RESERVEDWORDftupla = 279,
+    RESERVEDWORDfuncion = 280,
+    RESERVEDWORDfvar = 281,
+    RESERVEDWORDhacer = 282,
+    RESERVEDWORDhasta = 283,
+    RESERVEDWORDmientras = 284,
+    RESERVEDWORDmod = 285,
+    RESERVEDWORDno = 286,
+    RESERVEDWORDo = 287,
+    RESERVEDWORDpara = 288,
+    RESERVEDWORDreal = 289,
+    RESERVEDWORDref = 290,
+    RESERVEDWORDsal = 291,
+    RESERVEDWORDsi = 292,
+    RESERVEDWORDtabla = 293,
+    RESERVEDWORDtipo = 294,
+    RESERVEDWORDtupla = 295,
+    RESERVEDWORDvar = 296,
+    RESERVEDWORDy = 297,
+    OPERATORASIGN = 298,
+    OPERATORDOT = 299,
+    OPERATORDOTCOMMA = 300,
+    OPERATORCOMMA = 301,
+    OPERATORDOTDOT = 302,
+    OPERATORDOUBLEDOT = 303,
+    OPERATORTHEN = 304,
+    OPERATORINITARR = 305,
+    OPERATORENDARR = 306,
+    OPERATOREQUAL = 307,
+    OPERATORINITEND = 308,
+    OPERATORINITPARENT = 309,
+    OPERATORENPARENT = 310,
+    ARITOP = 311,
+    MINUSOP = 312,
+    COMPOP = 313,
+    LOGICOP = 314,
+    BOOLEAN = 315,
+    AUX = 316,
+    SPACE = 317,
+    CHARLIT = 318,
+    COMMENTPREC = 319,
+    COMMENTPOST = 320,
+    COMMENT = 321,
+    IDENTIFIER = 322,
+    REALLIT = 323,
+    INTLIT = 324
   };
 #endif
 
@@ -65,7 +127,7 @@ union YYSTYPE
 	char *sval;
   char cval;
 
-#line 69 "parser.tab.h" /* yacc.c:1909  */
+#line 131 "parser.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

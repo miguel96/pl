@@ -132,8 +132,8 @@ RESERVEDWORDtupla lista_campos RESERVEDWORDftupla {printf("BISON: d_tipo");}
 | RESERVEDWORDcadena {printf("BISON: d_tipo");}
 ;
 expresion_t:
-expresion {printf("Expression:_t+%s\n",$1);}
-|CHARLIT {printf("Expression_t with c+%c",$1);}
+expresion {printf("Expression:_t\n");}
+|CHARLIT {printf("Expression_t with c+%s",$1);}
 ;
 lista_campos:
 IDENTIFIER OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA lista_campos {printf("Lista de campos\n");}
@@ -190,7 +190,7 @@ exp_b:
 exp_b RESERVEDWORDy exp_b {}
 | exp_b RESERVEDWORDo exp_b {}
 | RESERVEDWORDno exp_b {}
-| operando {}
+//| operando {}
 | BOOLEAN {}
 | expresion COMPOP expresion {}
 | OPERATORINITPARENT exp_b OPERATORENPARENT {}
@@ -202,10 +202,10 @@ IDENTIFIER {}
 | operando OPERATORINITARR expresion OPERATORENDARR {}
 | operando RESERVEDWORDref {}
 ;
-
+/**
 precondicion:
 COMMENTPREC {printf("BISON: precondicion detectada, ¡Bien hecho!\n");}
-;
+;*/
 
 bloque:
 declaraciones instrucciones
@@ -253,7 +253,7 @@ it_cota_fija {}
 ;
 
 it_cota_fija:
-RESERVEDWORDpara IDENTIFIER OPERATORASIGN expresion RESERVEDWORDhasta expresin RESERVEDWORDhacer instrucciones RESERVEDWORDfpara {printf("BISON: it_cota_fija\n");}
+RESERVEDWORDpara IDENTIFIER OPERATORASIGN expresion RESERVEDWORDhasta expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfpara {printf("BISON: it_cota_fija\n");}
 ;
 
 it_cota_exp:
