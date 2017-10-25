@@ -252,6 +252,10 @@ it_cota_fija {}
 | it_cota_exp {}
 ;
 
+it_cota_exp:
+RESERVEDWORDmientras expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfmientras {}
+
+
 funcion_ll:
 IDENTIFIER OPERATORINITPARENT l_ll OPERATORENPARENT {}
 ;
