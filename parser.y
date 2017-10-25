@@ -191,7 +191,7 @@ precondicion:
 COMMENTPREC {printf("BISON: precondicion detectada, ¡Bien hecho!");}
 ;
 
-cuerpo:
+bloque:
 declaraciones instrucciones
 ;
 
@@ -255,11 +255,11 @@ OPERATORINITEND expresion OPERATORTHEN instrucciones lista_opciones {}
 ;
 
 accion_d:
-RESERVEDWORDaccion a_cabecera cuerpo RESERVEDWORDfaccion {}
+RESERVEDWORDaccion a_cabecera bloque RESERVEDWORDfaccion {}
 ;
 
 funcion_d:
-RESERVEDWORDfuncion f_cabecera cuerpo RESERVEDWORDdev expresion RESERVEDWORDffuncion {}
+RESERVEDWORDfuncion f_cabecera bloque RESERVEDWORDdev expresion RESERVEDWORDffuncion {}
 ;
 
 a_cabecera:
