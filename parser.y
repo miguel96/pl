@@ -204,7 +204,7 @@ IDENTIFIER {}
 ;
 
 precondicion:
-COMMENTPREC {printf("BISON: precondicion detectada, ¡Bien hecho!");}
+COMMENTPREC {printf("BISON: precondicion detectada, ¡Bien hecho!\n");}
 ;
 
 bloque:
@@ -212,7 +212,7 @@ declaraciones instrucciones
 ;
 
 postcondicion:
-COMMENTPOST {printf("BISON: postcondicion detectada, ¡Bien hecho!");}
+COMMENTPOST {printf("BISON: postcondicion detectada, ¡Bien hecho!\n");}
 ;
 
 finAlgoritmo:
@@ -251,7 +251,8 @@ iteracion:
 it_cota_fija {}
 | it_cota_exp {}
 ;
-
+it_cota_fija:
+RESERVEDWORDpara IDENTIFIER OPERATORASIGN expresion RESERVEDWORDhasta expresin RESERVEDWORDhacer instrucciones RESERVEDWORDfpara {printf("BISON: it_cota_fija\n");}
 funcion_ll:
 IDENTIFIER OPERATORINITPARENT l_ll OPERATORENPARENT {}
 ;
