@@ -186,9 +186,10 @@ exp_a ARITOP exp_a {printf("BISON: exp_a (aritop)");}
 
 exp_a:
 OPERATORINITPARENT exp_a OPERATORENPARENT exp_a1 {printf("BISON: exp_a (parentesis)");}
-|operando exp_a1 {printf("BISON: exp_a (operando)");}
-|REALLIT exp_a1 {printf("BISON: exp_a (lit numerico (real))");}
-|MINUSOP exp_a exp_a1 {printf("BISON: exp_a (lit numerico (-exp_a))");}
+| operando exp_a1 {printf("BISON: exp_a (operando)");}
+| REALLIT exp_a1 {printf("BISON: exp_a (lit numerico (real))");}
+| MINUSOP exp_a exp_a1 {printf("BISON: exp_a (lit numerico (-exp_a))");}
+
 exp_a1:
 ARITOP exp_a exp_a1 {}
 | MINUSOP exp_a exp_a1 {}
