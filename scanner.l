@@ -2,13 +2,14 @@
     #include <stdio.h>
     #include "parser.tab.h"
 }
-  int identifiers=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0, reservadas = 0,operators=0;
+  int identifiers=0,boolIdent=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0, reservadas = 0,operators=0;
 
 DIGIT   [0-9]
 NUMBER {DIGIT}{DIGIT}*
 CHAR [a-zA-z]
 SPACE [ \t\n]
 COMMENT "{"([^}]|"/}")*"}"
+IDENTIFIERB "b"({CHAR}|{DIGIT})*
 IDENTIFIER  {CHAR}({CHAR}|{DIGIT})*
 AUX {NUMBER},{NUMBER}
 REALLIT [+|-]?{NUMBER}"."{NUMBER}((e|E){NUMBER})?
@@ -134,6 +135,7 @@ LOGICOP "&"|"\|"
 {SPACE}{SPACE}*;
 {CHARLIT} ++charLits;printf("CharLit:%s\n",yytext);yylval.sval=yytext;return CHARLIT ;
 {COMMENT} ++coments;printf("Comment:%s\n",yytext);return COMMENT;
+{IDENTIFIERB} ++boolIdent;printf("BoolIdent:%s\n",yytext);return IDENTIFIERB;
 {IDENTIFIER} ++identifiers;printf("Identifier:%s\n",yytext);yylval.sval=yytext;return IDENTIFIER;
 {REALLIT} ++realLits;printf("RealLit:%f\n",atof(yytext));yylval.sval=yytext;return REALLIT;
 {INTLIT} ++intLits;printf("IntLit:%d\n",atoi(yytext));yylval.ival=atoi(yytext);return INTLIT;
