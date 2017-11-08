@@ -73,10 +73,10 @@ void yyerror (char const *);
 %token <sval> ARITOP
 %token <sval> MINUSOP
 %token <sval> COMPOP
-%token <sval> LOGICOP
+//%token <sval> LOGICOP
 %token <sval> BOOLEAN
-%token <sval> AUX
-%token <sval> SPACE
+//%token <sval> AUX
+//%token <sval> SPACE
 %token <sval> CHARLIT
 %token <sval> COMMENT
 %token <sval> IDENTIFIER
@@ -196,13 +196,13 @@ exp_b RESERVEDWORDy exp_b {printf("BISON: exp_b (y)");}
 
 operando:
 IDENTIFIER {printf("BISON: operando (identificador)");}
-| operando OPERATORDOT operando {"BISON: operando (punto)");}
-| operando OPERATORINITARR expresion OPERATORENDARR {"BISON: operando (expresion entre corchetes)");}
-| operando RESERVEDWORDref {"BISON: operando (ref)");}
+| operando OPERATORDOT operando {printf("BISON: operando (punto)");}
+| operando OPERATORINITARR expresion OPERATORENDARR {printf("BISON: operando (expresion entre corchetes)");}
+| operando RESERVEDWORDref {printf("BISON: operando (ref)");}
 ;
 
 bloque:
-declaraciones instrucciones {"BISON: bloque algoritmo");}
+declaraciones instrucciones {printf("BISON: bloque algoritmo");}
 ;
 
 postcondicion:
