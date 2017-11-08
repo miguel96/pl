@@ -1,4 +1,3 @@
- /* Reverse polish notation calculator.  */
 %{
 #include <stdio.h>
 #include <math.h>
@@ -80,6 +79,7 @@ void yyerror (char const *);
 %token <sval> CHARLIT
 %token <sval> COMMENT
 %token <sval> IDENTIFIER
+%token <sval> IDENTIFIERb
 %token <fval> REALLIT
 %token <ival> INTLIT
 
@@ -172,7 +172,7 @@ exp_a {printf("BISON: expresTion (exp_a)");}
 | exp_b {printf("BISON: expresion (exp_b)");}
 | funcion_ll {printf("BISON: expresion (funcion_ll)");}
 ;
-/**
+
 exp_a:
 exp_a ARITOP exp_a {printf("BISON: exp_a (aritop)");}
 | exp_a MINUSOP exp_a {printf("BISON: exp_a (minusop)");}
@@ -182,26 +182,13 @@ exp_a ARITOP exp_a {printf("BISON: exp_a (aritop)");}
 | operando {printf("BISON: exp_a (operando)");}
 | REALLIT {printf("BISON: exp_a (lit numerico (real))");}
 | MINUSOP exp_a {printf("BISON: exp_a (lit numerico (-exp_a))");}
-;*/
-
-exp_a:
-OPERATORINITPARENT exp_a OPERATORENPARENT exp_a1 {printf("BISON: exp_a (parentesis)");}
-| operando exp_a1 {printf("BISON: exp_a (operando)");}
-| REALLIT exp_a1 {printf("BISON: exp_a (lit numerico (real))");}
-| MINUSOP exp_a exp_a1 {printf("BISON: exp_a (lit numerico (-exp_a))");}
-
-exp_a1:
-ARITOP exp_a exp_a1 {}
-| MINUSOP exp_a exp_a1 {}
-| RESERVEDWORDmod exp_a exp_a1 {}
-| RESERVEDWORDdiv exp_a exp_a1 {}
-| %empty {}
 ;
+
 exp_b:
 exp_b RESERVEDWORDy exp_b {printf("BISON: exp_b (y)");}
 | exp_b RESERVEDWORDo exp_b {printf("BISON: exp_b (o)");}
 | RESERVEDWORDno exp_b {printf("BISON: exp_b (no)");}
-| operando {printf("BISON: exp_b (operando)");}
+| operandob {printf("BISON: exp_b (operando)");}
 | BOOLEAN {printf("BISON: exp_b (booleano)");}
 | expresion COMPOP expresion {printf("BISON: exp_b (comparacion)");}
 | OPERATORINITPARENT exp_b OPERATORENPARENT {printf("BISON: exp_b (parentesis)");}
@@ -212,6 +199,10 @@ IDENTIFIER {printf("BISON: operando (identificador)");}
 | operando OPERATORDOT operando {printf("BISON: operando (punto)");}
 | operando OPERATORINITARR expresion OPERATORENDARR {printf("BISON: operando (expresion entre corchetes)");}
 | operando RESERVEDWORDref {printf("BISON: operando (ref)");}
+;
+
+operandob:
+IDENTIFIERb {printf("BISON: operando (identificadorb)");}
 ;
 
 bloque:
