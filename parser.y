@@ -141,18 +141,22 @@ lista_d_cte:
 IDENTIFIER OPERATOREQUAL INTLIT OPERATORDOTCOMMA lista_d_cte {printf("BISON lista_d_cte (intlit)");}
 |IDENTIFIER OPERATOREQUAL REALLIT OPERATORDOTCOMMA lista_d_cte {printf("BISON lista_d_cte (reallit)");}
 |IDENTIFIER OPERATOREQUAL CHARLIT OPERATORDOTCOMMA lista_d_cte {printf("BISON lista_d_cte (charlit)");}
-|IDENTIFIER OPERATOREQUAL BOOLEAN OPERATORDOTCOMMA lista_d_cte {printf("BISON lista_d_cte (boolean)");}
+|IDENTIFIERB OPERATOREQUAL BOOLEAN OPERATORDOTCOMMA lista_d_cte {printf("BISON lista_d_cte (boolean)");}
 | %empty {}
 ;
 
 lista_d_var:
 lista_id OPERATORDOUBLEDOT IDENTIFIER OPERATORDOTCOMMA lista_d_var {printf("BISON: Lista de var\n");}
+| lista_id OPERATORDOUBLEDOT IDENTIFIERB OPERATORDOTCOMMA lista_d_var {printf("BISON: Lista de var\n");}
 | lista_id OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA lista_d_var {printf("BISON: Lista de var\n");}
 | %empty {printf("BISON: Lista vacia de var\n");}
 ;
+
 lista_id:
 IDENTIFIER OPERATORCOMMA lista_id {printf("BISON: declaracion de ids");}
-| IDENTIFIER
+| IDENTIFIERB OPERATORCOMMA lista_id {printf("BISON: declaracion de ids(BOOL)");}
+| IDENTIFIER {}
+| IDENTIFIERB {}
 ;
 /**Variables ent sal No se si hay que delcararlas*/
 decl_ent_sal:
