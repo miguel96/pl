@@ -79,7 +79,7 @@ void yyerror (char const *);
 %token <sval> CHARLIT
 %token <sval> COMMENT
 %token <sval> IDENTIFIER
-%token <sval> IDENTIFIERb
+%token <sval> IDENTIFIERB
 %token <fval> REALLIT
 %token <ival> INTLIT
 
@@ -202,7 +202,7 @@ IDENTIFIER {printf("BISON: operando (identificador)");}
 ;
 
 operandob:
-IDENTIFIERb {printf("BISON: operando (identificadorb)");}
+IDENTIFIERB {printf("BISON: operando (identificadorb)");}
 ;
 
 bloque:
