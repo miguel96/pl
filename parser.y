@@ -1,4 +1,4 @@
-/* Reverse polish notation calculator.  */
+ /* Reverse polish notation calculator.  */
 %{
 #include <stdio.h>
 #include <math.h>
@@ -183,7 +183,11 @@ exp_a ARITOP exp_a {printf("BISON: exp_a (aritop)");}
 | REALLIT {printf("BISON: exp_a (lit numerico (real))");}
 | MINUSOP exp_a {printf("BISON: exp_a (lit numerico (-exp_a))");}
 ;
-
+exp_a:
+OPERATORINITPARENT exp_a OPERATORENPARENT exp_a1 {printf("BISON: exp_a (parentesis)");}
+|operando exp_a1 {printf("BISON: exp_a (operando)");}
+|REALLIT exp_a1 {printf("BISON: exp_a (lit numerico (real))");}
+|MINUSOP exp_a exp_a1 {printf("BISON: exp_a (lit numerico (-exp_a))");}
 exp_b:
 exp_b RESERVEDWORDy exp_b {printf("BISON: exp_b (y)");}
 | exp_b RESERVEDWORDo exp_b {printf("BISON: exp_b (o)");}
