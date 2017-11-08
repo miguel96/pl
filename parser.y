@@ -184,6 +184,14 @@ exp_a ARITOP exp_a {printf("BISON: exp_a (aritop)");}
 | MINUSOP exp_a {printf("BISON: exp_a (lit numerico (-exp_a))");}
 ;
 
+exp_a1:
+ARITOP exp_a exp_a1 {}
+| MINUSOP exp_a exp_a1 {}
+| RESERVEDWORDmod exp_a exp_a1 {}
+| RESERVEDWORDdiv exp_a exp_a1 {}
+| %empty {}
+;
+
 exp_b:
 exp_b RESERVEDWORDy exp_b {printf("BISON: exp_b (y)");}
 | exp_b RESERVEDWORDo exp_b {printf("BISON: exp_b (o)");}
