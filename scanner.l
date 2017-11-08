@@ -130,9 +130,7 @@ LOGICOP "&"|"\|"
 {ARITOP} operators++;printf("ARITOP %s\n",yytext);yylval.sval=yytext;return ARITOP;
 {MINUSOP} operators++;printf("MINUSOP %s\n",yytext),yylval.sval=yytext;return MINUSOP;
 {COMPOP} operators++;printf("COMPOP %s\n",yytext);yylval.sval=yytext;return COMPOP;
-{LOGICOP} operators++;printf("LOGICOP %s\n",yytext);yylval.sval=yytext;return LOGICOP;
 {BOOLEAN} ++boolLits;printf("Boolean:%s\n",yytext);yylval.sval=yytext;return BOOLEAN;
-{AUX} ++realLits;printf("RealLit:%f\n",atof(yytext));yylval.sval=yytext;return AUX;
 {SPACE}{SPACE}*;
 {CHARLIT} ++charLits;printf("CharLit:%s\n",yytext);yylval.sval=yytext;return CHARLIT ;
 {COMMENT} ++coments;printf("Comment:%s\n",yytext);return COMMENT;

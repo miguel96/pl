@@ -1,23 +1,21 @@
-Terminales no usados en la gramática
+La regla es inútil debido a los conflictos
 
-   LOGICOP
-   AUX
-   SPACE
-   COMMENTPREC
+   57 exp_b: operando
 
 
 Estado 89 conflictos: 2 desplazamiento/reducción
+Estado 90 conflictos: 19 reducción/reducción
 Estado 121 conflictos: 2 desplazamiento/reducción, 1 reducción/reducción
 Estado 130 conflictos: 4 desplazamiento/reducción
-Estado 143 conflictos: 1 desplazamiento/reducción
-Estado 152 conflictos: 3 desplazamiento/reducción
-Estado 176 conflictos: 1 desplazamiento/reducción
-Estado 177 conflictos: 4 desplazamiento/reducción
+Estado 144 conflictos: 1 desplazamiento/reducción
+Estado 153 conflictos: 3 desplazamiento/reducción
+Estado 177 conflictos: 1 desplazamiento/reducción
 Estado 178 conflictos: 4 desplazamiento/reducción
 Estado 179 conflictos: 4 desplazamiento/reducción
 Estado 180 conflictos: 4 desplazamiento/reducción
-Estado 181 conflictos: 2 desplazamiento/reducción, 1 reducción/reducción
+Estado 181 conflictos: 4 desplazamiento/reducción
 Estado 182 conflictos: 2 desplazamiento/reducción, 1 reducción/reducción
+Estado 183 conflictos: 2 desplazamiento/reducción, 1 reducción/reducción
 
 
 Gramática
@@ -99,237 +97,233 @@ Gramática
    54 exp_b: exp_b RESERVEDWORDy exp_b
    55      | exp_b RESERVEDWORDo exp_b
    56      | RESERVEDWORDno exp_b
-   57      | BOOLEAN
-   58      | expresion COMPOP expresion
-   59      | OPERATORINITPARENT exp_b OPERATORENPARENT
+   57      | operando
+   58      | BOOLEAN
+   59      | expresion COMPOP expresion
+   60      | OPERATORINITPARENT exp_b OPERATORENPARENT
 
-   60 operando: IDENTIFIER
-   61         | operando OPERATORDOT operando
-   62         | operando OPERATORINITARR expresion OPERATORENDARR
-   63         | operando RESERVEDWORDref
+   61 operando: IDENTIFIER
+   62         | operando OPERATORDOT operando
+   63         | operando OPERATORINITARR expresion OPERATORENDARR
+   64         | operando RESERVEDWORDref
 
-   64 bloque: declaraciones instrucciones
+   65 bloque: declaraciones instrucciones
 
-   65 postcondicion: COMMENTPOST
+   66 postcondicion: COMMENT
 
-   66 finAlgoritmo: RESERVEDWORDfalgoritmo OPERATORDOT
+   67 finAlgoritmo: RESERVEDWORDfalgoritmo OPERATORDOT
 
-   67 declaraciones: declaracion_tipo declaraciones
-   68              | declaracion_cte declaraciones
-   69              | declaracion_var declaraciones
-   70              | %empty
+   68 declaraciones: declaracion_tipo declaraciones
+   69              | declaracion_cte declaraciones
+   70              | declaracion_var declaraciones
+   71              | %empty
 
-   71 instrucciones: instruccion OPERATORDOTCOMMA instrucciones
-   72              | instruccion
+   72 instrucciones: instruccion OPERATORDOTCOMMA instrucciones
+   73              | instruccion
 
-   73 instruccion: RESERVEDWORDcontinuar
-   74            | asignacion
-   75            | alternativa
-   76            | iteracion
-   77            | accion_ll
+   74 instruccion: RESERVEDWORDcontinuar
+   75            | asignacion
+   76            | alternativa
+   77            | iteracion
+   78            | accion_ll
 
-   78 asignacion: operando OPERATORASIGN expresion
+   79 asignacion: operando OPERATORASIGN expresion
 
-   79 alternativa: RESERVEDWORDsi expresion OPERATORTHEN instrucciones lista_opciones RESERVEDWORDfsi
+   80 alternativa: RESERVEDWORDsi expresion OPERATORTHEN instrucciones lista_opciones RESERVEDWORDfsi
 
-   80 iteracion: it_cota_fija
-   81          | it_cota_exp
+   81 iteracion: it_cota_fija
+   82          | it_cota_exp
 
-   82 it_cota_fija: RESERVEDWORDpara IDENTIFIER OPERATORASIGN expresion RESERVEDWORDhasta expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfpara
+   83 it_cota_fija: RESERVEDWORDpara IDENTIFIER OPERATORASIGN expresion RESERVEDWORDhasta expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfpara
 
-   83 it_cota_exp: RESERVEDWORDmientras expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfmientras
+   84 it_cota_exp: RESERVEDWORDmientras expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfmientras
 
-   84 funcion_ll: IDENTIFIER OPERATORINITPARENT l_ll OPERATORENPARENT
+   85 funcion_ll: IDENTIFIER OPERATORINITPARENT l_ll OPERATORENPARENT
 
-   85 accion_ll: IDENTIFIER OPERATORINITPARENT l_ll OPERATORENPARENT
+   86 accion_ll: IDENTIFIER OPERATORINITPARENT l_ll OPERATORENPARENT
 
-   86 l_ll: expresion OPERATORCOMMA l_ll
-   87     | expresion
+   87 l_ll: expresion OPERATORCOMMA l_ll
+   88     | expresion
 
-   88 lista_opciones: OPERATORINITEND expresion OPERATORTHEN instrucciones lista_opciones
-   89               | %empty
+   89 lista_opciones: OPERATORINITEND expresion OPERATORTHEN instrucciones lista_opciones
+   90               | %empty
 
-   90 accion_d: RESERVEDWORDaccion a_cabecera bloque RESERVEDWORDfaccion
+   91 accion_d: RESERVEDWORDaccion a_cabecera bloque RESERVEDWORDfaccion
 
-   91 funcion_d: RESERVEDWORDfuncion f_cabecera bloque RESERVEDWORDdev expresion RESERVEDWORDffuncion
+   92 funcion_d: RESERVEDWORDfuncion f_cabecera bloque RESERVEDWORDdev expresion RESERVEDWORDffuncion
 
-   92 a_cabecera: IDENTIFIER OPERATORINITPARENT d_par_form OPERATORENPARENT OPERATORDOTCOMMA
+   93 a_cabecera: IDENTIFIER OPERATORINITPARENT d_par_form OPERATORENPARENT OPERATORDOTCOMMA
 
-   93 f_cabecera: IDENTIFIER OPERATORINITPARENT lista_d_var OPERATORENPARENT RESERVEDWORDdev d_tipo OPERATORDOTCOMMA
+   94 f_cabecera: IDENTIFIER OPERATORINITPARENT lista_d_var OPERATORENPARENT RESERVEDWORDdev d_tipo OPERATORDOTCOMMA
 
-   94 d_par_form: d_p_form OPERATORDOTCOMMA d_par_form
-   95           | %empty
+   95 d_par_form: d_p_form OPERATORDOTCOMMA d_par_form
+   96           | %empty
 
-   96 d_p_form: RESERVEDWORDent lista_id OPERATORDOUBLEDOT d_tipo
-   97         | RESERVEDWORDsal lista_id OPERATORDOUBLEDOT d_tipo
-   98         | RESERVEDWORDes lista_id OPERATORDOUBLEDOT d_tipo
+   97 d_p_form: RESERVEDWORDent lista_id OPERATORDOUBLEDOT d_tipo
+   98         | RESERVEDWORDsal lista_id OPERATORDOUBLEDOT d_tipo
+   99         | RESERVEDWORDes lista_id OPERATORDOUBLEDOT d_tipo
 
 
 Terminales con las reglas donde aparecen
 
 $end (0) 0
 error (256)
-RESERVEDWORDaccion (258) 90
+RESERVEDWORDaccion (258) 91
 RESERVEDWORDalgoritmo (259) 1
 RESERVEDWORDbooleano (260) 20
 RESERVEDWORDcadena (261) 23
 RESERVEDWORDcaracter (262) 21
 RESERVEDWORDconst (263) 9
-RESERVEDWORDcontinuar (264) 73
+RESERVEDWORDcontinuar (264) 74
 RESERVEDWORDde (265) 15
-RESERVEDWORDdev (266) 91 93
+RESERVEDWORDdev (266) 92 94
 RESERVEDWORDdiv (267) 49
-RESERVEDWORDent (268) 41 96
+RESERVEDWORDent (268) 41 97
 RESERVEDWORDentero (269) 19
-RESERVEDWORDes (270) 98
-RESERVEDWORDfaccion (271) 90
-RESERVEDWORDfalgoritmo (272) 66
+RESERVEDWORDes (270) 99
+RESERVEDWORDfaccion (271) 91
+RESERVEDWORDfalgoritmo (272) 67
 RESERVEDWORDfconst (273) 9
-RESERVEDWORDffuncion (274) 91
-RESERVEDWORDfmientras (275) 83
-RESERVEDWORDfpara (276) 82
-RESERVEDWORDfsi (277) 79
+RESERVEDWORDffuncion (274) 92
+RESERVEDWORDfmientras (275) 84
+RESERVEDWORDfpara (276) 83
+RESERVEDWORDfsi (277) 80
 RESERVEDWORDftipo (278) 10
 RESERVEDWORDftupla (279) 14
-RESERVEDWORDfuncion (280) 91
+RESERVEDWORDfuncion (280) 92
 RESERVEDWORDfvar (281) 11
-RESERVEDWORDhacer (282) 82 83
-RESERVEDWORDhasta (283) 82
-RESERVEDWORDmientras (284) 83
+RESERVEDWORDhacer (282) 83 84
+RESERVEDWORDhasta (283) 83
+RESERVEDWORDmientras (284) 84
 RESERVEDWORDmod (285) 48
 RESERVEDWORDno (286) 56
 RESERVEDWORDo (287) 55
-RESERVEDWORDpara (288) 82
+RESERVEDWORDpara (288) 83
 RESERVEDWORDreal (289) 22
-RESERVEDWORDref (290) 18 63
-RESERVEDWORDsal (291) 42 97
-RESERVEDWORDsi (292) 79
+RESERVEDWORDref (290) 18 64
+RESERVEDWORDsal (291) 42 98
+RESERVEDWORDsi (292) 80
 RESERVEDWORDtabla (293) 15
 RESERVEDWORDtipo (294) 10
 RESERVEDWORDtupla (295) 14
 RESERVEDWORDvar (296) 11
 RESERVEDWORDy (297) 54
-OPERATORASIGN (298) 78 82
-OPERATORDOT (299) 61 66
-OPERATORDOTCOMMA (300) 1 10 11 12 26 28 29 30 31 33 34 71 92 93 94
-OPERATORCOMMA (301) 36 86
+OPERATORASIGN (298) 79 83
+OPERATORDOT (299) 62 67
+OPERATORDOTCOMMA (300) 1 10 11 12 26 28 29 30 31 33 34 72 93 94 95
+OPERATORCOMMA (301) 36 87
 OPERATORDOTDOT (302) 15 17
-OPERATORDOUBLEDOT (303) 26 33 34 96 97 98
-OPERATORTHEN (304) 79 88
-OPERATORINITARR (305) 15 62
-OPERATORENDARR (306) 15 62
+OPERATORDOUBLEDOT (303) 26 33 34 97 98 99
+OPERATORTHEN (304) 80 89
+OPERATORINITARR (305) 15 63
+OPERATORENDARR (306) 15 63
 OPERATOREQUAL (307) 12 28 29 30 31
-OPERATORINITEND (308) 88
-OPERATORINITPARENT (309) 50 59 84 85 92 93
-OPERATORENPARENT (310) 50 59 84 85 92 93
+OPERATORINITEND (308) 89
+OPERATORINITPARENT (309) 50 60 85 86 93 94
+OPERATORENPARENT (310) 50 60 85 86 93 94
 ARITOP (311) 46
 MINUSOP (312) 47 53
-COMPOP (313) 58
-LOGICOP (314)
-BOOLEAN (315) 31 57
-AUX (316)
-SPACE (317)
-CHARLIT (318) 25 30
-COMMENTPREC (319)
-COMMENTPOST (320) 65
-COMMENT (321) 2
-IDENTIFIER (322) 1 12 16 26 28 29 30 31 33 36 37 60 82 84 85 92 93
-REALLIT (323) 29 52
-INTLIT (324) 28
+COMPOP (313) 59
+BOOLEAN (314) 31 58
+CHARLIT (315) 25 30
+COMMENT (316) 2 66
+IDENTIFIER (317) 1 12 16 26 28 29 30 31 33 36 37 61 83 85 86 93 94
+REALLIT (318) 29 52
+INTLIT (319) 28
 
 
 No terminales con las reglas donde aparecen
 
-$accept (70)
+$accept (65)
     en la izquierda: 0
-desc_algoritmo (71)
+desc_algoritmo (66)
     en la izquierda: 1, en la derecha: 0
-cabecera_alg (72)
+cabecera_alg (67)
     en la izquierda: 2, en la derecha: 1
-decl_globales (73)
+decl_globales (68)
     en la izquierda: 3 4 5, en la derecha: 2 3 4
-decl_a_f (74)
+decl_a_f (69)
     en la izquierda: 6 7 8, en la derecha: 2 6 7
-declaracion_cte (75)
-    en la izquierda: 9, en la derecha: 4 68
-declaracion_tipo (76)
-    en la izquierda: 10, en la derecha: 3 67
-declaracion_var (77)
-    en la izquierda: 11, en la derecha: 69
-lista_d_tipo (78)
+declaracion_cte (70)
+    en la izquierda: 9, en la derecha: 4 69
+declaracion_tipo (71)
+    en la izquierda: 10, en la derecha: 3 68
+declaracion_var (72)
+    en la izquierda: 11, en la derecha: 70
+lista_d_tipo (73)
     en la izquierda: 12 13, en la derecha: 10 12
-d_tipo (79)
+d_tipo (74)
     en la izquierda: 14 15 16 17 18 19 20 21 22 23, en la derecha:
-    12 15 18 26 34 93 96 97 98
-expresion_t (80)
+    12 15 18 26 34 94 97 98 99
+expresion_t (75)
     en la izquierda: 24 25, en la derecha: 15 17
-lista_campos (81)
+lista_campos (76)
     en la izquierda: 26 27, en la derecha: 14 26
-lista_d_cte (82)
+lista_d_cte (77)
     en la izquierda: 28 29 30 31 32, en la derecha: 9 28 29 30 31
-lista_d_var (83)
-    en la izquierda: 33 34 35, en la derecha: 11 33 34 41 42 93
-lista_id (84)
-    en la izquierda: 36 37, en la derecha: 33 34 36 96 97 98
-decl_ent_sal (85)
+lista_d_var (78)
+    en la izquierda: 33 34 35, en la derecha: 11 33 34 41 42 94
+lista_id (79)
+    en la izquierda: 36 37, en la derecha: 33 34 36 97 98 99
+decl_ent_sal (80)
     en la izquierda: 38 39 40, en la derecha: 2
-decl_ent (86)
+decl_ent (81)
     en la izquierda: 41, en la derecha: 38 39
-decl_sal (87)
+decl_sal (82)
     en la izquierda: 42, en la derecha: 39 40
-expresion (88)
-    en la izquierda: 43 44 45, en la derecha: 24 58 62 78 79 82 83
-    86 87 88 91
-exp_a (89)
+expresion (83)
+    en la izquierda: 43 44 45, en la derecha: 24 59 63 79 80 83 84
+    87 88 89 92
+exp_a (84)
     en la izquierda: 46 47 48 49 50 51 52 53, en la derecha: 43 46
     47 48 49 50 53
-exp_b (90)
-    en la izquierda: 54 55 56 57 58 59, en la derecha: 44 54 55 56
-    59
-operando (91)
-    en la izquierda: 60 61 62 63, en la derecha: 51 61 62 63 78
-bloque (92)
-    en la izquierda: 64, en la derecha: 1 90 91
-postcondicion (93)
-    en la izquierda: 65, en la derecha: 1
-finAlgoritmo (94)
+exp_b (85)
+    en la izquierda: 54 55 56 57 58 59 60, en la derecha: 44 54 55
+    56 60
+operando (86)
+    en la izquierda: 61 62 63 64, en la derecha: 51 57 62 63 64 79
+bloque (87)
+    en la izquierda: 65, en la derecha: 1 91 92
+postcondicion (88)
     en la izquierda: 66, en la derecha: 1
-declaraciones (95)
-    en la izquierda: 67 68 69 70, en la derecha: 64 67 68 69
-instrucciones (96)
-    en la izquierda: 71 72, en la derecha: 64 71 79 82 83 88
-instruccion (97)
-    en la izquierda: 73 74 75 76 77, en la derecha: 71 72
-asignacion (98)
-    en la izquierda: 78, en la derecha: 74
-alternativa (99)
+finAlgoritmo (89)
+    en la izquierda: 67, en la derecha: 1
+declaraciones (90)
+    en la izquierda: 68 69 70 71, en la derecha: 65 68 69 70
+instrucciones (91)
+    en la izquierda: 72 73, en la derecha: 65 72 80 83 84 89
+instruccion (92)
+    en la izquierda: 74 75 76 77 78, en la derecha: 72 73
+asignacion (93)
     en la izquierda: 79, en la derecha: 75
-iteracion (100)
-    en la izquierda: 80 81, en la derecha: 76
-it_cota_fija (101)
-    en la izquierda: 82, en la derecha: 80
-it_cota_exp (102)
+alternativa (94)
+    en la izquierda: 80, en la derecha: 76
+iteracion (95)
+    en la izquierda: 81 82, en la derecha: 77
+it_cota_fija (96)
     en la izquierda: 83, en la derecha: 81
-funcion_ll (103)
-    en la izquierda: 84, en la derecha: 45
-accion_ll (104)
-    en la izquierda: 85, en la derecha: 77
-l_ll (105)
-    en la izquierda: 86 87, en la derecha: 84 85 86
-lista_opciones (106)
-    en la izquierda: 88 89, en la derecha: 79 88
-accion_d (107)
-    en la izquierda: 90, en la derecha: 6
-funcion_d (108)
-    en la izquierda: 91, en la derecha: 7
-a_cabecera (109)
-    en la izquierda: 92, en la derecha: 90
-f_cabecera (110)
+it_cota_exp (97)
+    en la izquierda: 84, en la derecha: 82
+funcion_ll (98)
+    en la izquierda: 85, en la derecha: 45
+accion_ll (99)
+    en la izquierda: 86, en la derecha: 78
+l_ll (100)
+    en la izquierda: 87 88, en la derecha: 85 86 87
+lista_opciones (101)
+    en la izquierda: 89 90, en la derecha: 80 89
+accion_d (102)
+    en la izquierda: 91, en la derecha: 6
+funcion_d (103)
+    en la izquierda: 92, en la derecha: 7
+a_cabecera (104)
     en la izquierda: 93, en la derecha: 91
-d_par_form (111)
-    en la izquierda: 94 95, en la derecha: 92 94
-d_p_form (112)
-    en la izquierda: 96 97 98, en la derecha: 94
+f_cabecera (105)
+    en la izquierda: 94, en la derecha: 92
+d_par_form (106)
+    en la izquierda: 95 96, en la derecha: 93 95
+d_p_form (107)
+    en la izquierda: 97 98 99, en la derecha: 95
 
 
 Estado 0
@@ -414,7 +408,7 @@ Estado 8
     RESERVEDWORDtipo   desplazar e ir al estado 7
     RESERVEDWORDvar    desplazar e ir al estado 16
 
-    $default  reduce usando la regla 70 (declaraciones)
+    $default  reduce usando la regla 71 (declaraciones)
 
     declaracion_cte   ir al estado 17
     declaracion_tipo  ir al estado 18
@@ -510,13 +504,13 @@ Estado 16
 
 Estado 17
 
-   68 declaraciones: declaracion_cte . declaraciones
+   69 declaraciones: declaracion_cte . declaraciones
 
     RESERVEDWORDconst  desplazar e ir al estado 6
     RESERVEDWORDtipo   desplazar e ir al estado 7
     RESERVEDWORDvar    desplazar e ir al estado 16
 
-    $default  reduce usando la regla 70 (declaraciones)
+    $default  reduce usando la regla 71 (declaraciones)
 
     declaracion_cte   ir al estado 17
     declaracion_tipo  ir al estado 18
@@ -526,13 +520,13 @@ Estado 17
 
 Estado 18
 
-   67 declaraciones: declaracion_tipo . declaraciones
+   68 declaraciones: declaracion_tipo . declaraciones
 
     RESERVEDWORDconst  desplazar e ir al estado 6
     RESERVEDWORDtipo   desplazar e ir al estado 7
     RESERVEDWORDvar    desplazar e ir al estado 16
 
-    $default  reduce usando la regla 70 (declaraciones)
+    $default  reduce usando la regla 71 (declaraciones)
 
     declaracion_cte   ir al estado 17
     declaracion_tipo  ir al estado 18
@@ -542,13 +536,13 @@ Estado 18
 
 Estado 19
 
-   69 declaraciones: declaracion_var . declaraciones
+   70 declaraciones: declaracion_var . declaraciones
 
     RESERVEDWORDconst  desplazar e ir al estado 6
     RESERVEDWORDtipo   desplazar e ir al estado 7
     RESERVEDWORDvar    desplazar e ir al estado 16
 
-    $default  reduce usando la regla 70 (declaraciones)
+    $default  reduce usando la regla 71 (declaraciones)
 
     declaracion_cte   ir al estado 17
     declaracion_tipo  ir al estado 18
@@ -560,14 +554,14 @@ Estado 20
 
     1 desc_algoritmo: RESERVEDWORDalgoritmo IDENTIFIER OPERATORDOTCOMMA cabecera_alg bloque . postcondicion finAlgoritmo
 
-    COMMENTPOST  desplazar e ir al estado 39
+    COMMENT  desplazar e ir al estado 39
 
     postcondicion  ir al estado 40
 
 
 Estado 21
 
-   64 bloque: declaraciones . instrucciones
+   65 bloque: declaraciones . instrucciones
 
     RESERVEDWORDcontinuar  desplazar e ir al estado 41
     RESERVEDWORDmientras   desplazar e ir al estado 42
@@ -588,7 +582,7 @@ Estado 21
 
 Estado 22
 
-   90 accion_d: RESERVEDWORDaccion . a_cabecera bloque RESERVEDWORDfaccion
+   91 accion_d: RESERVEDWORDaccion . a_cabecera bloque RESERVEDWORDfaccion
 
     IDENTIFIER  desplazar e ir al estado 55
 
@@ -597,7 +591,7 @@ Estado 22
 
 Estado 23
 
-   91 funcion_d: RESERVEDWORDfuncion . f_cabecera bloque RESERVEDWORDdev expresion RESERVEDWORDffuncion
+   92 funcion_d: RESERVEDWORDfuncion . f_cabecera bloque RESERVEDWORDdev expresion RESERVEDWORDffuncion
 
     IDENTIFIER  desplazar e ir al estado 57
 
@@ -741,30 +735,30 @@ Estado 35
 
 Estado 36
 
-   68 declaraciones: declaracion_cte declaraciones .
-
-    $default  reduce usando la regla 68 (declaraciones)
-
-
-Estado 37
-
-   67 declaraciones: declaracion_tipo declaraciones .
-
-    $default  reduce usando la regla 67 (declaraciones)
-
-
-Estado 38
-
-   69 declaraciones: declaracion_var declaraciones .
+   69 declaraciones: declaracion_cte declaraciones .
 
     $default  reduce usando la regla 69 (declaraciones)
 
 
+Estado 37
+
+   68 declaraciones: declaracion_tipo declaraciones .
+
+    $default  reduce usando la regla 68 (declaraciones)
+
+
+Estado 38
+
+   70 declaraciones: declaracion_var declaraciones .
+
+    $default  reduce usando la regla 70 (declaraciones)
+
+
 Estado 39
 
-   65 postcondicion: COMMENTPOST .
+   66 postcondicion: COMMENT .
 
-    $default  reduce usando la regla 65 (postcondicion)
+    $default  reduce usando la regla 66 (postcondicion)
 
 
 Estado 40
@@ -778,14 +772,14 @@ Estado 40
 
 Estado 41
 
-   73 instruccion: RESERVEDWORDcontinuar .
+   74 instruccion: RESERVEDWORDcontinuar .
 
-    $default  reduce usando la regla 73 (instruccion)
+    $default  reduce usando la regla 74 (instruccion)
 
 
 Estado 42
 
-   83 it_cota_exp: RESERVEDWORDmientras . expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfmientras
+   84 it_cota_exp: RESERVEDWORDmientras . expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfmientras
 
     RESERVEDWORDno      desplazar e ir al estado 74
     OPERATORINITPARENT  desplazar e ir al estado 79
@@ -803,14 +797,14 @@ Estado 42
 
 Estado 43
 
-   82 it_cota_fija: RESERVEDWORDpara . IDENTIFIER OPERATORASIGN expresion RESERVEDWORDhasta expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfpara
+   83 it_cota_fija: RESERVEDWORDpara . IDENTIFIER OPERATORASIGN expresion RESERVEDWORDhasta expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfpara
 
     IDENTIFIER  desplazar e ir al estado 100
 
 
 Estado 44
 
-   79 alternativa: RESERVEDWORDsi . expresion OPERATORTHEN instrucciones lista_opciones RESERVEDWORDfsi
+   80 alternativa: RESERVEDWORDsi . expresion OPERATORTHEN instrucciones lista_opciones RESERVEDWORDfsi
 
     RESERVEDWORDno      desplazar e ir al estado 74
     OPERATORINITPARENT  desplazar e ir al estado 79
@@ -828,20 +822,20 @@ Estado 44
 
 Estado 45
 
-   60 operando: IDENTIFIER .
-   85 accion_ll: IDENTIFIER . OPERATORINITPARENT l_ll OPERATORENPARENT
+   61 operando: IDENTIFIER .
+   86 accion_ll: IDENTIFIER . OPERATORINITPARENT l_ll OPERATORENPARENT
 
     OPERATORINITPARENT  desplazar e ir al estado 102
 
-    $default  reduce usando la regla 60 (operando)
+    $default  reduce usando la regla 61 (operando)
 
 
 Estado 46
 
-   61 operando: operando . OPERATORDOT operando
-   62         | operando . OPERATORINITARR expresion OPERATORENDARR
-   63         | operando . RESERVEDWORDref
-   78 asignacion: operando . OPERATORASIGN expresion
+   62 operando: operando . OPERATORDOT operando
+   63         | operando . OPERATORINITARR expresion OPERATORENDARR
+   64         | operando . RESERVEDWORDref
+   79 asignacion: operando . OPERATORASIGN expresion
 
     RESERVEDWORDref  desplazar e ir al estado 103
     OPERATORASIGN    desplazar e ir al estado 104
@@ -851,79 +845,79 @@ Estado 46
 
 Estado 47
 
-   64 bloque: declaraciones instrucciones .
+   65 bloque: declaraciones instrucciones .
 
-    $default  reduce usando la regla 64 (bloque)
+    $default  reduce usando la regla 65 (bloque)
 
 
 Estado 48
 
-   71 instrucciones: instruccion . OPERATORDOTCOMMA instrucciones
-   72              | instruccion .
+   72 instrucciones: instruccion . OPERATORDOTCOMMA instrucciones
+   73              | instruccion .
 
     OPERATORDOTCOMMA  desplazar e ir al estado 107
 
-    $default  reduce usando la regla 72 (instrucciones)
+    $default  reduce usando la regla 73 (instrucciones)
 
 
 Estado 49
 
-   74 instruccion: asignacion .
-
-    $default  reduce usando la regla 74 (instruccion)
-
-
-Estado 50
-
-   75 instruccion: alternativa .
+   75 instruccion: asignacion .
 
     $default  reduce usando la regla 75 (instruccion)
 
 
-Estado 51
+Estado 50
 
-   76 instruccion: iteracion .
+   76 instruccion: alternativa .
 
     $default  reduce usando la regla 76 (instruccion)
 
 
-Estado 52
+Estado 51
 
-   80 iteracion: it_cota_fija .
-
-    $default  reduce usando la regla 80 (iteracion)
-
-
-Estado 53
-
-   81 iteracion: it_cota_exp .
-
-    $default  reduce usando la regla 81 (iteracion)
-
-
-Estado 54
-
-   77 instruccion: accion_ll .
+   77 instruccion: iteracion .
 
     $default  reduce usando la regla 77 (instruccion)
 
 
+Estado 52
+
+   81 iteracion: it_cota_fija .
+
+    $default  reduce usando la regla 81 (iteracion)
+
+
+Estado 53
+
+   82 iteracion: it_cota_exp .
+
+    $default  reduce usando la regla 82 (iteracion)
+
+
+Estado 54
+
+   78 instruccion: accion_ll .
+
+    $default  reduce usando la regla 78 (instruccion)
+
+
 Estado 55
 
-   92 a_cabecera: IDENTIFIER . OPERATORINITPARENT d_par_form OPERATORENPARENT OPERATORDOTCOMMA
+   93 a_cabecera: IDENTIFIER . OPERATORINITPARENT d_par_form OPERATORENPARENT OPERATORDOTCOMMA
 
     OPERATORINITPARENT  desplazar e ir al estado 108
 
 
 Estado 56
 
-   90 accion_d: RESERVEDWORDaccion a_cabecera . bloque RESERVEDWORDfaccion
+   91 accion_d: RESERVEDWORDaccion a_cabecera . bloque RESERVEDWORDfaccion
 
     RESERVEDWORDconst  desplazar e ir al estado 6
     RESERVEDWORDtipo   desplazar e ir al estado 7
     RESERVEDWORDvar    desplazar e ir al estado 16
 
-    $default  reduce usando la regla 70 (declaraciones)
+    $default  reduce usando la regla 71 (declaraciones)
 
     declaracion_cte   ir al estado 17
     declaracion_tipo  ir al estado 18
@@ -934,20 +928,20 @@ Estado 56
 
 Estado 57
 
-   93 f_cabecera: IDENTIFIER . OPERATORINITPARENT lista_d_var OPERATORENPARENT RESERVEDWORDdev d_tipo OPERATORDOTCOMMA
+   94 f_cabecera: IDENTIFIER . OPERATORINITPARENT lista_d_var OPERATORENPARENT RESERVEDWORDdev d_tipo OPERATORDOTCOMMA
 
     OPERATORINITPARENT  desplazar e ir al estado 110
 
 
 Estado 58
 
-   91 funcion_d: RESERVEDWORDfuncion f_cabecera . bloque RESERVEDWORDdev expresion RESERVEDWORDffuncion
+   92 funcion_d: RESERVEDWORDfuncion f_cabecera . bloque RESERVEDWORDdev expresion RESERVEDWORDffuncion
 
     RESERVEDWORDconst  desplazar e ir al estado 6
     RESERVEDWORDtipo   desplazar e ir al estado 7
     RESERVEDWORDvar    desplazar e ir al estado 16
 
-    $default  reduce usando la regla 70 (declaraciones)
+    $default  reduce usando la regla 71 (declaraciones)
 
     declaracion_cte   ir al estado 17
     declaracion_tipo  ir al estado 18
@@ -1151,7 +1145,7 @@ Estado 78
 Estado 79
 
    50 exp_a: OPERATORINITPARENT . exp_a OPERATORENPARENT
-   59 exp_b: OPERATORINITPARENT . exp_b OPERATORENPARENT
+   60 exp_b: OPERATORINITPARENT . exp_b OPERATORENPARENT
 
     RESERVEDWORDno      desplazar e ir al estado 74
     OPERATORINITPARENT  desplazar e ir al estado 79
@@ -1177,14 +1171,14 @@ Estado 80
     REALLIT             desplazar e ir al estado 84
 
     exp_a     ir al estado 130
-    operando  ir al estado 90
+    operando  ir al estado 131
 
 
 Estado 81
 
-   57 exp_b: BOOLEAN .
+   58 exp_b: BOOLEAN .
 
-    $default  reduce usando la regla 57 (exp_b)
+    $default  reduce usando la regla 58 (exp_b)
 
 
 Estado 82
@@ -1197,13 +1191,13 @@ Estado 82
 Estado 83
 
    16 d_tipo: IDENTIFIER .
-   60 operando: IDENTIFIER .
-   84 funcion_ll: IDENTIFIER . OPERATORINITPARENT l_ll OPERATORENPARENT
+   61 operando: IDENTIFIER .
+   85 funcion_ll: IDENTIFIER . OPERATORINITPARENT l_ll OPERATORENPARENT
 
-    OPERATORINITPARENT  desplazar e ir al estado 131
+    OPERATORINITPARENT  desplazar e ir al estado 132
 
     OPERATORDOTCOMMA  reduce usando la regla 16 (d_tipo)
-    $default          reduce usando la regla 60 (operando)
+    $default          reduce usando la regla 61 (operando)
 
 
 Estado 84
@@ -1217,22 +1211,22 @@ Estado 85
 
    12 lista_d_tipo: IDENTIFIER OPERATOREQUAL d_tipo . OPERATORDOTCOMMA lista_d_tipo
 
-    OPERATORDOTCOMMA  desplazar e ir al estado 132
+    OPERATORDOTCOMMA  desplazar e ir al estado 133
 
 
 Estado 86
 
    17 d_tipo: expresion_t . OPERATORDOTDOT expresion_t
 
-    OPERATORDOTDOT  desplazar e ir al estado 133
+    OPERATORDOTDOT  desplazar e ir al estado 134
 
 
 Estado 87
 
    24 expresion_t: expresion .
-   58 exp_b: expresion . COMPOP expresion
+   59 exp_b: expresion . COMPOP expresion
 
-    COMPOP  desplazar e ir al estado 134
+    COMPOP  desplazar e ir al estado 135
 
     $default  reduce usando la regla 24 (expresion_t)
 
@@ -1245,10 +1239,10 @@ Estado 88
    48      | exp_a . RESERVEDWORDmod exp_a
    49      | exp_a . RESERVEDWORDdiv exp_a
 
-    RESERVEDWORDdiv  desplazar e ir al estado 135
-    RESERVEDWORDmod  desplazar e ir al estado 136
-    ARITOP           desplazar e ir al estado 137
-    MINUSOP          desplazar e ir al estado 138
+    RESERVEDWORDdiv  desplazar e ir al estado 136
+    RESERVEDWORDmod  desplazar e ir al estado 137
+    ARITOP           desplazar e ir al estado 138
+    MINUSOP          desplazar e ir al estado 139
 
     $default  reduce usando la regla 43 (expresion)
 
@@ -1259,8 +1253,8 @@ Estado 89
    54 exp_b: exp_b . RESERVEDWORDy exp_b
    55      | exp_b . RESERVEDWORDo exp_b
 
-    RESERVEDWORDo  desplazar e ir al estado 139
-    RESERVEDWORDy  desplazar e ir al estado 140
+    RESERVEDWORDo  desplazar e ir al estado 140
+    RESERVEDWORDy  desplazar e ir al estado 141
 
     RESERVEDWORDo  [reduce usando la regla 44 (expresion)]
     RESERVEDWORDy  [reduce usando la regla 44 (expresion)]
@@ -1270,15 +1264,54 @@ Estado 89
 Estado 90
 
    51 exp_a: operando .
-   61 operando: operando . OPERATORDOT operando
-   62         | operando . OPERATORINITARR expresion OPERATORENDARR
-   63         | operando . RESERVEDWORDref
+   57 exp_b: operando .
+   62 operando: operando . OPERATORDOT operando
+   63         | operando . OPERATORINITARR expresion OPERATORENDARR
+   64         | operando . RESERVEDWORDref
 
     RESERVEDWORDref  desplazar e ir al estado 103
     OPERATORDOT      desplazar e ir al estado 105
     OPERATORINITARR  desplazar e ir al estado 106
 
-    $default  reduce usando la regla 51 (exp_a)
+    RESERVEDWORDdev        reduce usando la regla 51 (exp_a)
+    RESERVEDWORDdev        [reduce usando la regla 57 (exp_b)]
+    RESERVEDWORDfaccion    reduce usando la regla 51 (exp_a)
+    RESERVEDWORDfaccion    [reduce usando la regla 57 (exp_b)]
+    RESERVEDWORDffuncion   reduce usando la regla 51 (exp_a)
+    RESERVEDWORDffuncion   [reduce usando la regla 57 (exp_b)]
+    RESERVEDWORDfmientras  reduce usando la regla 51 (exp_a)
+    RESERVEDWORDfmientras  [reduce usando la regla 57 (exp_b)]
+    RESERVEDWORDfpara      reduce usando la regla 51 (exp_a)
+    RESERVEDWORDfpara      [reduce usando la regla 57 (exp_b)]
+    RESERVEDWORDfsi        reduce usando la regla 51 (exp_a)
+    RESERVEDWORDfsi        [reduce usando la regla 57 (exp_b)]
+    RESERVEDWORDhacer      reduce usando la regla 51 (exp_a)
+    RESERVEDWORDhacer      [reduce usando la regla 57 (exp_b)]
+    RESERVEDWORDhasta      reduce usando la regla 51 (exp_a)
+    RESERVEDWORDhasta      [reduce usando la regla 57 (exp_b)]
+    RESERVEDWORDo          reduce usando la regla 51 (exp_a)
+    RESERVEDWORDo          [reduce usando la regla 57 (exp_b)]
+    RESERVEDWORDy          reduce usando la regla 51 (exp_a)
+    RESERVEDWORDy          [reduce usando la regla 57 (exp_b)]
+    OPERATORDOTCOMMA       reduce usando la regla 51 (exp_a)
+    OPERATORDOTCOMMA       [reduce usando la regla 57 (exp_b)]
+    OPERATORCOMMA          reduce usando la regla 51 (exp_a)
+    OPERATORCOMMA          [reduce usando la regla 57 (exp_b)]
+    OPERATORDOTDOT         reduce usando la regla 51 (exp_a)
+    OPERATORDOTDOT         [reduce usando la regla 57 (exp_b)]
+    OPERATORTHEN           reduce usando la regla 51 (exp_a)
+    OPERATORTHEN           [reduce usando la regla 57 (exp_b)]
+    OPERATORENDARR         reduce usando la regla 51 (exp_a)
+    OPERATORENDARR         [reduce usando la regla 57 (exp_b)]
+    OPERATORINITEND        reduce usando la regla 51 (exp_a)
+    OPERATORINITEND        [reduce usando la regla 57 (exp_b)]
+    OPERATORENPARENT       reduce usando la regla 51 (exp_a)
+    OPERATORENPARENT       [reduce usando la regla 57 (exp_b)]
+    COMPOP                 reduce usando la regla 51 (exp_a)
+    COMPOP                 [reduce usando la regla 57 (exp_b)]
+    COMMENT                reduce usando la regla 51 (exp_a)
+    COMMENT                [reduce usando la regla 57 (exp_b)]
+    $default               reduce usando la regla 51 (exp_a)
 
 
 Estado 91
@@ -1301,14 +1334,14 @@ Estado 93
 
     IDENTIFIER  desplazar e ir al estado 33
 
-    lista_id  ir al estado 141
+    lista_id  ir al estado 142
 
 
 Estado 94
 
    11 declaracion_var: RESERVEDWORDvar lista_d_var RESERVEDWORDfvar . OPERATORDOTCOMMA
 
-    OPERATORDOTCOMMA  desplazar e ir al estado 142
+    OPERATORDOTCOMMA  desplazar e ir al estado 143
 
 
 Estado 95
@@ -1329,10 +1362,10 @@ Estado 95
     MINUSOP               desplazar e ir al estado 80
     BOOLEAN               desplazar e ir al estado 81
     CHARLIT               desplazar e ir al estado 82
-    IDENTIFIER            desplazar e ir al estado 143
+    IDENTIFIER            desplazar e ir al estado 144
     REALLIT               desplazar e ir al estado 84
 
-    d_tipo       ir al estado 144
+    d_tipo       ir al estado 145
     expresion_t  ir al estado 86
     expresion    ir al estado 87
     exp_a        ir al estado 88
@@ -1343,9 +1376,9 @@ Estado 95
 
 Estado 96
 
-   66 finAlgoritmo: RESERVEDWORDfalgoritmo . OPERATORDOT
+   67 finAlgoritmo: RESERVEDWORDfalgoritmo . OPERATORDOT
 
-    OPERATORDOT  desplazar e ir al estado 145
+    OPERATORDOT  desplazar e ir al estado 146
 
 
 Estado 97
@@ -1357,42 +1390,42 @@ Estado 97
 
 Estado 98
 
-   60 operando: IDENTIFIER .
-   84 funcion_ll: IDENTIFIER . OPERATORINITPARENT l_ll OPERATORENPARENT
+   61 operando: IDENTIFIER .
+   85 funcion_ll: IDENTIFIER . OPERATORINITPARENT l_ll OPERATORENPARENT
 
-    OPERATORINITPARENT  desplazar e ir al estado 131
+    OPERATORINITPARENT  desplazar e ir al estado 132
 
-    $default  reduce usando la regla 60 (operando)
+    $default  reduce usando la regla 61 (operando)
 
 
 Estado 99
 
-   58 exp_b: expresion . COMPOP expresion
-   83 it_cota_exp: RESERVEDWORDmientras expresion . RESERVEDWORDhacer instrucciones RESERVEDWORDfmientras
+   59 exp_b: expresion . COMPOP expresion
+   84 it_cota_exp: RESERVEDWORDmientras expresion . RESERVEDWORDhacer instrucciones RESERVEDWORDfmientras
 
-    RESERVEDWORDhacer  desplazar e ir al estado 146
-    COMPOP             desplazar e ir al estado 134
+    RESERVEDWORDhacer  desplazar e ir al estado 147
+    COMPOP             desplazar e ir al estado 135
 
 
 Estado 100
 
-   82 it_cota_fija: RESERVEDWORDpara IDENTIFIER . OPERATORASIGN expresion RESERVEDWORDhasta expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfpara
+   83 it_cota_fija: RESERVEDWORDpara IDENTIFIER . OPERATORASIGN expresion RESERVEDWORDhasta expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfpara
 
-    OPERATORASIGN  desplazar e ir al estado 147
+    OPERATORASIGN  desplazar e ir al estado 148
 
 
 Estado 101
 
-   58 exp_b: expresion . COMPOP expresion
-   79 alternativa: RESERVEDWORDsi expresion . OPERATORTHEN instrucciones lista_opciones RESERVEDWORDfsi
+   59 exp_b: expresion . COMPOP expresion
+   80 alternativa: RESERVEDWORDsi expresion . OPERATORTHEN instrucciones lista_opciones RESERVEDWORDfsi
 
-    OPERATORTHEN  desplazar e ir al estado 148
-    COMPOP        desplazar e ir al estado 134
+    OPERATORTHEN  desplazar e ir al estado 149
+    COMPOP        desplazar e ir al estado 135
 
 
 Estado 102
 
-   85 accion_ll: IDENTIFIER OPERATORINITPARENT . l_ll OPERATORENPARENT
+   86 accion_ll: IDENTIFIER OPERATORINITPARENT . l_ll OPERATORENPARENT
 
     RESERVEDWORDno      desplazar e ir al estado 74
     OPERATORINITPARENT  desplazar e ir al estado 79
@@ -1401,24 +1434,24 @@ Estado 102
     IDENTIFIER          desplazar e ir al estado 98
     REALLIT             desplazar e ir al estado 84
 
-    expresion   ir al estado 149
+    expresion   ir al estado 150
     exp_a       ir al estado 88
     exp_b       ir al estado 89
     operando    ir al estado 90
     funcion_ll  ir al estado 91
-    l_ll        ir al estado 150
+    l_ll        ir al estado 151
 
 
 Estado 103
 
-   63 operando: operando RESERVEDWORDref .
+   64 operando: operando RESERVEDWORDref .
 
-    $default  reduce usando la regla 63 (operando)
+    $default  reduce usando la regla 64 (operando)
 
 
 Estado 104
 
-   78 asignacion: operando OPERATORASIGN . expresion
+   79 asignacion: operando OPERATORASIGN . expresion
 
     RESERVEDWORDno      desplazar e ir al estado 74
     OPERATORINITPARENT  desplazar e ir al estado 79
@@ -1427,7 +1460,7 @@ Estado 104
     IDENTIFIER          desplazar e ir al estado 98
     REALLIT             desplazar e ir al estado 84
 
-    expresion   ir al estado 151
+    expresion   ir al estado 152
     exp_a       ir al estado 88
     exp_b       ir al estado 89
     operando    ir al estado 90
@@ -1436,16 +1469,16 @@ Estado 104
 
 Estado 105
 
-   61 operando: operando OPERATORDOT . operando
+   62 operando: operando OPERATORDOT . operando
 
     IDENTIFIER  desplazar e ir al estado 129
 
-    operando  ir al estado 152
+    operando  ir al estado 153
 
 
 Estado 106
 
-   62 operando: operando OPERATORINITARR . expresion OPERATORENDARR
+   63 operando: operando OPERATORINITARR . expresion OPERATORENDARR
 
     RESERVEDWORDno      desplazar e ir al estado 74
     OPERATORINITPARENT  desplazar e ir al estado 79
@@ -1454,7 +1487,7 @@ Estado 106
     IDENTIFIER          desplazar e ir al estado 98
     REALLIT             desplazar e ir al estado 84
 
-    expresion   ir al estado 153
+    expresion   ir al estado 154
     exp_a       ir al estado 88
     exp_b       ir al estado 89
     operando    ir al estado 90
@@ -1463,7 +1496,7 @@ Estado 106
 
 Estado 107
 
-   71 instrucciones: instruccion OPERATORDOTCOMMA . instrucciones
+   72 instrucciones: instruccion OPERATORDOTCOMMA . instrucciones
 
     RESERVEDWORDcontinuar  desplazar e ir al estado 41
     RESERVEDWORDmientras   desplazar e ir al estado 42
@@ -1472,7 +1505,7 @@ Estado 107
     IDENTIFIER             desplazar e ir al estado 45
 
     operando       ir al estado 46
-    instrucciones  ir al estado 154
+    instrucciones  ir al estado 155
     instruccion    ir al estado 48
     asignacion     ir al estado 49
     alternativa    ir al estado 50
@@ -1484,42 +1517,42 @@ Estado 107
 
 Estado 108
 
-   92 a_cabecera: IDENTIFIER OPERATORINITPARENT . d_par_form OPERATORENPARENT OPERATORDOTCOMMA
+   93 a_cabecera: IDENTIFIER OPERATORINITPARENT . d_par_form OPERATORENPARENT OPERATORDOTCOMMA
 
-    RESERVEDWORDent  desplazar e ir al estado 155
-    RESERVEDWORDes   desplazar e ir al estado 156
-    RESERVEDWORDsal  desplazar e ir al estado 157
+    RESERVEDWORDent  desplazar e ir al estado 156
+    RESERVEDWORDes   desplazar e ir al estado 157
+    RESERVEDWORDsal  desplazar e ir al estado 158
 
-    $default  reduce usando la regla 95 (d_par_form)
+    $default  reduce usando la regla 96 (d_par_form)
 
-    d_par_form  ir al estado 158
-    d_p_form    ir al estado 159
+    d_par_form  ir al estado 159
+    d_p_form    ir al estado 160
 
 
 Estado 109
 
-   90 accion_d: RESERVEDWORDaccion a_cabecera bloque . RESERVEDWORDfaccion
+   91 accion_d: RESERVEDWORDaccion a_cabecera bloque . RESERVEDWORDfaccion
 
-    RESERVEDWORDfaccion  desplazar e ir al estado 160
+    RESERVEDWORDfaccion  desplazar e ir al estado 161
 
 
 Estado 110
 
-   93 f_cabecera: IDENTIFIER OPERATORINITPARENT . lista_d_var OPERATORENPARENT RESERVEDWORDdev d_tipo OPERATORDOTCOMMA
+   94 f_cabecera: IDENTIFIER OPERATORINITPARENT . lista_d_var OPERATORENPARENT RESERVEDWORDdev d_tipo OPERATORDOTCOMMA
 
     IDENTIFIER  desplazar e ir al estado 33
 
     $default  reduce usando la regla 35 (lista_d_var)
 
-    lista_d_var  ir al estado 161
+    lista_d_var  ir al estado 162
     lista_id     ir al estado 35
 
 
 Estado 111
 
-   91 funcion_d: RESERVEDWORDfuncion f_cabecera bloque . RESERVEDWORDdev expresion RESERVEDWORDffuncion
+   92 funcion_d: RESERVEDWORDfuncion f_cabecera bloque . RESERVEDWORDdev expresion RESERVEDWORDffuncion
 
-    RESERVEDWORDdev  desplazar e ir al estado 162
+    RESERVEDWORDdev  desplazar e ir al estado 163
 
 
 Estado 112
@@ -1558,7 +1591,7 @@ Estado 116
 
     $default  reduce usando la regla 32 (lista_d_cte)
 
-    lista_d_cte  ir al estado 163
+    lista_d_cte  ir al estado 164
 
 
 Estado 117
@@ -1569,7 +1602,7 @@ Estado 117
 
     $default  reduce usando la regla 32 (lista_d_cte)
 
-    lista_d_cte  ir al estado 164
+    lista_d_cte  ir al estado 165
 
 
 Estado 118
@@ -1580,7 +1613,7 @@ Estado 118
 
     $default  reduce usando la regla 32 (lista_d_cte)
 
-    lista_d_cte  ir al estado 165
+    lista_d_cte  ir al estado 166
 
 
 Estado 119
@@ -1591,14 +1624,14 @@ Estado 119
 
     $default  reduce usando la regla 32 (lista_d_cte)
 
-    lista_d_cte  ir al estado 166
+    lista_d_cte  ir al estado 167
 
 
 Estado 120
 
-   58 exp_b: expresion . COMPOP expresion
+   59 exp_b: expresion . COMPOP expresion
 
-    COMPOP  desplazar e ir al estado 134
+    COMPOP  desplazar e ir al estado 135
 
 
 Estado 121
@@ -1608,8 +1641,8 @@ Estado 121
    55      | exp_b . RESERVEDWORDo exp_b
    56      | RESERVEDWORDno exp_b .
 
-    RESERVEDWORDo  desplazar e ir al estado 139
-    RESERVEDWORDy  desplazar e ir al estado 140
+    RESERVEDWORDo  desplazar e ir al estado 140
+    RESERVEDWORDy  desplazar e ir al estado 141
 
     RESERVEDWORDo  [reduce usando la regla 56 (exp_b)]
     RESERVEDWORDy  [reduce usando la regla 56 (exp_b)]
@@ -1637,7 +1670,7 @@ Estado 123
     IDENTIFIER          desplazar e ir al estado 98
     REALLIT             desplazar e ir al estado 84
 
-    expresion_t  ir al estado 167
+    expresion_t  ir al estado 168
     expresion    ir al estado 87
     exp_a        ir al estado 88
     exp_b        ir al estado 89
@@ -1649,14 +1682,14 @@ Estado 124
 
    26 lista_campos: IDENTIFIER . OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA lista_campos
 
-    OPERATORDOUBLEDOT  desplazar e ir al estado 168
+    OPERATORDOUBLEDOT  desplazar e ir al estado 169
 
 
 Estado 125
 
    14 d_tipo: RESERVEDWORDtupla lista_campos . RESERVEDWORDftupla
 
-    RESERVEDWORDftupla  desplazar e ir al estado 169
+    RESERVEDWORDftupla  desplazar e ir al estado 170
 
 
 Estado 126
@@ -1668,11 +1701,11 @@ Estado 126
    49      | exp_a . RESERVEDWORDdiv exp_a
    50      | OPERATORINITPARENT exp_a . OPERATORENPARENT
 
-    RESERVEDWORDdiv   desplazar e ir al estado 135
-    RESERVEDWORDmod   desplazar e ir al estado 136
-    OPERATORENPARENT  desplazar e ir al estado 170
-    ARITOP            desplazar e ir al estado 137
-    MINUSOP           desplazar e ir al estado 138
+    RESERVEDWORDdiv   desplazar e ir al estado 136
+    RESERVEDWORDmod   desplazar e ir al estado 137
+    OPERATORENPARENT  desplazar e ir al estado 171
+    ARITOP            desplazar e ir al estado 138
+    MINUSOP           desplazar e ir al estado 139
 
     $default  reduce usando la regla 43 (expresion)
 
@@ -1682,11 +1715,11 @@ Estado 127
    44 expresion: exp_b .
    54 exp_b: exp_b . RESERVEDWORDy exp_b
    55      | exp_b . RESERVEDWORDo exp_b
-   59      | OPERATORINITPARENT exp_b . OPERATORENPARENT
+   60      | OPERATORINITPARENT exp_b . OPERATORENPARENT
 
-    RESERVEDWORDo     desplazar e ir al estado 139
-    RESERVEDWORDy     desplazar e ir al estado 140
-    OPERATORENPARENT  desplazar e ir al estado 171
+    RESERVEDWORDo     desplazar e ir al estado 140
+    RESERVEDWORDy     desplazar e ir al estado 141
+    OPERATORENPARENT  desplazar e ir al estado 172
 
     $default  reduce usando la regla 44 (expresion)
 
@@ -1700,15 +1733,15 @@ Estado 128
     IDENTIFIER          desplazar e ir al estado 129
     REALLIT             desplazar e ir al estado 84
 
-    exp_a     ir al estado 172
-    operando  ir al estado 90
+    exp_a     ir al estado 173
+    operando  ir al estado 131
 
 
 Estado 129
 
-   60 operando: IDENTIFIER .
+   61 operando: IDENTIFIER .
 
-    $default  reduce usando la regla 60 (operando)
+    $default  reduce usando la regla 61 (operando)
 
 
 Estado 130
@@ -1719,10 +1752,10 @@ Estado 130
    49      | exp_a . RESERVEDWORDdiv exp_a
    53      | MINUSOP exp_a .
 
-    RESERVEDWORDdiv  desplazar e ir al estado 135
-    RESERVEDWORDmod  desplazar e ir al estado 136
-    ARITOP           desplazar e ir al estado 137
-    MINUSOP          desplazar e ir al estado 138
+    RESERVEDWORDdiv  desplazar e ir al estado 136
+    RESERVEDWORDmod  desplazar e ir al estado 137
+    ARITOP           desplazar e ir al estado 138
+    MINUSOP          desplazar e ir al estado 139
 
     RESERVEDWORDdiv  [reduce usando la regla 53 (exp_a)]
     RESERVEDWORDmod  [reduce usando la regla 53 (exp_a)]
@@ -1733,7 +1766,21 @@ Estado 130
 
 Estado 131
 
-   84 funcion_ll: IDENTIFIER OPERATORINITPARENT . l_ll OPERATORENPARENT
+   51 exp_a: operando .
+   62 operando: operando . OPERATORDOT operando
+   63         | operando . OPERATORINITARR expresion OPERATORENDARR
+   64         | operando . RESERVEDWORDref
+
+    RESERVEDWORDref  desplazar e ir al estado 103
+    OPERATORDOT      desplazar e ir al estado 105
+    OPERATORINITARR  desplazar e ir al estado 106
+
+    $default  reduce usando la regla 51 (exp_a)
+
+
+Estado 132
+
+   85 funcion_ll: IDENTIFIER OPERATORINITPARENT . l_ll OPERATORENPARENT
 
     RESERVEDWORDno      desplazar e ir al estado 74
     OPERATORINITPARENT  desplazar e ir al estado 79
@@ -1742,15 +1789,15 @@ Estado 131
     IDENTIFIER          desplazar e ir al estado 98
     REALLIT             desplazar e ir al estado 84
 
-    expresion   ir al estado 149
+    expresion   ir al estado 150
     exp_a       ir al estado 88
     exp_b       ir al estado 89
     operando    ir al estado 90
     funcion_ll  ir al estado 91
-    l_ll        ir al estado 173
+    l_ll        ir al estado 174
 
 
-Estado 132
+Estado 133
 
    12 lista_d_tipo: IDENTIFIER OPERATOREQUAL d_tipo OPERATORDOTCOMMA . lista_d_tipo
 
@@ -1758,10 +1805,10 @@ Estado 132
 
     $default  reduce usando la regla 13 (lista_d_tipo)
 
-    lista_d_tipo  ir al estado 174
+    lista_d_tipo  ir al estado 175
 
 
-Estado 133
+Estado 134
 
    17 d_tipo: expresion_t OPERATORDOTDOT . expresion_t
 
@@ -1773,7 +1820,7 @@ Estado 133
     IDENTIFIER          desplazar e ir al estado 98
     REALLIT             desplazar e ir al estado 84
 
-    expresion_t  ir al estado 175
+    expresion_t  ir al estado 176
     expresion    ir al estado 87
     exp_a        ir al estado 88
     exp_b        ir al estado 89
@@ -1781,9 +1828,9 @@ Estado 133
     funcion_ll   ir al estado 91
 
 
-Estado 134
+Estado 135
 
-   58 exp_b: expresion COMPOP . expresion
+   59 exp_b: expresion COMPOP . expresion
 
     RESERVEDWORDno      desplazar e ir al estado 74
     OPERATORINITPARENT  desplazar e ir al estado 79
@@ -1792,14 +1839,14 @@ Estado 134
     IDENTIFIER          desplazar e ir al estado 98
     REALLIT             desplazar e ir al estado 84
 
-    expresion   ir al estado 176
+    expresion   ir al estado 177
     exp_a       ir al estado 88
     exp_b       ir al estado 89
     operando    ir al estado 90
     funcion_ll  ir al estado 91
 
 
-Estado 135
+Estado 136
 
    49 exp_a: exp_a RESERVEDWORDdiv . exp_a
 
@@ -1808,11 +1855,11 @@ Estado 135
     IDENTIFIER          desplazar e ir al estado 129
     REALLIT             desplazar e ir al estado 84
 
-    exp_a     ir al estado 177
-    operando  ir al estado 90
+    exp_a     ir al estado 178
+    operando  ir al estado 131
 
 
-Estado 136
+Estado 137
 
    48 exp_a: exp_a RESERVEDWORDmod . exp_a
 
@@ -1821,11 +1868,11 @@ Estado 136
     IDENTIFIER          desplazar e ir al estado 129
     REALLIT             desplazar e ir al estado 84
 
-    exp_a     ir al estado 178
-    operando  ir al estado 90
+    exp_a     ir al estado 179
+    operando  ir al estado 131
 
 
-Estado 137
+Estado 138
 
    46 exp_a: exp_a ARITOP . exp_a
 
@@ -1834,11 +1881,11 @@ Estado 137
     IDENTIFIER          desplazar e ir al estado 129
     REALLIT             desplazar e ir al estado 84
 
-    exp_a     ir al estado 179
-    operando  ir al estado 90
+    exp_a     ir al estado 180
+    operando  ir al estado 131
 
 
-Estado 138
+Estado 139
 
    47 exp_a: exp_a MINUSOP . exp_a
 
@@ -1847,31 +1894,13 @@ Estado 138
     IDENTIFIER          desplazar e ir al estado 129
     REALLIT             desplazar e ir al estado 84
 
-    exp_a     ir al estado 180
-    operando  ir al estado 90
-
-
-Estado 139
-
-   55 exp_b: exp_b RESERVEDWORDo . exp_b
-
-    RESERVEDWORDno      desplazar e ir al estado 74
-    OPERATORINITPARENT  desplazar e ir al estado 79
-    MINUSOP             desplazar e ir al estado 80
-    BOOLEAN             desplazar e ir al estado 81
-    IDENTIFIER          desplazar e ir al estado 98
-    REALLIT             desplazar e ir al estado 84
-
-    expresion   ir al estado 120
-    exp_a       ir al estado 88
-    exp_b       ir al estado 181
-    operando    ir al estado 90
-    funcion_ll  ir al estado 91
+    exp_a     ir al estado 181
+    operando  ir al estado 131
 
 
 Estado 140
 
-   54 exp_b: exp_b RESERVEDWORDy . exp_b
+   55 exp_b: exp_b RESERVEDWORDo . exp_b
 
     RESERVEDWORDno      desplazar e ir al estado 74
     OPERATORINITPARENT  desplazar e ir al estado 79
@@ -1889,70 +1918,7 @@ Estado 140
 
 Estado 141
 
-   36 lista_id: IDENTIFIER OPERATORCOMMA lista_id .
-
-    $default  reduce usando la regla 36 (lista_id)
-
-
-Estado 142
-
-   11 declaracion_var: RESERVEDWORDvar lista_d_var RESERVEDWORDfvar OPERATORDOTCOMMA .
-
-    $default  reduce usando la regla 11 (declaracion_var)
-
-
-Estado 143
-
-   16 d_tipo: IDENTIFIER .
-   33 lista_d_var: lista_id OPERATORDOUBLEDOT IDENTIFIER . OPERATORDOTCOMMA lista_d_var
-   60 operando: IDENTIFIER .
-   84 funcion_ll: IDENTIFIER . OPERATORINITPARENT l_ll OPERATORENPARENT
-
-    OPERATORDOTCOMMA    desplazar e ir al estado 183
-    OPERATORINITPARENT  desplazar e ir al estado 131
-
-    OPERATORDOTCOMMA  [reduce usando la regla 16 (d_tipo)]
-    $default          reduce usando la regla 60 (operando)
-
-
-Estado 144
-
-   34 lista_d_var: lista_id OPERATORDOUBLEDOT d_tipo . OPERATORDOTCOMMA lista_d_var
-
-    OPERATORDOTCOMMA  desplazar e ir al estado 184
-
-
-Estado 145
-
-   66 finAlgoritmo: RESERVEDWORDfalgoritmo OPERATORDOT .
-
-    $default  reduce usando la regla 66 (finAlgoritmo)
-
-
-Estado 146
-
-   83 it_cota_exp: RESERVEDWORDmientras expresion RESERVEDWORDhacer . instrucciones RESERVEDWORDfmientras
-
-    RESERVEDWORDcontinuar  desplazar e ir al estado 41
-    RESERVEDWORDmientras   desplazar e ir al estado 42
-    RESERVEDWORDpara       desplazar e ir al estado 43
-    RESERVEDWORDsi         desplazar e ir al estado 44
-    IDENTIFIER             desplazar e ir al estado 45
-
-    operando       ir al estado 46
-    instrucciones  ir al estado 185
-    instruccion    ir al estado 48
-    asignacion     ir al estado 49
-    alternativa    ir al estado 50
-    iteracion      ir al estado 51
-    it_cota_fija   ir al estado 52
-    it_cota_exp    ir al estado 53
-    accion_ll      ir al estado 54
-
-
-Estado 147
-
-   82 it_cota_fija: RESERVEDWORDpara IDENTIFIER OPERATORASIGN . expresion RESERVEDWORDhasta expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfpara
+   54 exp_b: exp_b RESERVEDWORDy . exp_b
 
     RESERVEDWORDno      desplazar e ir al estado 74
     OPERATORINITPARENT  desplazar e ir al estado 79
@@ -1961,16 +1927,58 @@ Estado 147
     IDENTIFIER          desplazar e ir al estado 98
     REALLIT             desplazar e ir al estado 84
 
-    expresion   ir al estado 186
+    expresion   ir al estado 120
     exp_a       ir al estado 88
-    exp_b       ir al estado 89
+    exp_b       ir al estado 183
     operando    ir al estado 90
     funcion_ll  ir al estado 91
 
 
-Estado 148
+Estado 142
 
-   79 alternativa: RESERVEDWORDsi expresion OPERATORTHEN . instrucciones lista_opciones RESERVEDWORDfsi
+   36 lista_id: IDENTIFIER OPERATORCOMMA lista_id .
+
+    $default  reduce usando la regla 36 (lista_id)
+
+
+Estado 143
+
+   11 declaracion_var: RESERVEDWORDvar lista_d_var RESERVEDWORDfvar OPERATORDOTCOMMA .
+
+    $default  reduce usando la regla 11 (declaracion_var)
+
+
+Estado 144
+
+   16 d_tipo: IDENTIFIER .
+   33 lista_d_var: lista_id OPERATORDOUBLEDOT IDENTIFIER . OPERATORDOTCOMMA lista_d_var
+   61 operando: IDENTIFIER .
+   85 funcion_ll: IDENTIFIER . OPERATORINITPARENT l_ll OPERATORENPARENT
+
+    OPERATORDOTCOMMA    desplazar e ir al estado 184
+    OPERATORINITPARENT  desplazar e ir al estado 132
+
+    OPERATORDOTCOMMA  [reduce usando la regla 16 (d_tipo)]
+    $default          reduce usando la regla 61 (operando)
+
+
+Estado 145
+
+   34 lista_d_var: lista_id OPERATORDOUBLEDOT d_tipo . OPERATORDOTCOMMA lista_d_var
+
+    OPERATORDOTCOMMA  desplazar e ir al estado 185
+
+
+Estado 146
+
+   67 finAlgoritmo: RESERVEDWORDfalgoritmo OPERATORDOT .
+
+    $default  reduce usando la regla 67 (finAlgoritmo)
+
+
+Estado 147
+
+   84 it_cota_exp: RESERVEDWORDmientras expresion RESERVEDWORDhacer . instrucciones RESERVEDWORDfmientras
 
     RESERVEDWORDcontinuar  desplazar e ir al estado 41
     RESERVEDWORDmientras   desplazar e ir al estado 42
@@ -1979,7 +1987,7 @@ Estado 148
     IDENTIFIER             desplazar e ir al estado 45
 
     operando       ir al estado 46
-    instrucciones  ir al estado 187
+    instrucciones  ir al estado 186
     instruccion    ir al estado 48
     asignacion     ir al estado 49
     alternativa    ir al estado 50
@@ -1989,80 +1997,110 @@ Estado 148
     accion_ll      ir al estado 54
 
 
+Estado 148
+
+   83 it_cota_fija: RESERVEDWORDpara IDENTIFIER OPERATORASIGN . expresion RESERVEDWORDhasta expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfpara
+
+    RESERVEDWORDno      desplazar e ir al estado 74
+    OPERATORINITPARENT  desplazar e ir al estado 79
+    MINUSOP             desplazar e ir al estado 80
+    BOOLEAN             desplazar e ir al estado 81
+    IDENTIFIER          desplazar e ir al estado 98
+    REALLIT             desplazar e ir al estado 84
+
+    expresion   ir al estado 187
+    exp_a       ir al estado 88
+    exp_b       ir al estado 89
+    operando    ir al estado 90
+    funcion_ll  ir al estado 91
+
+
 Estado 149
 
-   58 exp_b: expresion . COMPOP expresion
-   86 l_ll: expresion . OPERATORCOMMA l_ll
-   87     | expresion .
+   80 alternativa: RESERVEDWORDsi expresion OPERATORTHEN . instrucciones lista_opciones RESERVEDWORDfsi
 
-    OPERATORCOMMA  desplazar e ir al estado 188
-    COMPOP         desplazar e ir al estado 134
+    RESERVEDWORDcontinuar  desplazar e ir al estado 41
+    RESERVEDWORDmientras   desplazar e ir al estado 42
+    RESERVEDWORDpara       desplazar e ir al estado 43
+    RESERVEDWORDsi         desplazar e ir al estado 44
+    IDENTIFIER             desplazar e ir al estado 45
 
-    $default  reduce usando la regla 87 (l_ll)
+    operando       ir al estado 46
+    instrucciones  ir al estado 188
+    instruccion    ir al estado 48
+    asignacion     ir al estado 49
+    alternativa    ir al estado 50
+    iteracion      ir al estado 51
+    it_cota_fija   ir al estado 52
+    it_cota_exp    ir al estado 53
+    accion_ll      ir al estado 54
 
 
 Estado 150
 
-   85 accion_ll: IDENTIFIER OPERATORINITPARENT l_ll . OPERATORENPARENT
+   59 exp_b: expresion . COMPOP expresion
+   87 l_ll: expresion . OPERATORCOMMA l_ll
+   88     | expresion .
 
-    OPERATORENPARENT  desplazar e ir al estado 189
+    OPERATORCOMMA  desplazar e ir al estado 189
+    COMPOP         desplazar e ir al estado 135
+
+    $default  reduce usando la regla 88 (l_ll)
 
 
 Estado 151
 
-   58 exp_b: expresion . COMPOP expresion
-   78 asignacion: operando OPERATORASIGN expresion .
+   86 accion_ll: IDENTIFIER OPERATORINITPARENT l_ll . OPERATORENPARENT
 
-    COMPOP  desplazar e ir al estado 134
-
-    $default  reduce usando la regla 78 (asignacion)
+    OPERATORENPARENT  desplazar e ir al estado 190
 
 
 Estado 152
 
-   61 operando: operando . OPERATORDOT operando
-   61         | operando OPERATORDOT operando .
-   62         | operando . OPERATORINITARR expresion OPERATORENDARR
-   63         | operando . RESERVEDWORDref
+   59 exp_b: expresion . COMPOP expresion
+   79 asignacion: operando OPERATORASIGN expresion .
+
+    COMPOP  desplazar e ir al estado 135
+
+    $default  reduce usando la regla 79 (asignacion)
+
+
+Estado 153
+
+   62 operando: operando . OPERATORDOT operando
+   62         | operando OPERATORDOT operando .
+   63         | operando . OPERATORINITARR expresion OPERATORENDARR
+   64         | operando . RESERVEDWORDref
 
     RESERVEDWORDref  desplazar e ir al estado 103
     OPERATORDOT      desplazar e ir al estado 105
     OPERATORINITARR  desplazar e ir al estado 106
 
-    RESERVEDWORDref  [reduce usando la regla 61 (operando)]
-    OPERATORDOT      [reduce usando la regla 61 (operando)]
-    OPERATORINITARR  [reduce usando la regla 61 (operando)]
-    $default         reduce usando la regla 61 (operando)
-
-
-Estado 153
-
-   58 exp_b: expresion . COMPOP expresion
-   62 operando: operando OPERATORINITARR expresion . OPERATORENDARR
-
-    OPERATORENDARR  desplazar e ir al estado 190
-    COMPOP          desplazar e ir al estado 134
+    RESERVEDWORDref  [reduce usando la regla 62 (operando)]
+    OPERATORDOT      [reduce usando la regla 62 (operando)]
+    OPERATORINITARR  [reduce usando la regla 62 (operando)]
+    $default         reduce usando la regla 62 (operando)
 
 
 Estado 154
 
-   71 instrucciones: instruccion OPERATORDOTCOMMA instrucciones .
+   59 exp_b: expresion . COMPOP expresion
+   63 operando: operando OPERATORINITARR expresion . OPERATORENDARR
 
-    $default  reduce usando la regla 71 (instrucciones)
+    OPERATORENDARR  desplazar e ir al estado 191
+    COMPOP          desplazar e ir al estado 135
 
 
 Estado 155
 
-   96 d_p_form: RESERVEDWORDent . lista_id OPERATORDOUBLEDOT d_tipo
+   72 instrucciones: instruccion OPERATORDOTCOMMA instrucciones .
 
-    IDENTIFIER  desplazar e ir al estado 33
-
-    lista_id  ir al estado 191
+    $default  reduce usando la regla 72 (instrucciones)
 
 
 Estado 156
 
-   98 d_p_form: RESERVEDWORDes . lista_id OPERATORDOUBLEDOT d_tipo
+   97 d_p_form: RESERVEDWORDent . lista_id OPERATORDOUBLEDOT d_tipo
 
     IDENTIFIER  desplazar e ir al estado 33
 
@@ -2071,7 +2109,7 @@ Estado 156
 
 Estado 157
 
-   97 d_p_form: RESERVEDWORDsal . lista_id OPERATORDOUBLEDOT d_tipo
+   99 d_p_form: RESERVEDWORDes . lista_id OPERATORDOUBLEDOT d_tipo
 
     IDENTIFIER  desplazar e ir al estado 33
 
@@ -2080,35 +2118,44 @@ Estado 157
 
 Estado 158
 
-   92 a_cabecera: IDENTIFIER OPERATORINITPARENT d_par_form . OPERATORENPARENT OPERATORDOTCOMMA
+   98 d_p_form: RESERVEDWORDsal . lista_id OPERATORDOUBLEDOT d_tipo
 
-    OPERATORENPARENT  desplazar e ir al estado 194
+    IDENTIFIER  desplazar e ir al estado 33
+
+    lista_id  ir al estado 194
 
 
 Estado 159
 
-   94 d_par_form: d_p_form . OPERATORDOTCOMMA d_par_form
+   93 a_cabecera: IDENTIFIER OPERATORINITPARENT d_par_form . OPERATORENPARENT OPERATORDOTCOMMA
 
-    OPERATORDOTCOMMA  desplazar e ir al estado 195
+    OPERATORENPARENT  desplazar e ir al estado 195
 
 
 Estado 160
 
-   90 accion_d: RESERVEDWORDaccion a_cabecera bloque RESERVEDWORDfaccion .
+   95 d_par_form: d_p_form . OPERATORDOTCOMMA d_par_form
 
-    $default  reduce usando la regla 90 (accion_d)
+    OPERATORDOTCOMMA  desplazar e ir al estado 196
 
 
 Estado 161
 
-   93 f_cabecera: IDENTIFIER OPERATORINITPARENT lista_d_var . OPERATORENPARENT RESERVEDWORDdev d_tipo OPERATORDOTCOMMA
+   91 accion_d: RESERVEDWORDaccion a_cabecera bloque RESERVEDWORDfaccion .
 
-    OPERATORENPARENT  desplazar e ir al estado 196
+    $default  reduce usando la regla 91 (accion_d)
 
 
 Estado 162
 
-   91 funcion_d: RESERVEDWORDfuncion f_cabecera bloque RESERVEDWORDdev . expresion RESERVEDWORDffuncion
+   94 f_cabecera: IDENTIFIER OPERATORINITPARENT lista_d_var . OPERATORENPARENT RESERVEDWORDdev d_tipo OPERATORDOTCOMMA
+
+    OPERATORENPARENT  desplazar e ir al estado 197
+
+
+Estado 163
+
+   92 funcion_d: RESERVEDWORDfuncion f_cabecera bloque RESERVEDWORDdev . expresion RESERVEDWORDffuncion
 
     RESERVEDWORDno      desplazar e ir al estado 74
     OPERATORINITPARENT  desplazar e ir al estado 79
@@ -2117,49 +2164,49 @@ Estado 162
     IDENTIFIER          desplazar e ir al estado 98
     REALLIT             desplazar e ir al estado 84
 
-    expresion   ir al estado 197
+    expresion   ir al estado 198
     exp_a       ir al estado 88
     exp_b       ir al estado 89
     operando    ir al estado 90
     funcion_ll  ir al estado 91
 
 
-Estado 163
+Estado 164
 
    31 lista_d_cte: IDENTIFIER OPERATOREQUAL BOOLEAN OPERATORDOTCOMMA lista_d_cte .
 
     $default  reduce usando la regla 31 (lista_d_cte)
 
 
-Estado 164
+Estado 165
 
    30 lista_d_cte: IDENTIFIER OPERATOREQUAL CHARLIT OPERATORDOTCOMMA lista_d_cte .
 
     $default  reduce usando la regla 30 (lista_d_cte)
 
 
-Estado 165
+Estado 166
 
    29 lista_d_cte: IDENTIFIER OPERATOREQUAL REALLIT OPERATORDOTCOMMA lista_d_cte .
 
     $default  reduce usando la regla 29 (lista_d_cte)
 
 
-Estado 166
+Estado 167
 
    28 lista_d_cte: IDENTIFIER OPERATOREQUAL INTLIT OPERATORDOTCOMMA lista_d_cte .
 
     $default  reduce usando la regla 28 (lista_d_cte)
 
 
-Estado 167
+Estado 168
 
    15 d_tipo: RESERVEDWORDtabla OPERATORINITARR expresion_t . OPERATORDOTDOT expresion_t OPERATORENDARR RESERVEDWORDde d_tipo
 
-    OPERATORDOTDOT  desplazar e ir al estado 198
+    OPERATORDOTDOT  desplazar e ir al estado 199
 
 
-Estado 168
+Estado 169
 
    26 lista_campos: IDENTIFIER OPERATORDOUBLEDOT . d_tipo OPERATORDOTCOMMA lista_campos
 
@@ -2179,7 +2226,7 @@ Estado 168
     IDENTIFIER            desplazar e ir al estado 83
     REALLIT               desplazar e ir al estado 84
 
-    d_tipo       ir al estado 199
+    d_tipo       ir al estado 200
     expresion_t  ir al estado 86
     expresion    ir al estado 87
     exp_a        ir al estado 88
@@ -2188,28 +2235,28 @@ Estado 168
     funcion_ll   ir al estado 91
 
 
-Estado 169
+Estado 170
 
    14 d_tipo: RESERVEDWORDtupla lista_campos RESERVEDWORDftupla .
 
     $default  reduce usando la regla 14 (d_tipo)
 
 
-Estado 170
+Estado 171
 
    50 exp_a: OPERATORINITPARENT exp_a OPERATORENPARENT .
 
     $default  reduce usando la regla 50 (exp_a)
 
 
-Estado 171
-
-   59 exp_b: OPERATORINITPARENT exp_b OPERATORENPARENT .
-
-    $default  reduce usando la regla 59 (exp_b)
-
-
 Estado 172
+
+   60 exp_b: OPERATORINITPARENT exp_b OPERATORENPARENT .
+
+    $default  reduce usando la regla 60 (exp_b)
+
+
+Estado 173
 
    46 exp_a: exp_a . ARITOP exp_a
    47      | exp_a . MINUSOP exp_a
@@ -2217,46 +2264,46 @@ Estado 172
    49      | exp_a . RESERVEDWORDdiv exp_a
    50      | OPERATORINITPARENT exp_a . OPERATORENPARENT
 
-    RESERVEDWORDdiv   desplazar e ir al estado 135
-    RESERVEDWORDmod   desplazar e ir al estado 136
-    OPERATORENPARENT  desplazar e ir al estado 170
-    ARITOP            desplazar e ir al estado 137
-    MINUSOP           desplazar e ir al estado 138
-
-
-Estado 173
-
-   84 funcion_ll: IDENTIFIER OPERATORINITPARENT l_ll . OPERATORENPARENT
-
-    OPERATORENPARENT  desplazar e ir al estado 200
+    RESERVEDWORDdiv   desplazar e ir al estado 136
+    RESERVEDWORDmod   desplazar e ir al estado 137
+    OPERATORENPARENT  desplazar e ir al estado 171
+    ARITOP            desplazar e ir al estado 138
+    MINUSOP           desplazar e ir al estado 139
 
 
 Estado 174
+
+   85 funcion_ll: IDENTIFIER OPERATORINITPARENT l_ll . OPERATORENPARENT
+
+    OPERATORENPARENT  desplazar e ir al estado 201
+
+
+Estado 175
 
    12 lista_d_tipo: IDENTIFIER OPERATOREQUAL d_tipo OPERATORDOTCOMMA lista_d_tipo .
 
     $default  reduce usando la regla 12 (lista_d_tipo)
 
 
-Estado 175
+Estado 176
 
    17 d_tipo: expresion_t OPERATORDOTDOT expresion_t .
 
     $default  reduce usando la regla 17 (d_tipo)
 
 
-Estado 176
-
-   58 exp_b: expresion . COMPOP expresion
-   58      | expresion COMPOP expresion .
-
-    COMPOP  desplazar e ir al estado 134
-
-    COMPOP    [reduce usando la regla 58 (exp_b)]
-    $default  reduce usando la regla 58 (exp_b)
-
-
 Estado 177
+
+   59 exp_b: expresion . COMPOP expresion
+   59      | expresion COMPOP expresion .
+
+    COMPOP  desplazar e ir al estado 135
+
+    COMPOP    [reduce usando la regla 59 (exp_b)]
+    $default  reduce usando la regla 59 (exp_b)
+
+
+Estado 178
 
    46 exp_a: exp_a . ARITOP exp_a
    47      | exp_a . MINUSOP exp_a
@@ -2264,10 +2311,10 @@ Estado 177
    49      | exp_a . RESERVEDWORDdiv exp_a
    49      | exp_a RESERVEDWORDdiv exp_a .
 
-    RESERVEDWORDdiv  desplazar e ir al estado 135
-    RESERVEDWORDmod  desplazar e ir al estado 136
-    ARITOP           desplazar e ir al estado 137
-    MINUSOP          desplazar e ir al estado 138
+    RESERVEDWORDdiv  desplazar e ir al estado 136
+    RESERVEDWORDmod  desplazar e ir al estado 137
+    ARITOP           desplazar e ir al estado 138
+    MINUSOP          desplazar e ir al estado 139
 
     RESERVEDWORDdiv  [reduce usando la regla 49 (exp_a)]
     RESERVEDWORDmod  [reduce usando la regla 49 (exp_a)]
@@ -2276,7 +2323,7 @@ Estado 177
     $default         reduce usando la regla 49 (exp_a)
 
 
-Estado 178
+Estado 179
 
    46 exp_a: exp_a . ARITOP exp_a
    47      | exp_a . MINUSOP exp_a
@@ -2284,10 +2331,10 @@ Estado 178
    48      | exp_a RESERVEDWORDmod exp_a .
    49      | exp_a . RESERVEDWORDdiv exp_a
 
-    RESERVEDWORDdiv  desplazar e ir al estado 135
-    RESERVEDWORDmod  desplazar e ir al estado 136
-    ARITOP           desplazar e ir al estado 137
-    MINUSOP          desplazar e ir al estado 138
+    RESERVEDWORDdiv  desplazar e ir al estado 136
+    RESERVEDWORDmod  desplazar e ir al estado 137
+    ARITOP           desplazar e ir al estado 138
+    MINUSOP          desplazar e ir al estado 139
 
     RESERVEDWORDdiv  [reduce usando la regla 48 (exp_a)]
     RESERVEDWORDmod  [reduce usando la regla 48 (exp_a)]
@@ -2296,7 +2343,7 @@ Estado 178
     $default         reduce usando la regla 48 (exp_a)
 
 
-Estado 179
+Estado 180
 
    46 exp_a: exp_a . ARITOP exp_a
    46      | exp_a ARITOP exp_a .
@@ -2304,10 +2351,10 @@ Estado 179
    48      | exp_a . RESERVEDWORDmod exp_a
    49      | exp_a . RESERVEDWORDdiv exp_a
 
-    RESERVEDWORDdiv  desplazar e ir al estado 135
-    RESERVEDWORDmod  desplazar e ir al estado 136
-    ARITOP           desplazar e ir al estado 137
-    MINUSOP          desplazar e ir al estado 138
+    RESERVEDWORDdiv  desplazar e ir al estado 136
+    RESERVEDWORDmod  desplazar e ir al estado 137
+    ARITOP           desplazar e ir al estado 138
+    MINUSOP          desplazar e ir al estado 139
 
     RESERVEDWORDdiv  [reduce usando la regla 46 (exp_a)]
     RESERVEDWORDmod  [reduce usando la regla 46 (exp_a)]
@@ -2316,7 +2363,7 @@ Estado 179
     $default         reduce usando la regla 46 (exp_a)
 
 
-Estado 180
+Estado 181
 
    46 exp_a: exp_a . ARITOP exp_a
    47      | exp_a . MINUSOP exp_a
@@ -2324,10 +2371,10 @@ Estado 180
    48      | exp_a . RESERVEDWORDmod exp_a
    49      | exp_a . RESERVEDWORDdiv exp_a
 
-    RESERVEDWORDdiv  desplazar e ir al estado 135
-    RESERVEDWORDmod  desplazar e ir al estado 136
-    ARITOP           desplazar e ir al estado 137
-    MINUSOP          desplazar e ir al estado 138
+    RESERVEDWORDdiv  desplazar e ir al estado 136
+    RESERVEDWORDmod  desplazar e ir al estado 137
+    ARITOP           desplazar e ir al estado 138
+    MINUSOP          desplazar e ir al estado 139
 
     RESERVEDWORDdiv  [reduce usando la regla 47 (exp_a)]
     RESERVEDWORDmod  [reduce usando la regla 47 (exp_a)]
@@ -2336,15 +2383,15 @@ Estado 180
     $default         reduce usando la regla 47 (exp_a)
 
 
-Estado 181
+Estado 182
 
    44 expresion: exp_b .
    54 exp_b: exp_b . RESERVEDWORDy exp_b
    55      | exp_b . RESERVEDWORDo exp_b
    55      | exp_b RESERVEDWORDo exp_b .
 
-    RESERVEDWORDo  desplazar e ir al estado 139
-    RESERVEDWORDy  desplazar e ir al estado 140
+    RESERVEDWORDo  desplazar e ir al estado 140
+    RESERVEDWORDy  desplazar e ir al estado 141
 
     RESERVEDWORDo  [reduce usando la regla 55 (exp_b)]
     RESERVEDWORDy  [reduce usando la regla 55 (exp_b)]
@@ -2353,15 +2400,15 @@ Estado 181
     $default       reduce usando la regla 55 (exp_b)
 
 
-Estado 182
+Estado 183
 
    44 expresion: exp_b .
    54 exp_b: exp_b . RESERVEDWORDy exp_b
    54      | exp_b RESERVEDWORDy exp_b .
    55      | exp_b . RESERVEDWORDo exp_b
 
-    RESERVEDWORDo  desplazar e ir al estado 139
-    RESERVEDWORDy  desplazar e ir al estado 140
+    RESERVEDWORDo  desplazar e ir al estado 140
+    RESERVEDWORDy  desplazar e ir al estado 141
 
     RESERVEDWORDo  [reduce usando la regla 54 (exp_b)]
     RESERVEDWORDy  [reduce usando la regla 54 (exp_b)]
@@ -2370,21 +2417,9 @@ Estado 182
     $default       reduce usando la regla 54 (exp_b)
 
 
-Estado 183
-
-   33 lista_d_var: lista_id OPERATORDOUBLEDOT IDENTIFIER OPERATORDOTCOMMA . lista_d_var
-
-    IDENTIFIER  desplazar e ir al estado 33
-
-    $default  reduce usando la regla 35 (lista_d_var)
-
-    lista_d_var  ir al estado 201
-    lista_id     ir al estado 35
-
-
 Estado 184
 
-   34 lista_d_var: lista_id OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA . lista_d_var
+   33 lista_d_var: lista_id OPERATORDOUBLEDOT IDENTIFIER OPERATORDOTCOMMA . lista_d_var
 
     IDENTIFIER  desplazar e ir al estado 33
 
@@ -2396,34 +2431,46 @@ Estado 184
 
 Estado 185
 
-   83 it_cota_exp: RESERVEDWORDmientras expresion RESERVEDWORDhacer instrucciones . RESERVEDWORDfmientras
+   34 lista_d_var: lista_id OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA . lista_d_var
 
-    RESERVEDWORDfmientras  desplazar e ir al estado 203
+    IDENTIFIER  desplazar e ir al estado 33
+
+    $default  reduce usando la regla 35 (lista_d_var)
+
+    lista_d_var  ir al estado 203
+    lista_id     ir al estado 35
 
 
 Estado 186
 
-   58 exp_b: expresion . COMPOP expresion
-   82 it_cota_fija: RESERVEDWORDpara IDENTIFIER OPERATORASIGN expresion . RESERVEDWORDhasta expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfpara
+   84 it_cota_exp: RESERVEDWORDmientras expresion RESERVEDWORDhacer instrucciones . RESERVEDWORDfmientras
 
-    RESERVEDWORDhasta  desplazar e ir al estado 204
-    COMPOP             desplazar e ir al estado 134
+    RESERVEDWORDfmientras  desplazar e ir al estado 204
 
 
 Estado 187
 
-   79 alternativa: RESERVEDWORDsi expresion OPERATORTHEN instrucciones . lista_opciones RESERVEDWORDfsi
+   59 exp_b: expresion . COMPOP expresion
+   83 it_cota_fija: RESERVEDWORDpara IDENTIFIER OPERATORASIGN expresion . RESERVEDWORDhasta expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfpara
 
-    OPERATORINITEND  desplazar e ir al estado 205
-
-    $default  reduce usando la regla 89 (lista_opciones)
-
-    lista_opciones  ir al estado 206
+    RESERVEDWORDhasta  desplazar e ir al estado 205
+    COMPOP             desplazar e ir al estado 135
 
 
 Estado 188
 
-   86 l_ll: expresion OPERATORCOMMA . l_ll
+   80 alternativa: RESERVEDWORDsi expresion OPERATORTHEN instrucciones . lista_opciones RESERVEDWORDfsi
+
+    OPERATORINITEND  desplazar e ir al estado 206
+
+    $default  reduce usando la regla 90 (lista_opciones)
+
+    lista_opciones  ir al estado 207
+
+
+Estado 189
+
+   87 l_ll: expresion OPERATORCOMMA . l_ll
 
     RESERVEDWORDno      desplazar e ir al estado 74
     OPERATORINITPARENT  desplazar e ir al estado 79
@@ -2432,87 +2479,87 @@ Estado 188
     IDENTIFIER          desplazar e ir al estado 98
     REALLIT             desplazar e ir al estado 84
 
-    expresion   ir al estado 149
+    expresion   ir al estado 150
     exp_a       ir al estado 88
     exp_b       ir al estado 89
     operando    ir al estado 90
     funcion_ll  ir al estado 91
-    l_ll        ir al estado 207
-
-
-Estado 189
-
-   85 accion_ll: IDENTIFIER OPERATORINITPARENT l_ll OPERATORENPARENT .
-
-    $default  reduce usando la regla 85 (accion_ll)
+    l_ll        ir al estado 208
 
 
 Estado 190
 
-   62 operando: operando OPERATORINITARR expresion OPERATORENDARR .
+   86 accion_ll: IDENTIFIER OPERATORINITPARENT l_ll OPERATORENPARENT .
 
-    $default  reduce usando la regla 62 (operando)
+    $default  reduce usando la regla 86 (accion_ll)
 
 
 Estado 191
 
-   96 d_p_form: RESERVEDWORDent lista_id . OPERATORDOUBLEDOT d_tipo
+   63 operando: operando OPERATORINITARR expresion OPERATORENDARR .
 
-    OPERATORDOUBLEDOT  desplazar e ir al estado 208
+    $default  reduce usando la regla 63 (operando)
 
 
 Estado 192
 
-   98 d_p_form: RESERVEDWORDes lista_id . OPERATORDOUBLEDOT d_tipo
+   97 d_p_form: RESERVEDWORDent lista_id . OPERATORDOUBLEDOT d_tipo
 
     OPERATORDOUBLEDOT  desplazar e ir al estado 209
 
 
 Estado 193
 
-   97 d_p_form: RESERVEDWORDsal lista_id . OPERATORDOUBLEDOT d_tipo
+   99 d_p_form: RESERVEDWORDes lista_id . OPERATORDOUBLEDOT d_tipo
 
     OPERATORDOUBLEDOT  desplazar e ir al estado 210
 
 
 Estado 194
 
-   92 a_cabecera: IDENTIFIER OPERATORINITPARENT d_par_form OPERATORENPARENT . OPERATORDOTCOMMA
+   98 d_p_form: RESERVEDWORDsal lista_id . OPERATORDOUBLEDOT d_tipo
 
-    OPERATORDOTCOMMA  desplazar e ir al estado 211
+    OPERATORDOUBLEDOT  desplazar e ir al estado 211
 
 
 Estado 195
 
-   94 d_par_form: d_p_form OPERATORDOTCOMMA . d_par_form
+   93 a_cabecera: IDENTIFIER OPERATORINITPARENT d_par_form OPERATORENPARENT . OPERATORDOTCOMMA
 
-    RESERVEDWORDent  desplazar e ir al estado 155
-    RESERVEDWORDes   desplazar e ir al estado 156
-    RESERVEDWORDsal  desplazar e ir al estado 157
-
-    $default  reduce usando la regla 95 (d_par_form)
-
-    d_par_form  ir al estado 212
-    d_p_form    ir al estado 159
+    OPERATORDOTCOMMA  desplazar e ir al estado 212
 
 
 Estado 196
 
-   93 f_cabecera: IDENTIFIER OPERATORINITPARENT lista_d_var OPERATORENPARENT . RESERVEDWORDdev d_tipo OPERATORDOTCOMMA
+   95 d_par_form: d_p_form OPERATORDOTCOMMA . d_par_form
 
-    RESERVEDWORDdev  desplazar e ir al estado 213
+    RESERVEDWORDent  desplazar e ir al estado 156
+    RESERVEDWORDes   desplazar e ir al estado 157
+    RESERVEDWORDsal  desplazar e ir al estado 158
+
+    $default  reduce usando la regla 96 (d_par_form)
+
+    d_par_form  ir al estado 213
+    d_p_form    ir al estado 160
 
 
 Estado 197
 
-   58 exp_b: expresion . COMPOP expresion
-   91 funcion_d: RESERVEDWORDfuncion f_cabecera bloque RESERVEDWORDdev expresion . RESERVEDWORDffuncion
+   94 f_cabecera: IDENTIFIER OPERATORINITPARENT lista_d_var OPERATORENPARENT . RESERVEDWORDdev d_tipo OPERATORDOTCOMMA
 
-    RESERVEDWORDffuncion  desplazar e ir al estado 214
-    COMPOP                desplazar e ir al estado 134
+    RESERVEDWORDdev  desplazar e ir al estado 214
 
 
 Estado 198
+
+   59 exp_b: expresion . COMPOP expresion
+   92 funcion_d: RESERVEDWORDfuncion f_cabecera bloque RESERVEDWORDdev expresion . RESERVEDWORDffuncion
+
+    RESERVEDWORDffuncion  desplazar e ir al estado 215
+    COMPOP                desplazar e ir al estado 135
+
+
+Estado 199
 
    15 d_tipo: RESERVEDWORDtabla OPERATORINITARR expresion_t OPERATORDOTDOT . expresion_t OPERATORENDARR RESERVEDWORDde d_tipo
 
@@ -2524,7 +2571,7 @@ Estado 198
     IDENTIFIER          desplazar e ir al estado 98
     REALLIT             desplazar e ir al estado 84
 
-    expresion_t  ir al estado 215
+    expresion_t  ir al estado 216
     expresion    ir al estado 87
     exp_a        ir al estado 88
     exp_b        ir al estado 89
@@ -2532,62 +2579,44 @@ Estado 198
     funcion_ll   ir al estado 91
 
 
-Estado 199
+Estado 200
 
    26 lista_campos: IDENTIFIER OPERATORDOUBLEDOT d_tipo . OPERATORDOTCOMMA lista_campos
 
-    OPERATORDOTCOMMA  desplazar e ir al estado 216
-
-
-Estado 200
-
-   84 funcion_ll: IDENTIFIER OPERATORINITPARENT l_ll OPERATORENPARENT .
-
-    $default  reduce usando la regla 84 (funcion_ll)
+    OPERATORDOTCOMMA  desplazar e ir al estado 217
 
 
 Estado 201
+
+   85 funcion_ll: IDENTIFIER OPERATORINITPARENT l_ll OPERATORENPARENT .
+
+    $default  reduce usando la regla 85 (funcion_ll)
+
+
+Estado 202
 
    33 lista_d_var: lista_id OPERATORDOUBLEDOT IDENTIFIER OPERATORDOTCOMMA lista_d_var .
 
     $default  reduce usando la regla 33 (lista_d_var)
 
 
-Estado 202
+Estado 203
 
    34 lista_d_var: lista_id OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA lista_d_var .
 
     $default  reduce usando la regla 34 (lista_d_var)
 
 
-Estado 203
-
-   83 it_cota_exp: RESERVEDWORDmientras expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfmientras .
-
-    $default  reduce usando la regla 83 (it_cota_exp)
-
-
 Estado 204
 
-   82 it_cota_fija: RESERVEDWORDpara IDENTIFIER OPERATORASIGN expresion RESERVEDWORDhasta . expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfpara
+   84 it_cota_exp: RESERVEDWORDmientras expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfmientras .
 
-    RESERVEDWORDno      desplazar e ir al estado 74
-    OPERATORINITPARENT  desplazar e ir al estado 79
-    MINUSOP             desplazar e ir al estado 80
-    BOOLEAN             desplazar e ir al estado 81
-    IDENTIFIER          desplazar e ir al estado 98
-    REALLIT             desplazar e ir al estado 84
-
-    expresion   ir al estado 217
-    exp_a       ir al estado 88
-    exp_b       ir al estado 89
-    operando    ir al estado 90
-    funcion_ll  ir al estado 91
+    $default  reduce usando la regla 84 (it_cota_exp)
 
 
 Estado 205
 
-   88 lista_opciones: OPERATORINITEND . expresion OPERATORTHEN instrucciones lista_opciones
+   83 it_cota_fija: RESERVEDWORDpara IDENTIFIER OPERATORASIGN expresion RESERVEDWORDhasta . expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfpara
 
     RESERVEDWORDno      desplazar e ir al estado 74
     OPERATORINITPARENT  desplazar e ir al estado 79
@@ -2605,50 +2634,39 @@ Estado 205
 
 Estado 206
 
-   79 alternativa: RESERVEDWORDsi expresion OPERATORTHEN instrucciones lista_opciones . RESERVEDWORDfsi
+   89 lista_opciones: OPERATORINITEND . expresion OPERATORTHEN instrucciones lista_opciones
 
-    RESERVEDWORDfsi  desplazar e ir al estado 219
+    RESERVEDWORDno      desplazar e ir al estado 74
+    OPERATORINITPARENT  desplazar e ir al estado 79
+    MINUSOP             desplazar e ir al estado 80
+    BOOLEAN             desplazar e ir al estado 81
+    IDENTIFIER          desplazar e ir al estado 98
+    REALLIT             desplazar e ir al estado 84
+
+    expresion   ir al estado 219
+    exp_a       ir al estado 88
+    exp_b       ir al estado 89
+    operando    ir al estado 90
+    funcion_ll  ir al estado 91
 
 
 Estado 207
 
-   86 l_ll: expresion OPERATORCOMMA l_ll .
+   80 alternativa: RESERVEDWORDsi expresion OPERATORTHEN instrucciones lista_opciones . RESERVEDWORDfsi
 
-    $default  reduce usando la regla 86 (l_ll)
+    RESERVEDWORDfsi  desplazar e ir al estado 220
 
 
 Estado 208
 
-   96 d_p_form: RESERVEDWORDent lista_id OPERATORDOUBLEDOT . d_tipo
+   87 l_ll: expresion OPERATORCOMMA l_ll .
 
-    RESERVEDWORDbooleano  desplazar e ir al estado 70
-    RESERVEDWORDcadena    desplazar e ir al estado 71
-    RESERVEDWORDcaracter  desplazar e ir al estado 72
-    RESERVEDWORDentero    desplazar e ir al estado 73
-    RESERVEDWORDno        desplazar e ir al estado 74
-    RESERVEDWORDreal      desplazar e ir al estado 75
-    RESERVEDWORDref       desplazar e ir al estado 76
-    RESERVEDWORDtabla     desplazar e ir al estado 77
-    RESERVEDWORDtupla     desplazar e ir al estado 78
-    OPERATORINITPARENT    desplazar e ir al estado 79
-    MINUSOP               desplazar e ir al estado 80
-    BOOLEAN               desplazar e ir al estado 81
-    CHARLIT               desplazar e ir al estado 82
-    IDENTIFIER            desplazar e ir al estado 83
-    REALLIT               desplazar e ir al estado 84
-
-    d_tipo       ir al estado 220
-    expresion_t  ir al estado 86
-    expresion    ir al estado 87
-    exp_a        ir al estado 88
-    exp_b        ir al estado 89
-    operando     ir al estado 90
-    funcion_ll   ir al estado 91
+    $default  reduce usando la regla 87 (l_ll)
 
 
 Estado 209
 
-   98 d_p_form: RESERVEDWORDes lista_id OPERATORDOUBLEDOT . d_tipo
+   97 d_p_form: RESERVEDWORDent lista_id OPERATORDOUBLEDOT . d_tipo
 
     RESERVEDWORDbooleano  desplazar e ir al estado 70
     RESERVEDWORDcadena    desplazar e ir al estado 71
@@ -2677,7 +2695,7 @@ Estado 209
 
 Estado 210
 
-   97 d_p_form: RESERVEDWORDsal lista_id OPERATORDOUBLEDOT . d_tipo
+   99 d_p_form: RESERVEDWORDes lista_id OPERATORDOUBLEDOT . d_tipo
 
     RESERVEDWORDbooleano  desplazar e ir al estado 70
     RESERVEDWORDcadena    desplazar e ir al estado 71
@@ -2706,21 +2724,7 @@ Estado 210
 
 Estado 211
 
-   92 a_cabecera: IDENTIFIER OPERATORINITPARENT d_par_form OPERATORENPARENT OPERATORDOTCOMMA .
-
-    $default  reduce usando la regla 92 (a_cabecera)
-
-
-Estado 212
-
-   94 d_par_form: d_p_form OPERATORDOTCOMMA d_par_form .
-
-    $default  reduce usando la regla 94 (d_par_form)
-
-
-Estado 213
-
-   93 f_cabecera: IDENTIFIER OPERATORINITPARENT lista_d_var OPERATORENPARENT RESERVEDWORDdev . d_tipo OPERATORDOTCOMMA
+   98 d_p_form: RESERVEDWORDsal lista_id OPERATORDOUBLEDOT . d_tipo
 
     RESERVEDWORDbooleano  desplazar e ir al estado 70
     RESERVEDWORDcadena    desplazar e ir al estado 71
@@ -2747,21 +2751,64 @@ Estado 213
     funcion_ll   ir al estado 91
 
 
+Estado 212
+
+   93 a_cabecera: IDENTIFIER OPERATORINITPARENT d_par_form OPERATORENPARENT OPERATORDOTCOMMA .
+
+    $default  reduce usando la regla 93 (a_cabecera)
+
+
+Estado 213
+
+   95 d_par_form: d_p_form OPERATORDOTCOMMA d_par_form .
+
+    $default  reduce usando la regla 95 (d_par_form)
+
+
 Estado 214
 
-   91 funcion_d: RESERVEDWORDfuncion f_cabecera bloque RESERVEDWORDdev expresion RESERVEDWORDffuncion .
+   94 f_cabecera: IDENTIFIER OPERATORINITPARENT lista_d_var OPERATORENPARENT RESERVEDWORDdev . d_tipo OPERATORDOTCOMMA
 
-    $default  reduce usando la regla 91 (funcion_d)
+    RESERVEDWORDbooleano  desplazar e ir al estado 70
+    RESERVEDWORDcadena    desplazar e ir al estado 71
+    RESERVEDWORDcaracter  desplazar e ir al estado 72
+    RESERVEDWORDentero    desplazar e ir al estado 73
+    RESERVEDWORDno        desplazar e ir al estado 74
+    RESERVEDWORDreal      desplazar e ir al estado 75
+    RESERVEDWORDref       desplazar e ir al estado 76
+    RESERVEDWORDtabla     desplazar e ir al estado 77
+    RESERVEDWORDtupla     desplazar e ir al estado 78
+    OPERATORINITPARENT    desplazar e ir al estado 79
+    MINUSOP               desplazar e ir al estado 80
+    BOOLEAN               desplazar e ir al estado 81
+    CHARLIT               desplazar e ir al estado 82
+    IDENTIFIER            desplazar e ir al estado 83
+    REALLIT               desplazar e ir al estado 84
+
+    d_tipo       ir al estado 224
+    expresion_t  ir al estado 86
+    expresion    ir al estado 87
+    exp_a        ir al estado 88
+    exp_b        ir al estado 89
+    operando     ir al estado 90
+    funcion_ll   ir al estado 91
 
 
 Estado 215
 
-   15 d_tipo: RESERVEDWORDtabla OPERATORINITARR expresion_t OPERATORDOTDOT expresion_t . OPERATORENDARR RESERVEDWORDde d_tipo
+   92 funcion_d: RESERVEDWORDfuncion f_cabecera bloque RESERVEDWORDdev expresion RESERVEDWORDffuncion .
 
-    OPERATORENDARR  desplazar e ir al estado 224
+    $default  reduce usando la regla 92 (funcion_d)
 
 
 Estado 216
+
+   15 d_tipo: RESERVEDWORDtabla OPERATORINITARR expresion_t OPERATORDOTDOT expresion_t . OPERATORENDARR RESERVEDWORDde d_tipo
+
+    OPERATORENDARR  desplazar e ir al estado 225
+
+
+Estado 217
 
    26 lista_campos: IDENTIFIER OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA . lista_campos
 
@@ -2769,100 +2816,79 @@ Estado 216
 
     $default  reduce usando la regla 27 (lista_campos)
 
-    lista_campos  ir al estado 225
-
-
-Estado 217
-
-   58 exp_b: expresion . COMPOP expresion
-   82 it_cota_fija: RESERVEDWORDpara IDENTIFIER OPERATORASIGN expresion RESERVEDWORDhasta expresion . RESERVEDWORDhacer instrucciones RESERVEDWORDfpara
-
-    RESERVEDWORDhacer  desplazar e ir al estado 226
-    COMPOP             desplazar e ir al estado 134
+    lista_campos  ir al estado 226
 
 
 Estado 218
 
-   58 exp_b: expresion . COMPOP expresion
-   88 lista_opciones: OPERATORINITEND expresion . OPERATORTHEN instrucciones lista_opciones
+   59 exp_b: expresion . COMPOP expresion
+   83 it_cota_fija: RESERVEDWORDpara IDENTIFIER OPERATORASIGN expresion RESERVEDWORDhasta expresion . RESERVEDWORDhacer instrucciones RESERVEDWORDfpara
 
-    OPERATORTHEN  desplazar e ir al estado 227
-    COMPOP        desplazar e ir al estado 134
+    RESERVEDWORDhacer  desplazar e ir al estado 227
+    COMPOP             desplazar e ir al estado 135
 
 
 Estado 219
 
-   79 alternativa: RESERVEDWORDsi expresion OPERATORTHEN instrucciones lista_opciones RESERVEDWORDfsi .
+   59 exp_b: expresion . COMPOP expresion
+   89 lista_opciones: OPERATORINITEND expresion . OPERATORTHEN instrucciones lista_opciones
 
-    $default  reduce usando la regla 79 (alternativa)
+    OPERATORTHEN  desplazar e ir al estado 228
+    COMPOP        desplazar e ir al estado 135
 
 
 Estado 220
 
-   96 d_p_form: RESERVEDWORDent lista_id OPERATORDOUBLEDOT d_tipo .
+   80 alternativa: RESERVEDWORDsi expresion OPERATORTHEN instrucciones lista_opciones RESERVEDWORDfsi .
 
-    $default  reduce usando la regla 96 (d_p_form)
+    $default  reduce usando la regla 80 (alternativa)
 
 
 Estado 221
 
-   98 d_p_form: RESERVEDWORDes lista_id OPERATORDOUBLEDOT d_tipo .
-
-    $default  reduce usando la regla 98 (d_p_form)
-
-
-Estado 222
-
-   97 d_p_form: RESERVEDWORDsal lista_id OPERATORDOUBLEDOT d_tipo .
+   97 d_p_form: RESERVEDWORDent lista_id OPERATORDOUBLEDOT d_tipo .
 
     $default  reduce usando la regla 97 (d_p_form)
 
 
+Estado 222
+
+   99 d_p_form: RESERVEDWORDes lista_id OPERATORDOUBLEDOT d_tipo .
+
+    $default  reduce usando la regla 99 (d_p_form)
+
+
 Estado 223
 
-   93 f_cabecera: IDENTIFIER OPERATORINITPARENT lista_d_var OPERATORENPARENT RESERVEDWORDdev d_tipo . OPERATORDOTCOMMA
+   98 d_p_form: RESERVEDWORDsal lista_id OPERATORDOUBLEDOT d_tipo .
 
-    OPERATORDOTCOMMA  desplazar e ir al estado 228
+    $default  reduce usando la regla 98 (d_p_form)
 
 
 Estado 224
 
-   15 d_tipo: RESERVEDWORDtabla OPERATORINITARR expresion_t OPERATORDOTDOT expresion_t OPERATORENDARR . RESERVEDWORDde d_tipo
+   94 f_cabecera: IDENTIFIER OPERATORINITPARENT lista_d_var OPERATORENPARENT RESERVEDWORDdev d_tipo . OPERATORDOTCOMMA
 
-    RESERVEDWORDde  desplazar e ir al estado 229
+    OPERATORDOTCOMMA  desplazar e ir al estado 229
 
 
 Estado 225
+
+   15 d_tipo: RESERVEDWORDtabla OPERATORINITARR expresion_t OPERATORDOTDOT expresion_t OPERATORENDARR . RESERVEDWORDde d_tipo
+
+    RESERVEDWORDde  desplazar e ir al estado 230
+
+
+Estado 226
 
    26 lista_campos: IDENTIFIER OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA lista_campos .
 
     $default  reduce usando la regla 26 (lista_campos)
 
 
-Estado 226
-
-   82 it_cota_fija: RESERVEDWORDpara IDENTIFIER OPERATORASIGN expresion RESERVEDWORDhasta expresion RESERVEDWORDhacer . instrucciones RESERVEDWORDfpara
-
-    RESERVEDWORDcontinuar  desplazar e ir al estado 41
-    RESERVEDWORDmientras   desplazar e ir al estado 42
-    RESERVEDWORDpara       desplazar e ir al estado 43
-    RESERVEDWORDsi         desplazar e ir al estado 44
-    IDENTIFIER             desplazar e ir al estado 45
-
-    operando       ir al estado 46
-    instrucciones  ir al estado 230
-    instruccion    ir al estado 48
-    asignacion     ir al estado 49
-    alternativa    ir al estado 50
-    iteracion      ir al estado 51
-    it_cota_fija   ir al estado 52
-    it_cota_exp    ir al estado 53
-    accion_ll      ir al estado 54
-
-
 Estado 227
 
-   88 lista_opciones: OPERATORINITEND expresion OPERATORTHEN . instrucciones lista_opciones
+   83 it_cota_fija: RESERVEDWORDpara IDENTIFIER OPERATORASIGN expresion RESERVEDWORDhasta expresion RESERVEDWORDhacer . instrucciones RESERVEDWORDfpara
 
     RESERVEDWORDcontinuar  desplazar e ir al estado 41
     RESERVEDWORDmientras   desplazar e ir al estado 42
@@ -2883,12 +2909,33 @@ Estado 227
 
 Estado 228
 
-   93 f_cabecera: IDENTIFIER OPERATORINITPARENT lista_d_var OPERATORENPARENT RESERVEDWORDdev d_tipo OPERATORDOTCOMMA .
+   89 lista_opciones: OPERATORINITEND expresion OPERATORTHEN . instrucciones lista_opciones
 
-    $default  reduce usando la regla 93 (f_cabecera)
+    RESERVEDWORDcontinuar  desplazar e ir al estado 41
+    RESERVEDWORDmientras   desplazar e ir al estado 42
+    RESERVEDWORDpara       desplazar e ir al estado 43
+    RESERVEDWORDsi         desplazar e ir al estado 44
+    IDENTIFIER             desplazar e ir al estado 45
+
+    operando       ir al estado 46
+    instrucciones  ir al estado 232
+    instruccion    ir al estado 48
+    asignacion     ir al estado 49
+    alternativa    ir al estado 50
+    iteracion      ir al estado 51
+    it_cota_fija   ir al estado 52
+    it_cota_exp    ir al estado 53
+    accion_ll      ir al estado 54
 
 
 Estado 229
+
+   94 f_cabecera: IDENTIFIER OPERATORINITPARENT lista_d_var OPERATORENPARENT RESERVEDWORDdev d_tipo OPERATORDOTCOMMA .
+
+    $default  reduce usando la regla 94 (f_cabecera)
+
+
+Estado 230
 
    15 d_tipo: RESERVEDWORDtabla OPERATORINITARR expresion_t OPERATORDOTDOT expresion_t OPERATORENDARR RESERVEDWORDde . d_tipo
 
@@ -2908,7 +2955,7 @@ Estado 229
     IDENTIFIER            desplazar e ir al estado 83
     REALLIT               desplazar e ir al estado 84
 
-    d_tipo       ir al estado 232
+    d_tipo       ir al estado 233
     expresion_t  ir al estado 86
     expresion    ir al estado 87
     exp_a        ir al estado 88
@@ -2917,40 +2964,40 @@ Estado 229
     funcion_ll   ir al estado 91
 
 
-Estado 230
-
-   82 it_cota_fija: RESERVEDWORDpara IDENTIFIER OPERATORASIGN expresion RESERVEDWORDhasta expresion RESERVEDWORDhacer instrucciones . RESERVEDWORDfpara
-
-    RESERVEDWORDfpara  desplazar e ir al estado 233
-
-
 Estado 231
 
-   88 lista_opciones: OPERATORINITEND expresion OPERATORTHEN instrucciones . lista_opciones
+   83 it_cota_fija: RESERVEDWORDpara IDENTIFIER OPERATORASIGN expresion RESERVEDWORDhasta expresion RESERVEDWORDhacer instrucciones . RESERVEDWORDfpara
 
-    OPERATORINITEND  desplazar e ir al estado 205
-
-    $default  reduce usando la regla 89 (lista_opciones)
-
-    lista_opciones  ir al estado 234
+    RESERVEDWORDfpara  desplazar e ir al estado 234
 
 
 Estado 232
+
+   89 lista_opciones: OPERATORINITEND expresion OPERATORTHEN instrucciones . lista_opciones
+
+    OPERATORINITEND  desplazar e ir al estado 206
+
+    $default  reduce usando la regla 90 (lista_opciones)
+
+    lista_opciones  ir al estado 235
+
+
+Estado 233
 
    15 d_tipo: RESERVEDWORDtabla OPERATORINITARR expresion_t OPERATORDOTDOT expresion_t OPERATORENDARR RESERVEDWORDde d_tipo .
 
     $default  reduce usando la regla 15 (d_tipo)
 
 
-Estado 233
-
-   82 it_cota_fija: RESERVEDWORDpara IDENTIFIER OPERATORASIGN expresion RESERVEDWORDhasta expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfpara .
-
-    $default  reduce usando la regla 82 (it_cota_fija)
-
-
 Estado 234
 
-   88 lista_opciones: OPERATORINITEND expresion OPERATORTHEN instrucciones lista_opciones .
+   83 it_cota_fija: RESERVEDWORDpara IDENTIFIER OPERATORASIGN expresion RESERVEDWORDhasta expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfpara .
 
-    $default  reduce usando la regla 88 (lista_opciones)
+    $default  reduce usando la regla 83 (it_cota_fija)
+
+
+Estado 235
+
+   89 lista_opciones: OPERATORINITEND expresion OPERATORTHEN instrucciones lista_opciones .
+
+    $default  reduce usando la regla 89 (lista_opciones)
