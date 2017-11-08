@@ -167,6 +167,15 @@ decl_sal:
 RESERVEDWORDsal lista_d_var {printf("BISON: decl sal");}
 ;
 /**EXpresiones*/
+exp_b:
+exp_b RESERVEDWORDy exp_b {printf("BISON: exp_b (y)");}
+| exp_b RESERVEDWORDo exp_b {printf("BISON: exp_b (o)");}
+| RESERVEDWORDno exp_b {printf("BISON: exp_b (no)");}
+| operandob {printf("BISON: exp_b (operando)");}
+| BOOLEAN {printf("BISON: exp_b (booleano)");}
+| expresion COMPOP expresion {printf("BISON: exp_b (comparacion)");}
+| OPERATORINITPARENT exp_b OPERATORENPARENT {printf("BISON: exp_b (parentesis)");}
+;
 expresion:
 exp_a {printf("BISON: expresTion (exp_a)");}
 | exp_b {printf("BISON: expresion (exp_b)");}
@@ -184,15 +193,6 @@ exp_a ARITOP exp_a {printf("BISON: exp_a (aritop)");}
 | MINUSOP exp_a {printf("BISON: exp_a (lit numerico (-exp_a))");}
 ;
 
-exp_b:
-exp_b RESERVEDWORDy exp_b {printf("BISON: exp_b (y)");}
-| exp_b RESERVEDWORDo exp_b {printf("BISON: exp_b (o)");}
-| RESERVEDWORDno exp_b {printf("BISON: exp_b (no)");}
-| operandob {printf("BISON: exp_b (operando)");}
-| BOOLEAN {printf("BISON: exp_b (booleano)");}
-| expresion COMPOP expresion {printf("BISON: exp_b (comparacion)");}
-| OPERATORINITPARENT exp_b OPERATORENPARENT {printf("BISON: exp_b (parentesis)");}
-;
 
 operando:
 IDENTIFIER {printf("BISON: operando (identificador)");}
