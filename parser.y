@@ -79,6 +79,7 @@ void yyerror (char const *);
 %token <sval> CHARLIT
 %token <sval> COMMENT
 %token <sval> IDENTIFIER
+%token <sval> IDENTIFIERB
 %token <fval> REALLIT
 %token <ival> INTLIT
 
@@ -187,7 +188,7 @@ exp_b:
 exp_b RESERVEDWORDy exp_b {printf("BISON: exp_b (y)");}
 | exp_b RESERVEDWORDo exp_b {printf("BISON: exp_b (o)");}
 | RESERVEDWORDno exp_b {printf("BISON: exp_b (no)");}
-| operando {printf("BISON: exp_b (operando)");}
+| operandob {printf("BISON: exp_b (operando)");}
 | BOOLEAN {printf("BISON: exp_b (booleano)");}
 | expresion COMPOP expresion {printf("BISON: exp_b (comparacion)");}
 | OPERATORINITPARENT exp_b OPERATORENPARENT {printf("BISON: exp_b (parentesis)");}
@@ -198,6 +199,10 @@ IDENTIFIER {printf("BISON: operando (identificador)");}
 | operando OPERATORDOT operando {printf("BISON: operando (punto)");}
 | operando OPERATORINITARR expresion OPERATORENDARR {printf("BISON: operando (expresion entre corchetes)");}
 | operando RESERVEDWORDref {printf("BISON: operando (ref)");}
+;
+
+operandob:
+IDENTIFIERB {printf("BISON: operando (identificadorb)");}
 ;
 
 bloque:
