@@ -172,7 +172,7 @@ exp_a {printf("BISON: expresTion (exp_a)");}
 | exp_b {printf("BISON: expresion (exp_b)");}
 | funcion_ll {printf("BISON: expresion (funcion_ll)");}
 ;
-
+/**
 exp_a:
 exp_a ARITOP exp_a {printf("BISON: exp_a (aritop)");}
 | exp_a MINUSOP exp_a {printf("BISON: exp_a (minusop)");}
@@ -182,12 +182,20 @@ exp_a ARITOP exp_a {printf("BISON: exp_a (aritop)");}
 | operando {printf("BISON: exp_a (operando)");}
 | REALLIT {printf("BISON: exp_a (lit numerico (real))");}
 | MINUSOP exp_a {printf("BISON: exp_a (lit numerico (-exp_a))");}
-;
+;*/
+
 exp_a:
 OPERATORINITPARENT exp_a OPERATORENPARENT exp_a1 {printf("BISON: exp_a (parentesis)");}
 |operando exp_a1 {printf("BISON: exp_a (operando)");}
 |REALLIT exp_a1 {printf("BISON: exp_a (lit numerico (real))");}
 |MINUSOP exp_a exp_a1 {printf("BISON: exp_a (lit numerico (-exp_a))");}
+exp_a1:
+ARITOP exp_a exp_a1 {}
+| MINUSOP exp_a exp_a1 {}
+| RESERVEDWORDmod exp_a exp_a1 {}
+| RESERVEDWORDdiv exp_a exp_a1 {}
+| %empty {}
+;
 exp_b:
 exp_b RESERVEDWORDy exp_b {printf("BISON: exp_b (y)");}
 | exp_b RESERVEDWORDo exp_b {printf("BISON: exp_b (o)");}
