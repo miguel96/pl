@@ -106,12 +106,10 @@ extern int yydebug;
     AUX = 316,
     SPACE = 317,
     CHARLIT = 318,
-    COMMENTPREC = 319,
-    COMMENTPOST = 320,
-    COMMENT = 321,
-    IDENTIFIER = 322,
-    REALLIT = 323,
-    INTLIT = 324
+    COMMENT = 319,
+    IDENTIFIER = 320,
+    REALLIT = 321,
+    INTLIT = 322
   };
 #endif
 
@@ -127,7 +125,7 @@ union YYSTYPE
 	char *sval;
   char cval;
 
-#line 131 "parser.tab.h" /* yacc.c:1909  */
+#line 129 "parser.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

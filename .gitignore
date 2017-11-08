@@ -1,2 +1,4 @@
 *.out
 *.c
+*.o
+*.output
