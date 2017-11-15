@@ -1,5 +1,6 @@
 *.out
-*.c
+*.yy.c
 *.o
 *.output
+*.tab.c
 *.tab.h
