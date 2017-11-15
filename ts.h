@@ -190,7 +190,8 @@ typedef struct {
 
 typedef struct {
     int size;
-    elemento *sym_list;
+    elemento *primero;
+    elemento *ultimo;
 } tabla_simbolos;
 
 #endif
