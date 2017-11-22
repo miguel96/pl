@@ -2,7 +2,7 @@
 
 void init(tabla_simbolos *tabla) {
   tabla->size = 0;
-  tabla->primero = null;
+  tabla->primero = NULL;
   tabla->ultimo = tabla->primero;
 }
 
@@ -11,9 +11,9 @@ int insertVariable(tabla_simbolos *tabla, symbol sym) {
   elem->id=tabla->size;
   elem->tipo=SIM_VARIABLE;
   elem->sym=sym;
-  elem->next=null;
+  elem->next=NULL;
   struct elemento *next;
-     if (tabla->primero == null){
+     if (tabla->primero == NULL){
         tabla->primero=elem;
         tabla->ultimo=elem;
         return 1;
@@ -48,4 +48,11 @@ int insertVarTS(tabla_simbolos *tabla, char *identificador, tipo_variable *tipo)
      symbol *sym;
      sym->var.nombre=identificador;
      sym->var.tp = tipo;
+}
+
+void imprimirTabla(tabla_simbolos *tabla) {
+     elemento *elem = tabla->primero;
+     while (elem != NULL) {
+          printf("%d---> %s:%s;", elem->id, elem->sym.var.nombre, elem->sym.var.tp);
+     }
 }
