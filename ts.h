@@ -2,8 +2,6 @@
 
 #define ts_aitor_miguel_h
 
-/**Aqui empezamos a copiar*/
-
 typedef int boolean;
 #define TRUE 1
 #define FALSE 0
@@ -162,9 +160,8 @@ typedef struct {
     op_aritmetico a;
     op_booleano b;
 } expresion;
-/**Aqui terminamos de copiar*/
 
-typedef enum {
+typedef enum { //Esto para un futuro
     SIM_VARIABLE,
     SIM_TIPO,
     SIM_FUNCION
@@ -177,8 +174,8 @@ typedef struct {
 
 typedef union {
     variable var;
-    //funcion fun; TODO
-    //tipo top; TODO
+    //funcion fun; Ya lo haremos si llegamos
+    //tipo tip; Ya lo haremos si llegamos;
 } symbol;
 
 typedef struct {
