@@ -1,4 +1,6 @@
 #include "ts.h"
+#include <stdio.h>
+#include <string.h>
 
 void init(tabla_simbolos *tabla) {
   tabla->size = 0;
@@ -19,7 +21,7 @@ int insertVariable(tabla_simbolos *tabla, symbol sym) {
         return 1;
      }
      else {
-          if (nombreUsado(tabla, nombre)){
+          if (nombreUsado(tabla, sym.var.nombre)){
                return -1;
           }
           elemento *aux = tabla->ultimo;

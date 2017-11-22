@@ -191,4 +191,7 @@ typedef struct {
     elemento *ultimo;
 } tabla_simbolos;
 
+elemento *buscaNombre(tabla_simbolos *tabla, char *nombre);
+int nombreUsado(tabla_simbolos *tabla, char *nombre);
+
 #endif
