@@ -17,6 +17,7 @@ void yyerror (char const *);
 	float fval;
 	char *sval;
   char cval;
+	char *tipo;
 }
 
 %token <sval> RESERVEDWORDaccion
@@ -161,10 +162,10 @@ lista_id OPERATORDOUBLEDOT IDENTIFIER OPERATORDOTCOMMA lista_d_var {printf("BISO
 ;
 
 lista_id:
-IDENTIFIER OPERATORCOMMA lista_id {printf("BISON: declaracion de ids");insertVarTS(&ts,$1,$3);$$=$3}
-| IDENTIFIERB OPERATORCOMMA lista_id {printf("BISON: declaracion de ids(BOOL)");insertVarTS(&ts,$1,$3);$$=$3}
-| IDENTIFIER {printf("Ident %s",$1);$$=$1}
-| IDENTIFIERB {printf("Identb %s",$1);$$=$1}
+IDENTIFIER OPERATORCOMMA lista_id {printf("BISON: declaracion de ids");insertVarTS(&ts,$1,$3);$$=$3;}
+| IDENTIFIERB OPERATORCOMMA lista_id {printf("BISON: declaracion de ids(BOOL)");insertVarTS(&ts,$1,$3);$$=$3;}
+| IDENTIFIER {printf("Ident %s",$1);$$=$1;}
+| IDENTIFIERB {printf("Identb %s",$1);$$=$1;}
 ;
 /**Variables ent sal No se si hay que delcararlas*/
 decl_ent_sal:

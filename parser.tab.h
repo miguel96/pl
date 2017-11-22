@@ -122,8 +122,9 @@ union YYSTYPE
 	float fval;
 	char *sval;
   char cval;
+	char *tipo;
 
-#line 127 "parser.tab.h" /* yacc.c:1909  */
+#line 128 "parser.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
