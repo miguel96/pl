@@ -34,11 +34,11 @@ int insertVariable(tabla_simbolos *tabla, symbol sym) {
 
 
 int nombreUsado(tabla_simbolos *tabla, char *nombre) {
-    return get_var(tabla, nombre) != NULL;
+    return buscaNombre(tabla, nombre) != NULL;
 }
 
 elemento *buscaNombre(tabla_simbolos *tabla, char *nombre) {
-    elemento *temp = table->sym_list;
+    elemento *temp = tabla->primero;
     while (temp != NULL) {
         if (strcmp(temp->sym.var.nombre, nombre) == 0 && temp->tipo == SIM_VARIABLE ) // podemos tener una función y una variable con el mismo nombre?
           break;
@@ -46,7 +46,7 @@ elemento *buscaNombre(tabla_simbolos *tabla, char *nombre) {
     return temp;
 }
 
-int insertVarTS(tabla_simbolos *tabla, char *identificador, tipo_variable *tipo) {
+int insertVarTS(tabla_simbolos *tabla, char *identificador, char *tipo) {
      symbol *sym;
      sym->var.nombre=identificador;
      sym->var.tp = tipo;
