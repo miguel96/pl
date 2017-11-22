@@ -5,6 +5,7 @@
 int yylex(void);
 int yyparse(void);
 extern FILE *yyin;
+tabla_simbolos ts;
 
 void yyerror (char const *);
 %}
@@ -83,6 +84,11 @@ void yyerror (char const *);
 %token <fval> REALLIT
 %token <ival> INTLIT
 
+
+//Types
+%type <tipo> lista_id
+%type <tipo> lista_d_var
+%type <tipo> d_tipo
 %% /* Grammar rules and actions follow.  */
 desc_algoritmo:
 RESERVEDWORDalgoritmo IDENTIFIER OPERATORDOTCOMMA cabecera_alg bloque postcondicion finAlgoritmo {printf("BISON: Encontre un algoritmo completo, enhorabuena\n");}
@@ -146,17 +152,17 @@ IDENTIFIER OPERATOREQUAL INTLIT OPERATORDOTCOMMA lista_d_cte {printf("BISON list
 ;
 
 lista_d_var:
-lista_id OPERATORDOUBLEDOT IDENTIFIER OPERATORDOTCOMMA lista_d_var {printf("BISON: Lista de var\n");}
-| lista_id OPERATORDOUBLEDOT IDENTIFIERB OPERATORDOTCOMMA lista_d_var {printf("BISON: Lista de var\n");}
-| lista_id OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA lista_d_var {printf("BISON: Lista de var\n");}
+lista_id OPERATORDOUBLEDOT IDENTIFIER OPERATORDOTCOMMA lista_d_var {printf("BISON: Lista de var\n");insertVarTS(&ts,$1,$3);)}
+| lista_id OPERATORDOUBLEDOT IDENTIFIERB OPERATORDOTCOMMA lista_d_var {printf("BISON: Lista de var\n");insertVarTS(&ts,$1,$3);}
+| lista_id OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA lista_d_var {printf("BISON: Lista de var\n");insertVarTS(&ts,$1,$3);}
 | %empty {printf("BISON: Lista vacia de var\n");}
 ;
 
 lista_id:
-IDENTIFIER OPERATORCOMMA lista_id {printf("BISON: declaracion de ids");}
-| IDENTIFIERB OPERATORCOMMA lista_id {printf("BISON: declaracion de ids(BOOL)");}
-| IDENTIFIER {}
-| IDENTIFIERB {}
+IDENTIFIER OPERATORCOMMA lista_id {printf("BISON: declaracion de ids");insertVarTS(&ts,$1,$3);$$=$3}
+| IDENTIFIERB OPERATORCOMMA lista_id {printf("BISON: declaracion de ids(BOOL)");insertVarTS(&ts,$1,$3);$$=$3}
+| IDENTIFIER {printf("Ident %s",$1);$$=$1}
+| IDENTIFIERB {printf("Identb %s",$1);$$=$1}
 ;
 /**Variables ent sal No se si hay que delcararlas*/
 decl_ent_sal:
