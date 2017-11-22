@@ -6,16 +6,6 @@ typedef int boolean;
 #define TRUE 1
 #define FALSE 0
 
-/**
- * Posibles tipos de una variable
- */
-typedef enum {
-     VAR_INT,
-     VAR_REAL,
-     VAR_BOOL,
-     VAR_CHAR,
-    VAR_STRING
-} tipo_variable;
 
 const static char* variable_tipo_names[] = {
     "DESCONOCIDO",
@@ -131,7 +121,7 @@ typedef struct {
   */
 typedef struct {
     int id;
-    variable_tipo tipo;
+    char *tipo;
 } op_aritmetico;
 
 /**
@@ -169,7 +159,7 @@ typedef enum { //Esto para un futuro
 
 typedef struct {
   char *nombre;
-  tipo_variable tp;
+  char *tp;
 } variable;
 
 typedef union {
@@ -177,18 +167,22 @@ typedef union {
     //funcion fun; Ya lo haremos si llegamos
     //tipo tip; Ya lo haremos si llegamos;
 } symbol;
-
-typedef struct {
+typedef struct elemento elemento;
+struct elemento {
     int id;
     tipo_sim tipo;
     symbol sym;
-    struct elemento *next;
-} elemento;
+    elemento *next;
+};
 
 typedef struct {
     int size;
     elemento *primero;
     elemento *ultimo;
 } tabla_simbolos;
+
+elemento *buscaNombre(tabla_simbolos *tabla, char *nombre);
+int nombreUsado(tabla_simbolos *tabla, char *nombre);
+
 
 #endif
