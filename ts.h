@@ -1,4 +1,4 @@
-#ifndf ts_aitor_miguel_h
+#ifndef ts_aitor_miguel_h
 
 #define ts_aitor_miguel_h
 
@@ -168,12 +168,12 @@ typedef union {
     //tipo tip; Ya lo haremos si llegamos;
 } symbol;
 typedef struct elemento elemento;
-struct {
+struct elemento {
     int id;
     tipo_sim tipo;
     symbol sym;
     elemento *next;
-} elemento;
+};
 
 typedef struct {
     int size;
