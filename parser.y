@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include "ts.c"
+
 int yylex(void);
 int yyparse(void);
 extern FILE *yyin;
