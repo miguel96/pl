@@ -11,7 +11,6 @@ tabla_simbolos ts;
 
 void yyerror (char const *);
 %}
-
 %union {
 	int ival;
 	float fval;
@@ -174,16 +173,18 @@ lista_id OPERATORDOUBLEDOT IDENTIFIER OPERATORDOTCOMMA lista_d_var {
 
 lista_id:
 IDENTIFIER OPERATORCOMMA lista_id {
-		printf("BISON: declaracion de ids");
-		insertVarTS(&ts,$1,$3);$$=$3;
+		printf("BISON: en la lista habia: .%s.\n",$3);
+		printf("BISON: ids en lista: .%s.\n",$1);
+		insertVarTS(&ts,$1,$3);
+		$$=$1;
 	}
 | IDENTIFIERB OPERATORCOMMA lista_id {
-	printf("BISON: declaracion de ids(BOOL)");
-	insertVarTS(&ts,$1,$3);
-	$$=$3;
+		printf("BISON: declaracion de ids(BOOL)");
+		insertVarTS(&ts,$1,$3);
+		$$=$1;
 }
 | IDENTIFIER {
-		printf("Ident %s",$1);
+		printf("BISON: id en la lista: .%s.\n",$1);
 		$$=$1;
 	}
 | IDENTIFIERB {

@@ -135,8 +135,25 @@ LOGICOP "&"|"\|"
 {SPACE}{SPACE}*;
 {CHARLIT} ++charLits;printf("CharLit:%s\n",yytext);yylval.sval=yytext;return CHARLIT ;
 {COMMENT} ++coments;printf("Comment:%s\n",yytext);return COMMENT;
-{IDENTIFIERB} ++boolIdent;printf("BoolIdent:%s\n",yytext);return IDENTIFIERB;
-{IDENTIFIER} ++identifiers;printf("Identifier:%s\n",yytext);yylval.sval=yytext;return IDENTIFIER;
+{IDENTIFIERB} {
+  char* solucion=(char *) malloc((strlen(yytext)+1)*sizeof(char));
+  strcpy(solucion,yytext);
+  solucion[strlen(solucion)]='\0';
+  ++boolIdent;
+  printf("FLEX: BoolIdentifier:%s\n",solucion);
+  yylval.sval=solucion;
+  return IDENTIFIER;
+  }
+{IDENTIFIER} {
+  char* solucion=(char *) malloc((strlen(yytext)+1)*sizeof(char));
+  strcpy(solucion,yytext);
+  printf("Ahora sol es %s",solucion);
+  solucion[strlen(solucion)]='\0';
+  ++identifiers;
+  printf("FLEX: Identifier:%s\n",solucion);
+  yylval.sval=solucion;
+  return IDENTIFIER;
+  }
 {REALLIT} ++realLits;printf("RealLit:%f\n",atof(yytext));yylval.sval=yytext;return REALLIT;
 {INTLIT} ++intLits;printf("IntLit:%d\n",atoi(yytext));yylval.ival=atoi(yytext);return INTLIT;
 %%
