@@ -10,11 +10,11 @@ void init(tabla_simbolos *tabla) {
 
 int insertVariable(tabla_simbolos *tabla, symbol sym) {
   elemento *elem;
+  elem = (elemento *) malloc(sizeof(elemento));
   elem->id=tabla->size;
   elem->tipo=SIM_VARIABLE;
   elem->sym=sym;
   elem->next=NULL;
-  struct elemento *next;
      if (tabla->primero == NULL){
         tabla->primero=elem;
         tabla->ultimo=elem;
@@ -47,9 +47,10 @@ elemento *buscaNombre(tabla_simbolos *tabla, char *nombre) {
 }
 
 int insertVarTS(tabla_simbolos *tabla, char *identificador, char *tipo) {
-     symbol *sym;
-     sym->var.nombre=identificador;
-     sym->var.tp = tipo;
+     symbol sym;
+     sym.var.nombre=strdup(identificador);
+     sym.var.tp = strdup(tipo);
+     insertVariable(tabla, sym);
 }
 
 void imprimirTabla(tabla_simbolos *tabla) {
