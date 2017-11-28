@@ -4,6 +4,13 @@
 }
   int identifiers=0,boolIdent=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0, reservadas = 0,operators=0;
 
+  char *parseString(char *toParse) {
+    char* solucion=(char *) malloc((strlen(yytext)+1)*sizeof(char));
+    strcpy(solucion,toParse);
+    solucion[strlen(solucion)]='\0';
+    return solucion;
+  }
+
 DIGIT   [0-9]
 NUMBER {DIGIT}{DIGIT}*
 CHAR [a-zA-z]
@@ -135,25 +142,8 @@ LOGICOP "&"|"\|"
 {SPACE}{SPACE}*;
 {CHARLIT} ++charLits;printf("CharLit:%s\n",yytext);yylval.sval=yytext;return CHARLIT ;
 {COMMENT} ++coments;printf("Comment:%s\n",yytext);return COMMENT;
-{IDENTIFIERB} {
-  char* solucion=(char *) malloc((strlen(yytext)+1)*sizeof(char));
-  strcpy(solucion,yytext);
-  solucion[strlen(solucion)]='\0';
-  ++boolIdent;
-  printf("FLEX: BoolIdentifier:%s\n",solucion);
-  yylval.sval=solucion;
-  return IDENTIFIER;
-  }
-{IDENTIFIER} {
-  char* solucion=(char *) malloc((strlen(yytext)+1)*sizeof(char));
-  strcpy(solucion,yytext);
-  printf("Ahora sol es %s",solucion);
-  solucion[strlen(solucion)]='\0';
-  ++identifiers;
-  printf("FLEX: Identifier:%s\n",solucion);
-  yylval.sval=solucion;
-  return IDENTIFIER;
-  }
+{IDENTIFIERB} ++boolIdent;printf("FLEX: BoolIdentifier:%s\n",parseString(yytext));yylval.sval=parseString(yytext);return IDENTIFIER;
+{IDENTIFIER} ++identifiers;printf("FLEX: Identifier:%s\n",parseString(yytext));yylval.sval=parseString(yytext);return IDENTIFIER;
 {REALLIT} ++realLits;printf("RealLit:%f\n",atof(yytext));yylval.sval=yytext;return REALLIT;
 {INTLIT} ++intLits;printf("IntLit:%d\n",atoi(yytext));yylval.ival=atoi(yytext);return INTLIT;
 %%
