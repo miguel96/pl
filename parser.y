@@ -72,7 +72,6 @@ void yyerror (char const *);
 %token <sval> OPERATORINITEND
 %token <sval> OPERATORINITPARENT
 %token <sval> OPERATORENPARENT
-%token <sval> ARITOP
 %token <cval> OPMAS
 %token <cval> OPPOR
 %token <cval> OPELEV
@@ -96,6 +95,8 @@ void yyerror (char const *);
 %type <tipo> lista_id
 %type <tipo> lista_d_var
 %type <tipo> d_tipo
+%type <tipo> exp_a
+%type <tipo> aritop
 %% /* Grammar rules and actions follow.  */
 desc_algoritmo:
 RESERVEDWORDalgoritmo IDENTIFIER OPERATORDOTCOMMA cabecera_alg bloque COMMENT finAlgoritmo {
@@ -261,17 +262,33 @@ expresion:
 	;
 
 exp_a:
-exp_a ARITOP exp_a {
+exp_a aritop exp_a {
 	printf("BISON: exp_a (aritop)\n");
+	int idTempVar;
+	idTempVar=newtemp();
+	gen(tablaCuad,$2,$1,$3,idTempVar);
+	$$=&idTempVar;
 }
 | exp_a MINUSOP exp_a {
-	printf("BISON: exp_a (minusop)\n");
+	printf("BISON: exp_a (aritop)\n");
+	int idTempVar;
+	idTempVar=newtemp();
+	gen(tablaCuad,2,$1,$3,idTempVar);
+	$$=*idTempVar;
 }
 | exp_a RESERVEDWORDmod exp_a {
-	printf("BISON: exp_a (mod)\n");
+	printf("BISON: exp_a (aritop)\n");
+	int idTempVar;
+	idTempVar=newtemp();
+	gen(tablaCuad,5,$1,$3,idTempVar);
+	$$=*idTempVar;
 }
 | exp_a RESERVEDWORDdiv exp_a {
-	printf("BISON: exp_a (div)\n");
+	printf("BISON: exp_a (aritop)\n");
+	int idTempVar;
+	idTempVar=newtemp();
+	gen(tablaCuad,4,$1,$3,idTempVar);
+	$$=*idTempVar;
 }
 | OPERATORINITPARENT exp_a OPERATORENPARENT {
 	printf("BISON: exp_a (parentesis)\n");
@@ -467,7 +484,27 @@ d_p_form:
 		printf("BISON: d_p_form\n");
 	}
 ;
-
+aritop:
+	OPMAS {
+		printf("BISON: opmas\n");
+		$$=1;
+	}
+	| OPPOR {
+		printf("BISON: opmas\n");
+		$$=3;
+	}
+	| OPELEV {
+		printf("BISON: opmas\n");
+		$$=6;
+	}
+	| OPDIV {
+		printf("BISON: opmas\n");
+		$$=4;
+	}
+	| OPDMOD {
+		printf("BISON: opmas\n");
+		$$=5;
+	}
 %%
 void yyerror(char const * error){
   printf("Error:%s\n",error);
