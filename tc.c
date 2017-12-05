@@ -14,5 +14,4 @@ int gen(tabla_cuadruplas *tabla, int op,int op1,int op2,int dest) {
     tupla[2]=op2;
     tupla[3]=dest;
     tabla->nextquad++;
-
 }

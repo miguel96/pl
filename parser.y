@@ -73,6 +73,11 @@ void yyerror (char const *);
 %token <sval> OPERATORINITPARENT
 %token <sval> OPERATORENPARENT
 %token <sval> ARITOP
+%token <cval> OPMAS
+%token <cval> OPPOR
+%token <cval> OPELEV
+%token <cval> OPDIV
+%token <cval> OPDMOD
 %token <sval> MINUSOP
 %token <sval> COMPOP
 //%token <sval> LOGICOP
@@ -470,7 +475,7 @@ void yyerror(char const * error){
 }
 
 int main(int argc, char *argv[]) {
-
+	init(&ts);
   if ( argc > 0 ) {
     FILE *myfile = fopen(argv[1], "r");
     yyin=myfile;
