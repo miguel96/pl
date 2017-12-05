@@ -2,8 +2,9 @@ algoritmo intercambio;
 ent a : entero;
 sal c :entero;
 {Prec: a= A AND b = B}
-{var
+var
 aux : entero;
-fvar}
+fvar;
+c := a;
 {Post: b=A AND a = B}
-falgoritmo
+falgoritmo.
