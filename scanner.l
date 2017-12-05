@@ -105,7 +105,7 @@ LOGICOP "&"|"\|"
 {RESERVEDWORDftipo} reservadas++;printf("RESERVADA: %s\n",parseString(yytext));yylval.sval=parseString(yytext);return RESERVEDWORDftipo;
 {RESERVEDWORDftupla} reservadas++;printf("RESERVADA: %s\n",parseString(yytext));yylval.sval=parseString(yytext);return RESERVEDWORDftupla;
 {RESERVEDWORDfuncion} reservadas++;printf("RESERVADA: %s\n",parseString(yytext));yylval.sval=parseString(yytext);return RESERVEDWORDfuncion;
-{RESERVEDWORDfvar} reservadas++;printf("RESERVADA: %s\n",parseString(yytext));return RESERVEDWORDfvar;RESERVEDWORDfvar;
+{RESERVEDWORDfvar} reservadas++;printf("RESERVADA: %s\n",parseString(yytext))yylval.sval=parseString(yytext);return RESERVEDWORDfvar;
 {RESERVEDWORDhacer} reservadas++;printf("RESERVADA: %s\n",parseString(yytext));yylval.sval=parseString(yytext);return RESERVEDWORDhacer;
 {RESERVEDWORDhasta} reservadas++;printf("RESERVADA: %s\n",parseString(yytext));yylval.sval=parseString(yytext);return RESERVEDWORDhasta;
 {RESERVEDWORDmientras} reservadas++;printf("RESERVADA: %s\n",parseString(yytext));yylval.sval=parseString(yytext);return RESERVEDWORDmientras;
