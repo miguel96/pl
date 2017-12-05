@@ -93,263 +93,374 @@ void yyerror (char const *);
 %type <tipo> d_tipo
 %% /* Grammar rules and actions follow.  */
 desc_algoritmo:
-RESERVEDWORDalgoritmo IDENTIFIER OPERATORDOTCOMMA cabecera_alg bloque COMMENT finAlgoritmo {printf("BISON: Encontre un algoritmo completo, enhorabuena\n");}
+RESERVEDWORDalgoritmo IDENTIFIER OPERATORDOTCOMMA cabecera_alg bloque COMMENT finAlgoritmo {
+	printf("BISON: Encontre un algoritmo completo, enhorabuena\nAhora imprimo la TS:\n");
+	imprimirTabla(&ts);
+}
 ;
 
 cabecera_alg:
-decl_globales decl_a_f decl_ent_sal COMMENT{printf("BISON Algoritmo declarado, animo\n");}
+	decl_globales decl_a_f decl_ent_sal COMMENT{printf("BISON Algoritmo declarado, animo\n");}
 ;
 decl_globales:
-declaracion_tipo decl_globales {printf("BISON: declaracion_tipo");}
-| declaracion_cte decl_globales {printf("BISON: declaracionConstante");}
-| %empty {}
+	declaracion_tipo decl_globales {printf("BISON: declaracion_tipo\n");}
+	| declaracion_cte decl_globales {printf("BISON: declaracionConstante\n");}
+	| %empty {}
 ;
 decl_a_f:
-accion_d decl_a_f {printf("BISON: decl_a_f (accion\n");}
-| funcion_d decl_a_f {printf("BISON: decl_a_f (funcion)\n");}
-| %empty {}
+	accion_d decl_a_f {printf("BISON: decl_a_f (accion\n");}
+	| funcion_d decl_a_f {printf("BISON: decl_a_f (funcion)\n");}
+	| %empty {}
 ;
 declaracion_cte:
-RESERVEDWORDconst lista_d_cte RESERVEDWORDfconst {printf("BISON: decl_cte\n");}
+	RESERVEDWORDconst lista_d_cte RESERVEDWORDfconst {printf("BISON: decl_cte\n");}
 ;
 
 declaracion_tipo:
-RESERVEDWORDtipo lista_d_tipo RESERVEDWORDftipo OPERATORDOTCOMMA {printf("BISON: declaracion de tipo\n");}
+	RESERVEDWORDtipo lista_d_tipo RESERVEDWORDftipo OPERATORDOTCOMMA {printf("BISON: declaracion de tipo\n");}
 ;
 
 declaracion_var:
-RESERVEDWORDvar lista_d_var RESERVEDWORDfvar OPERATORDOTCOMMA {printf("BISON: declaracion de variables\n");}
+	RESERVEDWORDvar lista_d_var RESERVEDWORDfvar OPERATORDOTCOMMA {printf("BISON: declaracion de variables\n");}
 ;
 
 lista_d_tipo:
-IDENTIFIER OPERATOREQUAL d_tipo OPERATORDOTCOMMA lista_d_tipo {printf("BISON: lista_d_tipo:%s\n",$1);}
-| %empty {}
+	IDENTIFIER OPERATOREQUAL d_tipo OPERATORDOTCOMMA lista_d_tipo {printf("BISON: lista_d_tipo:%s\n",$1);}
+	| %empty {}
 ;
 d_tipo:
-RESERVEDWORDtupla lista_campos RESERVEDWORDftupla {printf("BISON: d_tipo\n");}
-| RESERVEDWORDtabla OPERATORINITARR expresion_t OPERATORDOTDOT expresion_t OPERATORENDARR RESERVEDWORDde d_tipo {printf("BISON: d_tipo\n");}
-| IDENTIFIER {printf("BISON: d_tipo\n");}
-| expresion_t OPERATORDOTDOT expresion_t {printf("BISON: d_tipo\n");}
-| RESERVEDWORDref d_tipo {printf("BISON: d_tipo\n");}
-| RESERVEDWORDentero {printf("BISON: d_tipo\n");}
-| RESERVEDWORDbooleano {printf("BISON: d_tipo\n");}
-| RESERVEDWORDcaracter {printf("BISON: d_tipo\n");}
-| RESERVEDWORDreal {printf("BISON: d_tipo\n");}
-| RESERVEDWORDcadena {printf("BISON: d_tipo\n");}
+	RESERVEDWORDtupla lista_campos RESERVEDWORDftupla {printf("BISON: d_tipo\n");}
+	| RESERVEDWORDtabla OPERATORINITARR expresion_t OPERATORDOTDOT expresion_t OPERATORENDARR RESERVEDWORDde d_tipo {printf("BISON: d_tipo\n");}
+	| IDENTIFIER {printf("BISON: d_tipo\n");}
+	| expresion_t OPERATORDOTDOT expresion_t {printf("BISON: d_tipo\n");}
+	| RESERVEDWORDref d_tipo {printf("BISON: d_tipo\n");}
+	| RESERVEDWORDentero {printf("BISON: d_tipo\n");}
+	| RESERVEDWORDbooleano {printf("BISON: d_tipo\n");}
+	| RESERVEDWORDcaracter {printf("BISON: d_tipo\n");}
+	| RESERVEDWORDreal {printf("BISON: d_tipo\n");}
+	| RESERVEDWORDcadena {printf("BISON: d_tipo\n");}
 ;
 expresion_t:
-expresion {printf("Expression:_t\n");}
-|CHARLIT {printf("Expression_t with c+%s\n",$1);}
+	expresion {printf("Expression:_t\n");}
+	|CHARLIT {printf("Expression_t with c+%s\n",$1);}
 ;
 lista_campos:
-IDENTIFIER OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA lista_campos {printf("Lista de campos\n");}
-| %empty {}
+	IDENTIFIER OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA lista_campos {printf("Lista de campos\n");}
+	| %empty {}
 ;
 lista_d_cte:
-IDENTIFIER OPERATOREQUAL INTLIT OPERATORDOTCOMMA lista_d_cte {printf("BISON lista_d_cte (intlit)\n");}
-|IDENTIFIER OPERATOREQUAL REALLIT OPERATORDOTCOMMA lista_d_cte {printf("BISON lista_d_cte (reallit)\n");}
-|IDENTIFIER OPERATOREQUAL CHARLIT OPERATORDOTCOMMA lista_d_cte {printf("BISON lista_d_cte (charlit)\n");}
-|IDENTIFIERB OPERATOREQUAL BOOLEAN OPERATORDOTCOMMA lista_d_cte {printf("BISON lista_d_cte (boolean)\n");}
-| %empty {}
+	IDENTIFIER OPERATOREQUAL INTLIT OPERATORDOTCOMMA lista_d_cte {printf("BISON lista_d_cte (intlit)\n");}
+	|IDENTIFIER OPERATOREQUAL REALLIT OPERATORDOTCOMMA lista_d_cte {printf("BISON lista_d_cte (reallit)\n");}
+	|IDENTIFIER OPERATOREQUAL CHARLIT OPERATORDOTCOMMA lista_d_cte {printf("BISON lista_d_cte (charlit)\n");}
+	|IDENTIFIERB OPERATOREQUAL BOOLEAN OPERATORDOTCOMMA lista_d_cte {printf("BISON lista_d_cte (boolean)\n");}
+	| %empty {}
 ;
 
 lista_d_var:
-lista_id OPERATORDOUBLEDOT IDENTIFIER OPERATORDOTCOMMA lista_d_var {
-			printf("BISON: Lista de var\n");
-			insertVarTS(&ts,$1,$3);
-		}
-| lista_id OPERATORDOUBLEDOT IDENTIFIERB OPERATORDOTCOMMA lista_d_var {
-			printf("BISON: Lista de var\n");
-			insertVarTS(&ts,$1,$3);
-		}
-| lista_id OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA lista_d_var {
+	lista_id OPERATORDOUBLEDOT IDENTIFIER OPERATORDOTCOMMA lista_d_var {
 		printf("BISON: Lista de var\n");
-		insertVarTS(&ts,$1,$3);
+		insertTipoToVars(&ts,$3);
 	}
-| %empty {
-		printf("BISON: Lista vacia de var\n");
-	}
+	| lista_id OPERATORDOUBLEDOT IDENTIFIERB OPERATORDOTCOMMA lista_d_var {
+			printf("BISON: Lista de var\n");
+			insertTipoToVars(&ts,$3);
+		}
+	| lista_id OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA lista_d_var {
+			printf("BISON: Lista de var\n");
+			insertTipoToVars(&ts,$3);
+		}
+	| %empty {
+			printf("BISON: Lista vacia de var\n");
+		}
 ;
 
 lista_id:
-IDENTIFIER OPERATORCOMMA lista_id {
+	IDENTIFIER OPERATORCOMMA lista_id {
 		printf("BISON: en la lista habia: .%s.\n",$3);
 		printf("BISON: ids en lista: .%s.\n",$1);
-		insertVarTS(&ts,$1,$3);
+		insertVarSinTipo(&ts,$1);
 		$$=$1;
 	}
-| IDENTIFIERB OPERATORCOMMA lista_id {
-		printf("BISON: declaracion de ids(BOOL)");
-		insertVarTS(&ts,$1,$3);
-		$$=$1;
-}
-| IDENTIFIER {
-		printf("BISON: id en la lista: .%s.\n",$1);
+	| IDENTIFIERB OPERATORCOMMA lista_id {
+		printf("BISON: declaracion de ids(BOOL)\n");
+		insertVarSinTipo(&ts,$1);
 		$$=$1;
 	}
-| IDENTIFIERB {
-		printf("Identb %s",$1);
+	| IDENTIFIER {
+			printf("BISON: id en la lista: .%s.\n",$1);
+			insertVarSinTipo(&ts,$1);
+			$$=$1;
+	}
+	| IDENTIFIERB {
+		printf("Identb %s\n",$1);
+		insertVarSinTipo(&ts,$1);
 		$$=$1;
 	}
 ;
 /**Variables ent sal No se si hay que delcararlas*/
 decl_ent_sal:
-decl_ent {printf("BISON: declaracion entrada-salida (ent)\n");}
-| decl_ent decl_sal {printf("BISON: declaracion entrada-salida(ent)(sal)\n");}
-| decl_sal {printf("BISON: declaracion entrada-salida (sal)\n");}
-;
+	decl_ent {
+		printf("BISON: declaracion entrada-salida (ent)\n");
+	}
+	| decl_ent decl_sal {
+		printf("BISON: declaracion entrada-salida(ent)(sal)\n");
+	}
+	| decl_sal {
+		printf("BISON: declaracion entrada-salida (sal)\n");
+	}
+	;
 decl_ent:
-RESERVEDWORDent lista_d_var {printf("BISON: decl ent\n");}
+	RESERVEDWORDent lista_d_var {
+		printf("BISON: decl ent\n");
+	}
 ;
 decl_sal:
-RESERVEDWORDsal lista_d_var {printf("BISON: decl sal\n");}
+	RESERVEDWORDsal lista_d_var {
+		printf("BISON: decl sal\n");
+	}
 ;
 /**EXpresiones*/
 exp_b:
-exp_b RESERVEDWORDy exp_b {printf("BISON: exp_b (y)\n");}
-| exp_b RESERVEDWORDo exp_b {printf("BISON: exp_b (o)\n");}
-| RESERVEDWORDno exp_b {printf("BISON: exp_b (no)\n");}
-| operandob {printf("BISON: exp_b (operando)\n");}
-| BOOLEAN {printf("BISON: exp_b (booleano)\n");}
-| expresion COMPOP expresion {printf("BISON: exp_b (comparacion)\n");}
-| OPERATORINITPARENT exp_b OPERATORENPARENT {printf("BISON: exp_b (parentesis)\n");}
+	exp_b RESERVEDWORDy exp_b {
+		printf("BISON: exp_b (y)\n");
+	}
+	| exp_b RESERVEDWORDo exp_b {
+		printf("BISON: exp_b (o)\n");
+	}
+	| RESERVEDWORDno exp_b {
+		printf("BISON: exp_b (no)\n");
+	}
+	| operandob {
+		printf("BISON: exp_b (operando)\n");
+	}
+	| BOOLEAN {
+		printf("BISON: exp_b (booleano)\n");
+	}
+	| expresion COMPOP expresion {
+		printf("BISON: exp_b (comparacion)\n");
+	}
+	| OPERATORINITPARENT exp_b OPERATORENPARENT {
+		printf("BISON: exp_b (parentesis)\n");
+	}
 ;
 expresion:
-exp_a {printf("BISON: expresion (exp_a)\n");}
-| exp_b {printf("BISON: expresion (exp_b)\n");}
-| funcion_ll {printf("BISON: expresion (funcion_ll)\n");}
-;
+	exp_a {
+		printf("BISON: expresion (exp_a)\n");
+	}
+	| exp_b {
+		printf("BISON: expresion (exp_b)\n");
+	}
+	| funcion_ll {
+		printf("BISON: expresion (funcion_ll)\n");
+	}
+	;
 
 exp_a:
-exp_a ARITOP exp_a {printf("BISON: exp_a (aritop)\n");}
-| exp_a MINUSOP exp_a {printf("BISON: exp_a (minusop)\n");}
-| exp_a RESERVEDWORDmod exp_a {printf("BISON: exp_a (mod)\n");}
-| exp_a RESERVEDWORDdiv exp_a {printf("BISON: exp_a (div)\n");}
-| OPERATORINITPARENT exp_a OPERATORENPARENT {printf("BISON: exp_a (parentesis)\n");}
-| operando {printf("BISON: exp_a (operando)\n");}
-| REALLIT {printf("BISON: exp_a (lit numerico (real))\n");}
-| MINUSOP exp_a {printf("BISON: exp_a (lit numerico (-exp_a))\n");}
+exp_a ARITOP exp_a {
+	printf("BISON: exp_a (aritop)\n");
+}
+| exp_a MINUSOP exp_a {
+	printf("BISON: exp_a (minusop)\n");
+}
+| exp_a RESERVEDWORDmod exp_a {
+	printf("BISON: exp_a (mod)\n");
+}
+| exp_a RESERVEDWORDdiv exp_a {
+	printf("BISON: exp_a (div)\n");
+}
+| OPERATORINITPARENT exp_a OPERATORENPARENT {
+	printf("BISON: exp_a (parentesis)\n");
+}
+| operando {
+	printf("BISON: exp_a (operando)\n");
+}
+| REALLIT {
+	printf("BISON: exp_a (lit numerico (real))\n");
+}
+| MINUSOP exp_a {
+	printf("BISON: exp_a (lit numerico (-exp_a))\n");
+}
 ;
 
 
 operando:
-IDENTIFIER {printf("BISON: operando (identificador)\n");}
-| operando OPERATORDOT operando {printf("BISON: operando (punto)\n");}
-| operando OPERATORINITARR expresion OPERATORENDARR {printf("BISON: operando (expresion entre corchetes)\n");}
-| operando RESERVEDWORDref {printf("BISON: operando (ref)\n");}
+	IDENTIFIER {
+		printf("BISON: operando (identificador)\n");
+	}
+	| operando OPERATORDOT operando {
+		printf("BISON: operando (punto)\n");
+	}
+	| operando OPERATORINITARR expresion OPERATORENDARR {
+		printf("BISON: operando (expresion entre corchetes)\n");
+	}
+	| operando RESERVEDWORDref {
+		printf("BISON: operando (ref)\n");
+	}
 ;
 
 operandob:
-IDENTIFIERB {printf("BISON: operando (identificadorb)\n");}
+	IDENTIFIERB {
+		printf("BISON: operando (identificadorb)\n");
+	}
 ;
 
 bloque:
-declaraciones instrucciones {printf("BISON: bloque algoritmo\n");}
+	declaraciones instrucciones {
+		printf("BISON: bloque algoritmo\n");
+	}
 ;
 
 
 finAlgoritmo:
-RESERVEDWORDfalgoritmo OPERATORDOT {printf("BISON:fin de algoritmo correcto\n");}
+	RESERVEDWORDfalgoritmo OPERATORDOT {
+		printf("BISON:fin de algoritmo correcto\n");
+	}
 ;
 
 declaraciones:
-declaracion_tipo declaraciones {}
-| declaracion_cte declaraciones {}
-| declaracion_var declaraciones {}
-| %empty {}
+	declaracion_tipo declaraciones {
+		printf("BISON: Declaracion tipo\n");
+	}
+	| declaracion_cte declaraciones {
+		printf("BISON: declaracion cte\n");
+	}
+	| declaracion_var declaraciones {
+		printf("BISON: declaracion var\n");
+	}
+	| %empty {}
 ;
 
 instrucciones:
-instruccion OPERATORDOTCOMMA instrucciones {
-	printf("BISON: instrucciones\n");
-}
-| instruccion {
-	printf("BISON: instruccion\n");
-}
-| %empty {
-	printf("BISON: Instrucciones terminadas\n");
-}
+	instruccion OPERATORDOTCOMMA instrucciones {
+		printf("BISON: instrucciones\n");
+	}
+	| instruccion {
+		printf("BISON: instruccion\n");
+	}
+	| %empty {
+		printf("BISON: Instrucciones terminadas\n");
+	}
 ;
 
 instruccion:
-RESERVEDWORDcontinuar {}
-| asignacion {
-	printf("BISON: encontrada asignacion\n");
-}
-| alternativa {
-	printf("BISON: encontrada alternativa\n");
-}
-| iteracion {
-	printf("BISON: encontrada iteracion\n");
-}
-| accion_ll {
-	printf("BISON: encontrada accion_ll\n");
-}
+	RESERVEDWORDcontinuar {
+		printf("BISON: continuar (resWord)\n");
+	}
+	| asignacion {
+		printf("BISON: encontrada asignacion\n");
+	}
+	| alternativa {
+		printf("BISON: encontrada alternativa\n");
+	}
+	| iteracion {
+		printf("BISON: encontrada iteracion\n");
+	}
+	| accion_ll {
+		printf("BISON: encontrada accion_ll\n");
+	}
 ;
 
 asignacion:
-operando OPERATORASIGN expresion {}
+	operando OPERATORASIGN expresion {
+		printf("BISON: asignacion\n");
+	}
 ;
 
 alternativa:
-RESERVEDWORDsi expresion OPERATORTHEN instrucciones lista_opciones RESERVEDWORDfsi {}
+	RESERVEDWORDsi expresion OPERATORTHEN instrucciones lista_opciones RESERVEDWORDfsi {
+		printf("BISON: alternativa\n");
+	}
 ;
 
 iteracion:
-it_cota_fija {}
-| it_cota_exp {}
+	it_cota_fija {
+		printf("BISON: It cota fija\n");
+	}
+	| it_cota_exp {
+		printf("BISON: It cota exp\n");
+	}
 ;
 
 it_cota_fija:
-RESERVEDWORDpara IDENTIFIER OPERATORASIGN expresion RESERVEDWORDhasta expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfpara {printf("BISON: it_cota_fija\n");}
+	RESERVEDWORDpara IDENTIFIER OPERATORASIGN expresion RESERVEDWORDhasta expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfpara {
+		printf("BISON: it_cota_fija in\n");
+	}
 ;
 
 it_cota_exp:
-RESERVEDWORDmientras expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfmientras {}
+	RESERVEDWORDmientras expresion RESERVEDWORDhacer instrucciones RESERVEDWORDfmientras {
+		printf("BISON: it_cota_exp in\n");
+	}
 ;
 funcion_ll:
-IDENTIFIER OPERATORINITPARENT l_ll OPERATORENPARENT {}
+	IDENTIFIER OPERATORINITPARENT l_ll OPERATORENPARENT {
+		printf("BISON: funcion_ll\n");
+	}
 ;
 /***********************por qué***************************************/
 accion_ll:
-IDENTIFIER OPERATORINITPARENT l_ll OPERATORENPARENT {}
+	IDENTIFIER OPERATORINITPARENT l_ll OPERATORENPARENT {
+		printf("BISON: accion_ll\n");
+	}
 ;
 
 l_ll:
-expresion OPERATORCOMMA l_ll {}
-| expresion {}
+	expresion OPERATORCOMMA l_ll {
+		printf("BISON: l_ll\n");
+	}
+	| expresion {
+		printf("BISON: expresion\n");
+	}
 ;
 
 lista_opciones:
-OPERATORINITEND expresion OPERATORTHEN instrucciones lista_opciones {}
-| %empty {}
+	OPERATORINITEND expresion OPERATORTHEN instrucciones lista_opciones {
+		printf("BISON: lista opciones\n");
+	}
+	| %empty {}
 ;
 
 accion_d:
-RESERVEDWORDaccion a_cabecera bloque RESERVEDWORDfaccion {}
+	RESERVEDWORDaccion a_cabecera bloque RESERVEDWORDfaccion {
+		printf("BISON: accion_d\n");
+	}
 ;
 
 funcion_d:
-RESERVEDWORDfuncion f_cabecera bloque RESERVEDWORDdev expresion RESERVEDWORDffuncion {}
+	RESERVEDWORDfuncion f_cabecera bloque RESERVEDWORDdev expresion RESERVEDWORDffuncion {
+		printf("BISON: funcion_d\n");
+	}
 ;
 
 a_cabecera:
-IDENTIFIER OPERATORINITPARENT d_par_form OPERATORENPARENT OPERATORDOTCOMMA {}
+	IDENTIFIER OPERATORINITPARENT d_par_form OPERATORENPARENT OPERATORDOTCOMMA {
+		printf("BISON: a_cabecera\n");
+	}
 ;
 
 f_cabecera:
-IDENTIFIER OPERATORINITPARENT lista_d_var OPERATORENPARENT RESERVEDWORDdev d_tipo OPERATORDOTCOMMA {}
+	IDENTIFIER OPERATORINITPARENT lista_d_var OPERATORENPARENT RESERVEDWORDdev d_tipo OPERATORDOTCOMMA {
+		printf("BISON: f_cabecera\n");
+	}
 ;
 
 d_par_form:
-d_p_form OPERATORDOTCOMMA d_par_form {}
-| %empty {}
+	d_p_form OPERATORDOTCOMMA d_par_form {
+		printf("BISON: d_par_form\n");
+	}
+	| %empty {}
 ;
 
 d_p_form:
-RESERVEDWORDent lista_id OPERATORDOUBLEDOT  d_tipo {}
-| RESERVEDWORDsal lista_id OPERATORDOUBLEDOT  d_tipo {}
-| RESERVEDWORDes lista_id OPERATORDOUBLEDOT  d_tipo {}
+	RESERVEDWORDent lista_id OPERATORDOUBLEDOT  d_tipo {
+		printf("BISON: d_p_form ent\n");
+	}
+	| RESERVEDWORDsal lista_id OPERATORDOUBLEDOT  d_tipo {
+		printf("BISON: d_p_form sal\n");
+	}
+	| RESERVEDWORDes lista_id OPERATORDOUBLEDOT  d_tipo {
+		printf("BISON: d_p_form\n");
+	}
 ;
 
 %%

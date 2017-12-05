@@ -60,14 +60,17 @@ int insertVarTS(tabla_simbolos *tabla, char *identificador, char *tipo) {
 int insertVarSinTipo(tabla_simbolos *tabla, char *identificador) {
   return insertVarTS(tabla,identificador,"vacio");
 }
-/**
-insertTipoToVars(tabla_simbolos *tabla, char *tipo) {
+
+int insertTipoToVars(tabla_simbolos *tabla, char *tipo) {
   elemento *elem = tabla->primero;
   while (elem != NULL) {
-       printf("%d---> %s:%s;", elem->id, elem->sym.var.nombre, elem->sym.var.tp);
-       elem=elem->next;
+    printf("%d---> %s:%s;", elem->id, elem->sym.var.nombre, elem->sym.var.tp);
+    if(strcmp(elem->sym.var.tp,"vacio")==0) {
+      elem->sym.var.tp=tipo;
+    }
+    elem=elem->next;
   }
-}*/
+}
 
 void imprimirTabla(tabla_simbolos *tabla) {
      elemento *elem = tabla->primero;
