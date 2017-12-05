@@ -3,6 +3,7 @@
 #include <string.h>
 
 void init(tabla_simbolos *tabla) {
+  printf("Init tabla simbolos");
   tabla->size = 0;
   tabla->primero = NULL;
   tabla->ultimo = tabla->primero;

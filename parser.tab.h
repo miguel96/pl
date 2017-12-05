@@ -99,15 +99,20 @@ extern int yydebug;
     OPERATORINITPARENT = 309,
     OPERATORENPARENT = 310,
     ARITOP = 311,
-    MINUSOP = 312,
-    COMPOP = 313,
-    BOOLEAN = 314,
-    CHARLIT = 315,
-    COMMENT = 316,
-    IDENTIFIER = 317,
-    IDENTIFIERB = 318,
-    REALLIT = 319,
-    INTLIT = 320
+    OPMAS = 312,
+    OPPOR = 313,
+    OPELEV = 314,
+    OPDIV = 315,
+    OPDMOD = 316,
+    MINUSOP = 317,
+    COMPOP = 318,
+    BOOLEAN = 319,
+    CHARLIT = 320,
+    COMMENT = 321,
+    IDENTIFIER = 322,
+    IDENTIFIERB = 323,
+    REALLIT = 324,
+    INTLIT = 325
   };
 #endif
 
@@ -124,7 +129,7 @@ union YYSTYPE
   char cval;
 	char *tipo;
 
-#line 128 "parser.tab.h" /* yacc.c:1909  */
+#line 133 "parser.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

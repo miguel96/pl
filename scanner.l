@@ -76,7 +76,11 @@ OPERATOREQUAL "="
 OPERATORINITEND "[]"
 OPERATORINITPARENT "("
 OPERATORENPARENT ")"
-ARITOP  "+"|"*"|"^"|"/"|"%"
+OPMAS "+"
+OPPOR "*"
+OPELEV "^"
+OPDIV "/"
+OPDMOD "%"
 MINUSOP "-"
 COMPOP ">"|"<"|">="|"<="|"=="|"!="
 LOGICOP "&"|"\|"
@@ -135,7 +139,11 @@ LOGICOP "&"|"\|"
 {OPERATORINITEND} operators++;printf("OPERATOR %s\n",parseString(yytext));yylval.sval=parseString(yytext);return OPERATORINITEND;
 {OPERATORINITPARENT} operators++;printf("OPERATOR %s\n",yytext);yylval.cval=yytext[0];return OPERATORINITPARENT;
 {OPERATORENPARENT} operators++;printf("OPERATOR %s\n",yytext);yylval.cval=yytext[0];return OPERATORENPARENT;
-{ARITOP} operators++;printf("ARITOP %s\n",yytext);yylval.cval=yytext[0];return ARITOP;
+{OPMAS}  operators++;printf("ARITOP %s\n",yytext);yylval.cval=yytext[0];return OPMAS;
+{OPPOR} operators++;printf("ARITOP %s\n",yytext);yylval.cval=yytext[0];return OPPOR;
+{OPELEV} operators++;printf("ARITOP %s\n",yytext);yylval.cval=yytext[0];return OPELEV;
+{OPDIV} operators++;printf("ARITOP %s\n",yytext);yylval.cval=yytext[0];return OPDIV;
+{OPDMOD} operators++;printf("ARITOP %s\n",yytext);yylval.cval=yytext[0];return OPDMOD;
 {MINUSOP} operators++;printf("MINUSOP %s\n",yytext),yylval.cval=yytext[0];return MINUSOP;
 {COMPOP} operators++;printf("COMPOP %s\n",yytext);yylval.cval=yytext[0];return COMPOP;
 {BOOLEAN} ++boolLits;printf("Boolean:%s\n",yytext);yylval.sval=yytext;return BOOLEAN;
