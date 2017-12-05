@@ -48,8 +48,17 @@ elemento *buscaNombre(tabla_simbolos *tabla, char *nombre) {
     }
     return temp;
 }
-insertVarSinTipo(tabla_simbolos *tabla, char *identificador) {
-  insertVarTS(tabla,identificador,"vacio");
+
+int insertVarTS(tabla_simbolos *tabla, char *identificador, char *tipo) {
+  printf("insertando ident %s, tipo %s\n",identificador,tipo);
+  symbol sym;
+  sym.var.nombre=strdup(identificador);
+  sym.var.tp = strdup(tipo);
+  insertVariable(tabla, sym);
+}
+
+int insertVarSinTipo(tabla_simbolos *tabla, char *identificador) {
+  return insertVarTS(tabla,identificador,"vacio");
 }
 /**
 insertTipoToVars(tabla_simbolos *tabla, char *tipo) {
@@ -59,13 +68,6 @@ insertTipoToVars(tabla_simbolos *tabla, char *tipo) {
        elem=elem->next;
   }
 }*/
-int insertVarTS(tabla_simbolos *tabla, char *identificador, char *tipo) {
-    printf("insertando ident %s, tipo %s\n",identificador,tipo);
-     symbol sym;
-     sym.var.nombre=strdup(identificador);
-     sym.var.tp = strdup(tipo);    
-     insertVariable(tabla, sym);
-}
 
 void imprimirTabla(tabla_simbolos *tabla) {
      elemento *elem = tabla->primero;
@@ -75,5 +77,5 @@ void imprimirTabla(tabla_simbolos *tabla) {
           printf("\t%d---> %s:%s\n", elem->id, elem->sym.var.nombre, elem->sym.var.tp);
           elem=elem->next;
      }
-     printf("\nHe terminado de imprimit la tabla, tamaño %d\n");
+     printf("\nHe terminado de imprimit la tabla, tamaño %d\n",tabla->size);
 }
