@@ -1,11 +1,12 @@
 algoritmo intercambio;
-ent a, b : entero;
+ent a, c : entero;
 sal c :entero;
 {Prec: a= A AND b = B}
 var
-aux : entero;
+    b1, b2 : booleano;
+    aux, aux2: entero;
 fvar;
-c := a + b;
-c := a * b;
+c := a + c;
+c := a * c;
 {Post: b=A AND a = B}
 falgoritmo.

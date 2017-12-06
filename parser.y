@@ -90,7 +90,7 @@ void yyerror (char const *);
 
 
 //Types
-%type <tipo> lista_id
+%type <ival> lista_id
 %type <tipo> lista_d_var
 %type <tipo> d_tipo
 %type <ival> exp_a//La id de la variable del resultado
@@ -129,7 +129,9 @@ declaracion_tipo:
 ;
 
 declaracion_var:
-	RESERVEDWORDvar lista_d_var RESERVEDWORDfvar OPERATORDOTCOMMA {printf("BISON: declaracion de variables\n");}
+	RESERVEDWORDvar lista_d_var RESERVEDWORDfvar OPERATORDOTCOMMA {
+		printf("BISON: declaracion de variables terminada\n");
+	}
 ;
 
 lista_d_tipo:
@@ -141,12 +143,12 @@ d_tipo:
 	| RESERVEDWORDtabla OPERATORINITARR expresion_t OPERATORDOTDOT expresion_t OPERATORENDARR RESERVEDWORDde d_tipo {printf("BISON: d_tipo\n");}
 	| IDENTIFIER {printf("BISON: d_tipo\n");}
 	| expresion_t OPERATORDOTDOT expresion_t {printf("BISON: d_tipo\n");}
-	| RESERVEDWORDref d_tipo {printf("BISON: d_tipo\n");}
-	| RESERVEDWORDentero {printf("BISON: d_tipo\n");}
-	| RESERVEDWORDbooleano {printf("BISON: d_tipo\n");}
-	| RESERVEDWORDcaracter {printf("BISON: d_tipo\n");}
-	| RESERVEDWORDreal {printf("BISON: d_tipo\n");}
-	| RESERVEDWORDcadena {printf("BISON: d_tipo\n");}
+	| RESERVEDWORDref d_tipo {printf("BISON: tipo ref encontrado\n");}
+	| RESERVEDWORDentero {printf("BISON: tipo entero encontrado\n");}
+	| RESERVEDWORDbooleano {printf("BISON: tipo booleano encontrado\n");}
+	| RESERVEDWORDcaracter {printf("BISON: tipo caracte encontrado\n");}
+	| RESERVEDWORDreal {printf("BISON: tipo real encontrado\n");}
+	| RESERVEDWORDcadena {printf("BISON: tipo cadena encontrado\n");}
 ;
 expresion_t:
 	expresion {printf("Expression:_t\n");}
@@ -166,43 +168,43 @@ lista_d_cte:
 
 lista_d_var:
 	lista_id OPERATORDOUBLEDOT IDENTIFIER OPERATORDOTCOMMA lista_d_var {
-		printf("BISON: Lista de var\n");
-		insertTipoToVars(&ts,$3);
+		printf("BISON: Lista de var %d\n",$1);
+		insertTipoToVars(&ts,$3,$1);
 	}
 	| lista_id OPERATORDOUBLEDOT IDENTIFIERB OPERATORDOTCOMMA lista_d_var {
-			printf("BISON: Lista de var\n");
-			insertTipoToVars(&ts,$3);
+			printf("BISON: Lista de var %d\n",$1);
+			insertTipoToVars(&ts,$3,$1);
 		}
 	| lista_id OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA lista_d_var {
-			printf("BISON: Lista de var\n");
-			insertTipoToVars(&ts,$3);
+			printf("BISON: Lista de var %d, tipo: %s\n",$1,$3);
+			insertTipoToVars(&ts,$3,$1);
 		}
 	| %empty {
-			printf("BISON: Lista vacia de var\n");
+			printf("BISON: Termina lista_d_var\n");
 		}
 ;
 
 lista_id:
 	IDENTIFIER OPERATORCOMMA lista_id {
-		printf("BISON: en la lista habia: .%s.\n",$3);
+		printf("BISON: el id de la lista es: %d\n",$3);
 		printf("BISON: ids en lista: .%s.\n",$1);
 		insertVarSinTipo(&ts,$1);
-		$$=$1;
+		$$=$3;
 	}
 	| IDENTIFIERB OPERATORCOMMA lista_id {
 		printf("BISON: declaracion de ids(BOOL)\n");
 		insertVarSinTipo(&ts,$1);
-		$$=$1;
+		$$=$3;
 	}
 	| IDENTIFIER {
-			printf("BISON: id en la lista: .%s.\n",$1);
-			insertVarSinTipo(&ts,$1);
-			$$=$1;
+			printf("BISON: id en la lista: .%s. Termina la lista\n",$1);
+			insertVarSinTipo(&ts,$1);			
+			$$=endOfIdList(&ts);		
 	}
 	| IDENTIFIERB {
 		printf("Identb %s\n",$1);
 		insertVarSinTipo(&ts,$1);
-		$$=$1;
+		$$=endOfIdList(&ts);		
 	}
 ;
 /**Variables ent sal No se si hay que delcararlas*/

@@ -12,6 +12,7 @@ typedef struct {
   char *nombre;
   char *tp;
   int extra;
+  int idLista;
 } variable;
 
 typedef union {

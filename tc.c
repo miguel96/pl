@@ -22,8 +22,7 @@ int gen(tabla_cuadruplas *tabla, int op, int op1, int op2, int dest) {
   return 0;
 }
 void imprimirTupla(int op, char *op1, char *op2, char *dest) {
-  switch (op)
-  {
+  switch (op) {
   case ASIGN:
     printf("%s:= %s\n", dest, op1);
     break;

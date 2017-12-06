@@ -1,7 +1,7 @@
 #include "ts.h"
 #include <stdio.h>
 #include <string.h>
-int temps=0;
+int temps=0,listId=0;
 void init(tabla_simbolos *tabla) {
   printf("Init tabla simbolos");
   temps=0;
@@ -11,12 +11,12 @@ void init(tabla_simbolos *tabla) {
 }
 
 int insertVariable(tabla_simbolos *tabla, symbol sym) {
-  printf("entra insertVar\n");
   elemento *elem;
   elem = (elemento *) malloc(sizeof(elemento));
   elem->id=tabla->size;
   elem->tipo=SIM_VARIABLE;
   sym.var.extra=-1;
+  sym.var.idLista=-1;
   elem->sym=sym;
   elem->next=NULL;
      if (tabla->primero == NULL){
@@ -53,7 +53,7 @@ elemento *buscaNombre(tabla_simbolos *tabla, char *nombre) {
 }
 
 int insertVarTS(tabla_simbolos *tabla, char *identificador, char *tipo) {
-  printf("insertando ident %s, tipo %s\n",identificador,tipo);
+  printf("insertando ident %s\n",identificador);
   symbol sym;
   sym.var.nombre=strdup(identificador);
   sym.var.tp = strdup(tipo);
@@ -64,11 +64,11 @@ int insertVarSinTipo(tabla_simbolos *tabla, char *identificador) {
   return insertVarTS(tabla,identificador,"vacio");
 }
 
-int insertTipoToVars(tabla_simbolos *tabla, char *tipo) {
+int insertTipoToVars(tabla_simbolos *tabla, char *tipo,int idLista) {
   elemento *elem = tabla->primero;
   while (elem != NULL) {
     printf("%d---> %s:%s;", elem->id, elem->sym.var.nombre, elem->sym.var.tp);
-    if(strcmp(elem->sym.var.tp,"vacio")==0) {
+    if(strcmp(elem->sym.var.tp,"vacio")==0&&elem->sym.var.idLista==idLista) {
       elem->sym.var.tp=tipo;
     }
     elem=elem->next;
@@ -99,7 +99,7 @@ void imprimirTabla(tabla_simbolos *tabla) {
      printf("\n");
      printf("\nVoy a imprimir la tabla, tamaño %d\n",tabla->size);
      while (elem != NULL) {
-          printf("\t%d---> %s:%s\n", elem->id, elem->sym.var.nombre, elem->sym.var.tp);
+          printf("\t%d---> %s:%s||%d\n", elem->id, elem->sym.var.nombre, elem->sym.var.tp,elem->sym.var.idLista);
           elem=elem->next;
      }
      printf("\nHe terminado de imprimit la tabla, tamaño %d\n",tabla->size);
@@ -132,4 +132,19 @@ int setVarsExtra(tabla_simbolos *tabla,int extra){
     }
     elem=elem->next;
   }
+}
+int setVarsId(tabla_simbolos *tabla, int id) {
+  elemento *elem = tabla->primero;
+  while(elem!=NULL) {
+    if(elem->sym.var.idLista<0){
+      elem->sym.var.idLista=id;    
+    }
+    elem=elem->next;
+  }
+}
+int endOfIdList(tabla_simbolos *tabla){
+  listId=listId+1;
+  printf("TS: New list id: %d\n",listId);
+  setVarsId(tabla,listId);
+  return listId;
 }
