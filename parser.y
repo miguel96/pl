@@ -220,11 +220,13 @@ decl_ent_sal:
 decl_ent:
 	RESERVEDWORDent lista_d_var {
 		printf("BISON: decl ent\n");
+		setVarsExtra(&ts,INPUTVAR);
 	}
 ;
 decl_sal:
 	RESERVEDWORDsal lista_d_var {
 		printf("BISON: decl sal\n");
+		setVarsExtra(&ts,OUTPUTVAR);
 	}
 ;
 /**EXpresiones*/

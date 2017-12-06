@@ -1,13 +1,12 @@
 algoritmo intercambio;
-ent a, b, z: entero;
-sal a, b: entero;
-{Prec: a= A AND b = B}
+ent a, c: entero;
+sal a, c: entero;
+{Prec: a= A AND c = B}
 var
-aux: entero;
-hola, adios, foo,bar,baz: String;
+    aux: entero;
 fvar;
 aux:= a;
-a:= b;
-b:= aux;
-{Post: b=A AND a = B}
+a:= c;
+c:= aux;
+{Post: c=A AND a = B}
 falgoritmo.

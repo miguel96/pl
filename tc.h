@@ -9,7 +9,12 @@
 #define DIV 4
 #define MOD 5
 #define ELEV 6
+#define INPUT 7
+#define OUTPUT 8
 
+
+#define INPUTVAR 0
+#define OUTPUTVAR 1
 
 typedef struct {
     int tabla[4][100];

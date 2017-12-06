@@ -16,6 +16,7 @@ int insertVariable(tabla_simbolos *tabla, symbol sym) {
   elem = (elemento *) malloc(sizeof(elemento));
   elem->id=tabla->size;
   elem->tipo=SIM_VARIABLE;
+  sym.var.extra=-1;
   elem->sym=sym;
   elem->next=NULL;
      if (tabla->primero == NULL){
@@ -103,8 +104,32 @@ void imprimirTabla(tabla_simbolos *tabla) {
      }
      printf("\nHe terminado de imprimit la tabla, tamaño %d\n",tabla->size);
 }
+char *getExtraName(int extra){
+  switch(extra){
+    case 0: return "input";
+    case 1: return "output";
+  }    
+}
+int printExtraVars(tabla_simbolos *tabla,int extra) {
+    elemento *elem = tabla->primero;
+    while(elem != NULL) {
+      if(elem->sym.var.extra==extra) {
+        printf("%s %s\n",getExtraName(extra),elem->sym.var.nombre);
+      }        
+      elem=elem->next;
+    }
+}
 int newTemp(tabla_simbolos *tabla,char *tipo){
   char str[10];
   sprintf(str, "temp%d", temps++);
   return insertVarTS(tabla,str,tipo);  
+}
+int setVarsExtra(tabla_simbolos *tabla,int extra){
+  elemento *elem = tabla->primero;
+  while(elem!=NULL) {
+    if(elem->sym.var.extra<0){
+      elem->sym.var.extra=extra;    
+    }
+    elem=elem->next;
+  }
 }

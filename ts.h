@@ -11,6 +11,7 @@ typedef enum { //Esto para un futuro
 typedef struct {
   char *nombre;
   char *tp;
+  int extra;
 } variable;
 
 typedef union {

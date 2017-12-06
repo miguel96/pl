@@ -48,8 +48,10 @@ void imprimirTupla(int op, char *op1, char *op2, char *dest) {
   }
 }
 void imprimirTablaCuadruplas(tabla_cuadruplas *tc, tabla_simbolos *ts) {
-  printf("------>Tabla de Cuádruplas<-----\n");
+  printf("------>Codigo en 3 direcciones<-----\n");
+  printExtraVars(ts,INPUTVAR);
   for (int i = 0; i < tc->nextquad; i++) {
     imprimirTupla(tc->tabla[i][0], getName(ts, tc->tabla[i][1]), getName(ts, tc->tabla[i][2]), getName(ts, tc->tabla[i][3]));
   }
+  printExtraVars(ts,OUTPUTVAR);
 }
