@@ -8,6 +8,6 @@ hola, adios, foo,bar,baz: String;
 fvar;
 aux:= a;
 a:= b;
-b:= aux
+b:= aux;
 {Post: b=A AND a = B}
 falgoritmo.

@@ -1,9 +1,10 @@
 #include "ts.h"
 #include <stdio.h>
 #include <string.h>
-
+int temps=0;
 void init(tabla_simbolos *tabla) {
   printf("Init tabla simbolos");
+  temps=0;
   tabla->size = 0;
   tabla->primero = NULL;
   tabla->ultimo = tabla->primero;
@@ -21,7 +22,7 @@ int insertVariable(tabla_simbolos *tabla, symbol sym) {
         tabla->primero=elem;
         tabla->ultimo=elem;
         tabla->size++;
-        return 1;
+        return elem->id;//Return id
      }
      else {
           if (nombreUsado(tabla, sym.var.nombre)){
@@ -32,7 +33,7 @@ int insertVariable(tabla_simbolos *tabla, symbol sym) {
           tabla->ultimo = elem;
           tabla->size++;
           printf("Tamalo tabla:%d\n",tabla->size);
-          return 1;
+          return elem->id; //Return id
      }
    }
 
@@ -55,7 +56,7 @@ int insertVarTS(tabla_simbolos *tabla, char *identificador, char *tipo) {
   symbol sym;
   sym.var.nombre=strdup(identificador);
   sym.var.tp = strdup(tipo);
-  insertVariable(tabla, sym);
+  return insertVariable(tabla, sym);
 }
 
 int insertVarSinTipo(tabla_simbolos *tabla, char *identificador) {
@@ -72,7 +73,26 @@ int insertTipoToVars(tabla_simbolos *tabla, char *tipo) {
     elem=elem->next;
   }
 }
-
+int getId(tabla_simbolos *tabla, char *name) {
+  elemento *elem= tabla->primero;
+  while(elem!=NULL&&strcmp(name,elem->sym.var.nombre)!=0){
+    elem=elem->next;
+  }
+  if(elem!=NULL){
+    return elem->id;
+  }
+  return -1;
+}
+char * getName(tabla_simbolos *tabla, int id) {
+  elemento *elem= tabla->primero;
+  while(elem != NULL&&elem->id!=id) {
+    elem=elem->next;
+  }
+  if(elem!=NULL){
+    return elem->sym.var.nombre;
+  }
+  return "";
+}
 void imprimirTabla(tabla_simbolos *tabla) {
      elemento *elem = tabla->primero;
      printf("\n");
@@ -82,4 +102,9 @@ void imprimirTabla(tabla_simbolos *tabla) {
           elem=elem->next;
      }
      printf("\nHe terminado de imprimit la tabla, tamaño %d\n",tabla->size);
+}
+int newTemp(tabla_simbolos *tabla,char *tipo){
+  char str[10];
+  sprintf(str, "temp%d", temps++);
+  return insertVarTS(tabla,str,tipo);  
 }

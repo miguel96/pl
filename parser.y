@@ -2,13 +2,14 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-#include "ts.c"
+//#include "ts.c"
+#include "tc.c"
 
 int yylex(void);
 int yyparse(void);
 extern FILE *yyin;
 tabla_simbolos ts;
-
+tabla_cuadruplas tc;
 void yyerror (char const *);
 %}
 %union {
@@ -79,10 +80,7 @@ void yyerror (char const *);
 %token <cval> OPDMOD
 %token <sval> MINUSOP
 %token <sval> COMPOP
-//%token <sval> LOGICOP
 %token <sval> BOOLEAN
-//%token <sval> AUX
-//%token <sval> SPACE
 %token <sval> CHARLIT
 %token <sval> COMMENT
 %token <sval> IDENTIFIER
@@ -95,13 +93,17 @@ void yyerror (char const *);
 %type <tipo> lista_id
 %type <tipo> lista_d_var
 %type <tipo> d_tipo
-%type <tipo> exp_a
-%type <tipo> aritop
+%type <ival> exp_a//La id de la variable del resultado
+%type <ival> expresion //La id de la variable del resultado
+%type <ival> operando//La id de la variable del operando
+%type <ival> aritop
 %% /* Grammar rules and actions follow.  */
 desc_algoritmo:
 RESERVEDWORDalgoritmo IDENTIFIER OPERATORDOTCOMMA cabecera_alg bloque COMMENT finAlgoritmo {
 	printf("BISON: Encontre un algoritmo completo, enhorabuena\nAhora imprimo la TS:\n");
 	imprimirTabla(&ts);
+	printf("BISON:TS completa, imprimo la TC:\n");
+	imprimirTablaCuadruplas(&tc,&ts);
 }
 ;
 
@@ -265,36 +267,36 @@ exp_a:
 exp_a aritop exp_a {
 	printf("BISON: exp_a (aritop)\n");
 	int idTempVar;
-	idTempVar=newtemp();
-	gen(tablaCuad,$2,$1,$3,idTempVar);
-	$$=&idTempVar;
+	idTempVar=newTemp(&ts,"entero");
+	gen(&tc,$2,$1,$3,idTempVar);
+	$$=idTempVar;
 }
 | exp_a MINUSOP exp_a {
 	printf("BISON: exp_a (aritop)\n");
 	int idTempVar;
-	idTempVar=newtemp();
-	gen(tablaCuad,2,$1,$3,idTempVar);
-	$$=*idTempVar;
+	idTempVar=newTemp(&ts,"entero");
+	gen(&tc,MENOS,$1,$3,idTempVar);
+	$$=idTempVar;
 }
 | exp_a RESERVEDWORDmod exp_a {
 	printf("BISON: exp_a (aritop)\n");
 	int idTempVar;
-	idTempVar=newtemp();
-	gen(tablaCuad,5,$1,$3,idTempVar);
-	$$=*idTempVar;
+	idTempVar=newTemp(&ts,"entero");
+	gen(&tc,MOD,$1,$3,idTempVar);
+	$$=idTempVar;
 }
 | exp_a RESERVEDWORDdiv exp_a {
-	printf("BISON: exp_a (aritop)\n");
 	int idTempVar;
-	idTempVar=newtemp();
-	gen(tablaCuad,4,$1,$3,idTempVar);
-	$$=*idTempVar;
+	printf("BISON: exp_a (aritop)\n");
+	idTempVar=newTemp(&ts,"entero");
+	gen(&tc,DIV,$1,$3,idTempVar);
+	$$=idTempVar;
 }
 | OPERATORINITPARENT exp_a OPERATORENPARENT {
 	printf("BISON: exp_a (parentesis)\n");
 }
 | operando {
-	printf("BISON: exp_a (operando)\n");
+	printf("BISON: exp_a (operando:id->%d)\n",$1);
 }
 | REALLIT {
 	printf("BISON: exp_a (lit numerico (real))\n");
@@ -307,7 +309,8 @@ exp_a aritop exp_a {
 
 operando:
 	IDENTIFIER {
-		printf("BISON: operando (identificador)\n");
+		printf("BISON: operando (identificador:%s) \n",$1);
+		$$=getId(&ts,$1);
 	}
 	| operando OPERATORDOT operando {
 		printf("BISON: operando (punto)\n");
@@ -385,6 +388,7 @@ instruccion:
 asignacion:
 	operando OPERATORASIGN expresion {
 		printf("BISON: asignacion\n");
+		gen(&tc,ASIGN,$3,-1,$1);
 	}
 ;
 
@@ -487,23 +491,23 @@ d_p_form:
 aritop:
 	OPMAS {
 		printf("BISON: opmas\n");
-		$$=1;
+		$$=MAS;
 	}
 	| OPPOR {
-		printf("BISON: opmas\n");
-		$$=3;
+		printf("BISON: opmult\n");
+		$$=MULT;
 	}
 	| OPELEV {
-		printf("BISON: opmas\n");
-		$$=6;
+		printf("BISON: opelev\n");
+		$$=ELEV;
 	}
 	| OPDIV {
-		printf("BISON: opmas\n");
-		$$=4;
+		printf("BISON: opdiv\n");
+		$$=DIV;
 	}
 	| OPDMOD {
-		printf("BISON: opmas\n");
-		$$=5;
+		printf("BISON: opmod\n");
+		$$=MOD;
 	}
 %%
 void yyerror(char const * error){
@@ -513,6 +517,7 @@ void yyerror(char const * error){
 
 int main(int argc, char *argv[]) {
 	init(&ts);
+	initTable(&tc);
   if ( argc > 0 ) {
     FILE *myfile = fopen(argv[1], "r");
     yyin=myfile;
@@ -521,8 +526,7 @@ int main(int argc, char *argv[]) {
       yyin = stdin;
   }
 
-  do{
-    printf("%s\n","parsing" );
+  do{    
     yyparse();
   } while(!feof(yyin));
   //printf("identifiers:%d err:%d com:%d,intLits:%d,realLits:%d,boolLits:%d,charLits:%d,reservadas:%d,operadores:%d\n",
