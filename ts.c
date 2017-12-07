@@ -16,7 +16,7 @@ int insertVariable(tabla_simbolos *tabla, symbol sym) {
   elem->id=tabla->size;
   elem->tipo=SIM_VARIABLE;
   sym.var.extra=-1;
-  sym.var.idLista=-1;
+  sym.var.idLista=listId;
   elem->sym=sym;
   elem->next=NULL;
      if (tabla->primero == NULL){
@@ -142,9 +142,7 @@ int setVarsId(tabla_simbolos *tabla, int id) {
     elem=elem->next;
   }
 }
-int endOfIdList(tabla_simbolos *tabla){
-  listId=listId+1;
-  printf("TS: New list id: %d\n",listId);
-  setVarsId(tabla,listId);
+int newIdList(tabla_simbolos *tabla) {
+  listId++;
   return listId;
 }

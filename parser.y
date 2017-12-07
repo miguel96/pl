@@ -197,14 +197,14 @@ lista_id:
 		$$=$3;
 	}
 	| IDENTIFIER {
-			printf("BISON: id en la lista: .%s. Termina la lista\n",$1);
-			insertVarSinTipo(&ts,$1);			
-			$$=endOfIdList(&ts);		
+		printf("BISON: id en la lista: .%s. Termina la lista\n",$1);
+		$$=newIdList(&ts);		
+		insertVarSinTipo(&ts,$1);			
 	}
 	| IDENTIFIERB {
 		printf("Identb %s\n",$1);
 		insertVarSinTipo(&ts,$1);
-		$$=endOfIdList(&ts);		
+		$$=newIdList(&ts);		
 	}
 ;
 /**Variables ent sal No se si hay que delcararlas*/
