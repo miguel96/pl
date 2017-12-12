@@ -3,7 +3,7 @@ ent a, c: entero;
 sal a, c: entero;
 {Prec: a= A AND c = B}
 var
-    aux: entero;
+    {aux: entero;}
 fvar;
 aux:= a;
 a:= c;

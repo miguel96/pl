@@ -21,28 +21,28 @@ int gen(tabla_cuadruplas *tabla, int op, int op1, int op2, int dest) {
   tabla->nextquad++;
   return 0;
 }
-void imprimirTupla(int op, char *op1, char *op2, char *dest) {
+void imprimirTupla(int i,int op, char *op1, char *op2, char *dest) {
   switch (op) {
   case ASIGN:
-    printf("%s:= %s\n", dest, op1);
+    printf("%d %s:= %s\n",i, dest, op1);
     break;
   case MAS:
-    printf("%s:= %s + %s\n",dest,op1,op2);
+    printf("%d %s:= %s + %s\n",i,dest,op1,op2);
     break;
   case MENOS:
-    printf("%s:= %s - %s\n",dest,op1,op2);
+    printf("%d %s:= %s - %s\n",i,dest,op1,op2);
     break;
   case MULT:
-    printf("%s:= %s * %s\n",dest,op1,op2);
+    printf("%d %s:= %s * %s\n",i,dest,op1,op2);
     break;
   case DIV:
-    printf("%s:= %s / %s\n",dest,op1,op2);
+    printf("%d %s:= %s / %s\n",i,dest,op1,op2);
     break;
   case MOD:
-    printf("%s:= %s mod %s\n",dest,op1,op2);
+    printf("%d %s:= %s mod %s\n",i,dest,op1,op2);
     break;
   case ELEV:
-    printf("%s:= %s ^ %s\n",dest,op1,op2);
+    printf("%d %s:= %s ^ %s\n",i,dest,op1,op2);
     break;
   }
 }
@@ -50,7 +50,7 @@ void imprimirTablaCuadruplas(tabla_cuadruplas *tc, tabla_simbolos *ts) {
   printf("------>Codigo en 3 direcciones<-----\n");
   printExtraVars(ts,INPUTVAR);
   for (int i = 0; i < tc->nextquad; i++) {
-    imprimirTupla(tc->tabla[i][0], getName(ts, tc->tabla[i][1]), getName(ts, tc->tabla[i][2]), getName(ts, tc->tabla[i][3]));
+    imprimirTupla(i,tc->tabla[i][0], getName(ts, tc->tabla[i][1]), getName(ts, tc->tabla[i][2]), getName(ts, tc->tabla[i][3]));
   }
   printExtraVars(ts,OUTPUTVAR);
 }

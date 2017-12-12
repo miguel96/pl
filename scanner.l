@@ -16,6 +16,8 @@ NUMBER {DIGIT}{DIGIT}*
 CHAR [a-zA-z]
 SPACE [ \t\n]
 COMMENT "{"([^}]|"/}")*"}"
+PREC "{"Prec:([^}]|"/}")*"}"
+POST "{"Post:([^}]|"/}")*"}"
 IDENTIFIERB "b"({CHAR}|{DIGIT})*
 IDENTIFIER  {CHAR}({CHAR}|{DIGIT})*
 AUX {NUMBER},{NUMBER}
@@ -149,7 +151,9 @@ LOGICOP "&"|"\|"
 {BOOLEAN} ++boolLits;yylval.sval=yytext;return BOOLEAN;
 {SPACE}{SPACE}*;
 {CHARLIT} ++charLits;yylval.sval=yytext;return CHARLIT ;
-{COMMENT} ++coments;printf("Comment:%s\n",yytext);return COMMENT;
+{PREC} ++coments;yylval.sval=parseString(yytext);return COMMENT;
+{POST} ++coments;yylval.sval=parseString(yytext);return COMMENT;
+{COMMENT} ++coments;//No return anything
 {IDENTIFIERB} ++boolIdent;yylval.sval=parseString(yytext);return IDENTIFIER;
 {IDENTIFIER} ++identifiers;yylval.sval=parseString(yytext);return IDENTIFIER;
 {REALLIT} ++realLits;yylval.sval=yytext;return REALLIT;

@@ -124,10 +124,10 @@ int newTemp(tabla_simbolos *tabla,char *tipo){
   sprintf(str, "temp%d", temps++);
   return insertVarTS(tabla,str,tipo);  
 }
-int setVarsExtra(tabla_simbolos *tabla,int extra){
+int setVarsExtra(tabla_simbolos *tabla,int listId,int extra){
   elemento *elem = tabla->primero;
   while(elem!=NULL) {
-    if(elem->sym.var.extra<0){
+    if(elem->sym.var.idLista==listId){
       elem->sym.var.extra=extra;    
     }
     elem=elem->next;

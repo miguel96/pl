@@ -11,6 +11,14 @@
 #define ELEV 6
 #define INPUT 7
 #define OUTPUT 8
+#define IGUAL 9
+#define MENOR 10
+#define MAYOR 11
+#define MAYOROIG 12
+#define MENOROIG 13
+#define FALSE 0
+#define TRUE 1
+
 
 
 #define INPUTVAR 0

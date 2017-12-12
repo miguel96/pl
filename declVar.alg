@@ -6,7 +6,7 @@ var
     b1, b2 : booleano;
     aux, aux2: entero;
 fvar;
-c := a + c;
-c := a * c;
+{c := a * a;}
+c := a + c + a;
 {Post: b=A AND a = B}
 falgoritmo.

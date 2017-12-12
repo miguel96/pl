@@ -91,7 +91,7 @@ void yyerror (char const *);
 
 //Types
 %type <ival> lista_id
-%type <tipo> lista_d_var
+%type <ival> lista_d_var
 %type <tipo> d_tipo
 %type <ival> exp_a//La id de la variable del resultado
 %type <ival> expresion //La id de la variable del resultado
@@ -222,13 +222,13 @@ decl_ent_sal:
 decl_ent:
 	RESERVEDWORDent lista_d_var {
 		printf("BISON: decl ent\n");
-		setVarsExtra(&ts,INPUTVAR);
+		setVarsExtra(&ts,$2,INPUTVAR);
 	}
 ;
 decl_sal:
 	RESERVEDWORDsal lista_d_var {
 		printf("BISON: decl sal\n");
-		setVarsExtra(&ts,OUTPUTVAR);
+		setVarsExtra(&ts,$2,OUTPUTVAR);
 	}
 ;
 /**EXpresiones*/
@@ -249,7 +249,7 @@ exp_b:
 		printf("BISON: exp_b (booleano)\n");
 	}
 	| expresion COMPOP expresion {
-		printf("BISON: exp_b (comparacion)\n");
+		printf("BISON: exp_b (comparacion)\n");		
 	}
 	| OPERATORINITPARENT exp_b OPERATORENPARENT {
 		printf("BISON: exp_b (parentesis)\n");
