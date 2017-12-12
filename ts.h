@@ -2,6 +2,12 @@
 
 #define ts_aitor_miguel_h
 
+#define ENTERO 0
+#define REAL 1
+#define BOOLEAN 2
+#define CHAR 3
+#define CADENA 4
+
 typedef enum { //Esto para un futuro
     SIM_VARIABLE,
     SIM_TIPO,
