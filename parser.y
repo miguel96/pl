@@ -274,6 +274,7 @@ exp_a aritop exp_a {
 	idTempVar=newTemp(&ts,"entero");
 	gen(&tc,$2,$1,$3,idTempVar);
 	$$=idTempVar;
+	printf("Nueva temporal id:%d",idTempVar);	
 }
 | exp_a MINUSOP exp_a {
 	printf("BISON: exp_a (aritop)\n");
@@ -304,6 +305,14 @@ exp_a aritop exp_a {
 }
 | REALLIT {
 	printf("BISON: exp_a (lit numerico (real))\n");
+}
+| INTLIT {
+	int idTempVar;
+	printf("BISON: exp_a (int lit: %d)\n",$1);
+	idTempVar=newTemp(&ts,"entero");
+	gen(&tc,ASIGN,$1,-1,idTempVar);
+	$$=idTempVar;
+	printf("Nueva temporal id:%d",idTempVar);
 }
 | MINUSOP exp_a {
 	printf("BISON: exp_a (lit numerico (-exp_a))\n");
@@ -364,7 +373,7 @@ instrucciones:
 		printf("BISON: instrucciones\n");
 	}
 	| instruccion {
-		printf("BISON: instruccion\n");
+		printf("BISON: ultima instruccion\n");
 	}
 	| %empty {
 		printf("BISON: Instrucciones terminadas\n");
@@ -376,7 +385,7 @@ instruccion:
 		printf("BISON: continuar (resWord)\n");
 	}
 	| asignacion {
-		printf("BISON: encontrada asignacion\n");
+		printf("BISON: encontrada asignacion\n");		
 	}
 	| alternativa {
 		printf("BISON: encontrada alternativa\n");

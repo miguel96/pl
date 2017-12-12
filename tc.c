@@ -14,6 +14,7 @@ op2: operando2;
 dest: operando destino;
 */
 int gen(tabla_cuadruplas *tabla, int op, int op1, int op2, int dest) {
+  printf("Generating op:%d op1:%d op2:%d dest: %d\n",op,op1,op2,dest);
   tabla->tabla[tabla->nextquad][0] = op;
   tabla->tabla[tabla->nextquad][1] = op1;
   tabla->tabla[tabla->nextquad][2] = op2;

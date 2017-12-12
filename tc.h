@@ -2,7 +2,7 @@
 
 #define tc_aitor_miguel_h
 
-#define ASIGN 0
+#define ASIGN 50
 #define MAS 1
 #define MENOS 2
 #define MULT 3
