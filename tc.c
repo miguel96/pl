@@ -55,3 +55,10 @@ void imprimirTablaCuadruplas(tabla_cuadruplas *tc, tabla_simbolos *ts) {
   }
   printExtraVars(ts,OUTPUTVAR);
 }
+
+int* makeList(int a) {
+     int * lista;
+     lista = (int*)malloc(sizeof(int));
+     lista[0] = a;
+     return lista;
+}
