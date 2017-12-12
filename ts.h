@@ -2,9 +2,10 @@
 
 #define ts_aitor_miguel_h
 
+#define VACIO -1
 #define ENTERO 0
 #define REAL 1
-#define BOOLEAN 2
+#define BOOLEANO 2
 #define CHAR 3
 #define CADENA 4
 
@@ -16,7 +17,7 @@ typedef enum { //Esto para un futuro
 
 typedef struct {
   char *nombre;
-  char *tp;
+  int tp;
   int extra;
   int idLista;
 } variable;

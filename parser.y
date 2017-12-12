@@ -92,7 +92,7 @@ void yyerror (char const *);
 //Types
 %type <ival> lista_id
 %type <ival> lista_d_var
-%type <tipo> d_tipo
+%type <ival> d_tipo
 %type <ival> exp_a//La id de la variable del resultado
 %type <ival> expresion //La id de la variable del resultado
 %type <ival> operando//La id de la variable del operando
@@ -144,11 +144,26 @@ d_tipo:
 	| IDENTIFIER {printf("BISON: d_tipo\n");}
 	| expresion_t OPERATORDOTDOT expresion_t {printf("BISON: d_tipo\n");}
 	| RESERVEDWORDref d_tipo {printf("BISON: tipo ref encontrado\n");}
-	| RESERVEDWORDentero {printf("BISON: tipo entero encontrado\n");}
-	| RESERVEDWORDbooleano {printf("BISON: tipo booleano encontrado\n");}
-	| RESERVEDWORDcaracter {printf("BISON: tipo caracte encontrado\n");}
-	| RESERVEDWORDreal {printf("BISON: tipo real encontrado\n");}
-	| RESERVEDWORDcadena {printf("BISON: tipo cadena encontrado\n");}
+	| RESERVEDWORDentero {
+		printf("BISON: tipo entero encontrado\n");
+		$$=ENTERO;
+		}
+	| RESERVEDWORDbooleano {
+		printf("BISON: tipo booleano encontrado\n");
+		$$=BOOLEANO;
+		}
+	| RESERVEDWORDcaracter {
+		printf("BISON: tipo caracte encontrado\n");
+		$$=CHAR;
+		}
+	| RESERVEDWORDreal {
+		printf("BISON: tipo real encontrado\n");
+		$$=REAL;
+		}
+	| RESERVEDWORDcadena {
+		printf("BISON: tipo cadena encontrado\n");
+		$$=CADENA;
+		}
 ;
 expresion_t:
 	expresion {printf("Expression:_t\n");}
@@ -169,14 +184,14 @@ lista_d_cte:
 lista_d_var:
 	lista_id OPERATORDOUBLEDOT IDENTIFIER OPERATORDOTCOMMA lista_d_var {
 		printf("BISON: Lista de var %d\n",$1);
-		insertTipoToVars(&ts,$3,$1);
+		insertTipoToVars(&ts,-1,$1);
 	}
 	| lista_id OPERATORDOUBLEDOT IDENTIFIERB OPERATORDOTCOMMA lista_d_var {
 			printf("BISON: Lista de var %d\n",$1);
-			insertTipoToVars(&ts,$3,$1);
+			insertTipoToVars(&ts,BOOLEANO,$1);
 		}
 	| lista_id OPERATORDOUBLEDOT d_tipo OPERATORDOTCOMMA lista_d_var {
-			printf("BISON: Lista de var %d, tipo: %s\n",$1,$3);
+			printf("BISON: Lista de var %d, tipo: %d\n",$1,$3);
 			insertTipoToVars(&ts,$3,$1);
 		}
 	| %empty {
@@ -271,7 +286,7 @@ exp_a:
 exp_a aritop exp_a {
 	printf("BISON: exp_a (aritop)\n");
 	int idTempVar;
-	idTempVar=newTemp(&ts,"entero");
+	idTempVar=newTemp(&ts,ENTERO);
 	gen(&tc,$2,$1,$3,idTempVar);
 	$$=idTempVar;
 	printf("Nueva temporal id:%d",idTempVar);	
@@ -279,21 +294,21 @@ exp_a aritop exp_a {
 | exp_a MINUSOP exp_a {
 	printf("BISON: exp_a (aritop)\n");
 	int idTempVar;
-	idTempVar=newTemp(&ts,"entero");
+	idTempVar=newTemp(&ts,ENTERO);
 	gen(&tc,MENOS,$1,$3,idTempVar);
 	$$=idTempVar;
 }
 | exp_a RESERVEDWORDmod exp_a {
 	printf("BISON: exp_a (aritop)\n");
 	int idTempVar;
-	idTempVar=newTemp(&ts,"entero");
+	idTempVar=newTemp(&ts,ENTERO);
 	gen(&tc,MOD,$1,$3,idTempVar);
 	$$=idTempVar;
 }
 | exp_a RESERVEDWORDdiv exp_a {
 	int idTempVar;
 	printf("BISON: exp_a (aritop)\n");
-	idTempVar=newTemp(&ts,"entero");
+	idTempVar=newTemp(&ts,ENTERO);
 	gen(&tc,DIV,$1,$3,idTempVar);
 	$$=idTempVar;
 }
@@ -309,8 +324,8 @@ exp_a aritop exp_a {
 | INTLIT {
 	int idTempVar;
 	printf("BISON: exp_a (int lit: %d)\n",$1);
-	idTempVar=newTemp(&ts,"entero");
-	gen(&tc,ASIGN,$1,-1,idTempVar);
+	idTempVar=newTemp(&ts,ENTERO);
+	gen(&tc,ASIGNVAL,$1,VOID,idTempVar);
 	$$=idTempVar;
 	printf("Nueva temporal id:%d",idTempVar);
 }
@@ -401,7 +416,7 @@ instruccion:
 asignacion:
 	operando OPERATORASIGN expresion {
 		printf("BISON: asignacion\n");
-		gen(&tc,ASIGN,$3,-1,$1);
+		gen(&tc,ASIGN,$3,VOID,$1);
 	}
 ;
 

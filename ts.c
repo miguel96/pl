@@ -52,23 +52,23 @@ elemento *buscaNombre(tabla_simbolos *tabla, char *nombre) {
     return temp;
 }
 
-int insertVarTS(tabla_simbolos *tabla, char *identificador, char *tipo) {
+int insertVarTS(tabla_simbolos *tabla, char *identificador, int tipo) {
   printf("insertando ident %s\n",identificador);
   symbol sym;
   sym.var.nombre=strdup(identificador);
-  sym.var.tp = strdup(tipo);
+  sym.var.tp = tipo;
   return insertVariable(tabla, sym);
 }
 
 int insertVarSinTipo(tabla_simbolos *tabla, char *identificador) {
-  return insertVarTS(tabla,identificador,"vacio");
+  return insertVarTS(tabla, identificador, VACIO);
 }
 
-int insertTipoToVars(tabla_simbolos *tabla, char *tipo,int idLista) {
+int insertTipoToVars(tabla_simbolos *tabla, int tipo,int idLista) {
   elemento *elem = tabla->primero;
   while (elem != NULL) {
-    printf("%d---> %s:%s;", elem->id, elem->sym.var.nombre, elem->sym.var.tp);
-    if(strcmp(elem->sym.var.tp,"vacio")==0&&elem->sym.var.idLista==idLista) {
+    printf("%d---> %s:%d;", elem->id, elem->sym.var.nombre, elem->sym.var.tp);
+    if(elem->sym.var.tp==VACIO&&elem->sym.var.idLista==idLista) {
       elem->sym.var.tp=tipo;
     }
     elem=elem->next;
@@ -94,12 +94,28 @@ char * getName(tabla_simbolos *tabla, int id) {
   }
   return "";
 }
+char *getTipo(int tipo){
+  switch(tipo){
+    case VACIO:
+      return "vacio";
+    case ENTERO:
+      return "entero";
+    case BOOLEANO:
+      return "booleano";
+    case REAL:
+      return "real";
+    case CADENA:
+      return "cadena";
+    case CHAR:
+      return "char";
+  }
+}
 void imprimirTabla(tabla_simbolos *tabla) {
      elemento *elem = tabla->primero;
      printf("\n");
      printf("\nVoy a imprimir la tabla, tamaño %d\n",tabla->size);
      while (elem != NULL) {
-          printf("\t%d---> %s:%s||%d\n", elem->id, elem->sym.var.nombre, elem->sym.var.tp,elem->sym.var.idLista);
+          printf("\t%d---> %s:%s||%d\n", elem->id, elem->sym.var.nombre, getTipo(elem->sym.var.tp),elem->sym.var.idLista);
           elem=elem->next;
      }
      printf("\nHe terminado de imprimit la tabla, tamaño %d\n",tabla->size);
@@ -119,7 +135,7 @@ int printExtraVars(tabla_simbolos *tabla,int extra) {
       elem=elem->next;
     }
 }
-int newTemp(tabla_simbolos *tabla,char *tipo){
+int newTemp(tabla_simbolos *tabla,int tipo){
   char str[10];
   sprintf(str, "temp%d", temps++);
   return insertVarTS(tabla,str,tipo);  

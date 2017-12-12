@@ -2,7 +2,7 @@
 
 #define tc_aitor_miguel_h
 
-#define ASIGN 50
+#define ASIGN 0
 #define MAS 1
 #define MENOS 2
 #define MULT 3
@@ -16,9 +16,11 @@
 #define MAYOR 11
 #define MAYOROIG 12
 #define MENOROIG 13
+#define ASIGNVAL 14
 #define FALSE 0
 #define TRUE 1
 
+#define VOID -1
 
 
 #define INPUTVAR 0

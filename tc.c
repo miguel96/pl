@@ -45,6 +45,8 @@ void imprimirTupla(int i,int op, char *op1, char *op2, char *dest) {
   case ELEV:
     printf("%d %s:= %s ^ %s\n",i,dest,op1,op2);
     break;
+  case ASIGNVAL:
+    printf("Error, literal\n");
   }
 }
 void imprimirTablaCuadruplas(tabla_cuadruplas *tc, tabla_simbolos *ts) {
