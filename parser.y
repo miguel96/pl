@@ -248,10 +248,10 @@ decl_sal:
 ;
 /**EXpresiones*/
 exp_b:
-	exp_b RESERVEDWORDy exp_b {
+	exp_b RESERVEDWORDy M exp_b {
 		printf("BISON: exp_b (y)\n");
 	}
-	| exp_b RESERVEDWORDo exp_b {
+	| exp_b RESERVEDWORDo M exp_b {
 		printf("BISON: exp_b (o)\n");
 	}
 	| RESERVEDWORDno exp_b {
@@ -260,7 +260,7 @@ exp_b:
 	| operandob {
 		printf("BISON: exp_b (operando)\n");
 	}
-	| BOOLEAN {
+	| BOOLEAN {	
 		printf("BISON: exp_b (booleano)\n");
 	}
 	| expresion COMPOP expresion {
@@ -270,6 +270,10 @@ exp_b:
 		printf("BISON: exp_b (parentesis)\n");
 	}
 ;
+M:
+	%empty {
+		printf("Found M\n");
+	}
 expresion:
 	exp_a {
 		printf("BISON: expresion (exp_a)\n");
