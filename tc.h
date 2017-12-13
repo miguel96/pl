@@ -17,6 +17,8 @@
 #define MAYOROIG 12
 #define MENOROIG 13
 #define ASIGNVAL 14
+#define SI 15
+#define GOTO 16
 #define FALSE 0
 #define TRUE 1
 
@@ -32,13 +34,22 @@ typedef struct {
 } tabla_cuadruplas;
 
 typedef struct nodo_tabla nodo_tabla;
-struct nodo_tabla {
-     int value;
-     nodo_tabla *next;
+
+struct nodo_tabla
+{
+    int value;
+    nodo_tabla *next;
 };
 
-typedef struct {
-     nodo_tabla *first;
-     nodo_tabla *last;
+typedef struct
+{
+    nodo_tabla *first;
+    nodo_tabla *last;
 } tabla_enteros;
+
+typedef struct
+{
+    tabla_enteros * true;
+    tabla_enteros * false;
+} boolop;
 #endif

@@ -80,11 +80,12 @@ int nextquad(tabla_cuadruplas *tc) {
      return tc->nextquad;
 }
 
-void backpatch(tabla_enteros *t,tabla_cuadruplas *tc, int quad) {
-     nodo_tabla* nodo;
-     nodo = t->first;
-     while (nodo->next != NULL) {
-          tc->tabla[nodo->value][3] = quad;
-          nodo = nodo->next;
-     }
+void backpatch(tabla_cuadruplas *tc,tabla_enteros *t, int quad){
+  nodo_tabla *nodo;
+  nodo = t->first;
+  while (nodo->next != NULL)
+  {
+    tc->tabla[nodo->value][3] = quad;
+    nodo = nodo->next;
+  }
 }

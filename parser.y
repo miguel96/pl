@@ -2,9 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-//#include "ts.c"
 #include "tc.c"
-
 int yylex(void);
 int yyparse(void);
 extern FILE *yyin;
@@ -12,13 +10,6 @@ tabla_simbolos ts;
 tabla_cuadruplas tc;
 void yyerror (char const *);
 %}
-%union {
-	int ival;
-	float fval;
-	char *sval;
-  char cval;
-	char *tipo;
-}
 
 %token <sval> RESERVEDWORDaccion
 %token <sval> RESERVEDWORDalgoritmo
@@ -97,6 +88,20 @@ void yyerror (char const *);
 %type <ival> expresion //La id de la variable del resultado
 %type <ival> operando//La id de la variable del operando
 %type <ival> aritop
+%type <ival> M
+%type <bool> exp_b
+%type <ival> operandob
+
+
+%union {
+	int ival;
+	float fval;
+	char *sval;
+  	char cval;
+	char *tipo;	
+	struct boolop *bool;	
+}
+
 %% /* Grammar rules and actions follow.  */
 desc_algoritmo:
 RESERVEDWORDalgoritmo IDENTIFIER OPERATORDOTCOMMA cabecera_alg bloque COMMENT finAlgoritmo {
@@ -248,34 +253,56 @@ decl_sal:
 		setVarsExtra(&ts,$2,OUTPUTVAR);
 	}
 ;
-/**EXpresiones*/
+/**Expresiones*/
 exp_b:
 	exp_b RESERVEDWORDy M exp_b {
+		backpatch(&tc,$1->true,$3);
+		$$->false=merge($1->false,$4->false);
+		$$->true=$4->true;
 		printf("BISON: exp_b (y)\n");
+
 	}
 	| exp_b RESERVEDWORDo M exp_b {
+		backpatch(&tc,$1->true,$3);
+		$$->true=merge($1->true,$4->true);
+		$$->false=$4->false;
 		printf("BISON: exp_b (o)\n");
 	}
 	| RESERVEDWORDno exp_b {
 		printf("BISON: exp_b (no)\n");
+		$$->true=$2->false;
+		$$->false=$2->false;
 	}
 	| operandob {
-		printf("BISON: exp_b (operando)\n");
+		int nquad=nextquad(&tc);
+		$$->true=makeList(nquad);
+		$$->false=makeList(nquad+1);
+		gen(&tc,SI,$1,VOID,VOID);
+		gen(&tc,GOTO,VOID,VOID,VOID);
+		printf("BISON: exp_b (operando) (NQUAD: %d)\n",nquad);
 	}
 	| BOOLEAN {	
-		printf("BISON: exp_b (booleano)\n");
+		printf("BISON: exp_b (booleano)\n");		
 	}
 	| expresion COMPOP expresion {
+		int nquad=nextquad(&tc);
+		$$->true=makeList(nquad);
+		$$->false=makeList(nquad+1);
+		gen(&tc,SI,$1,$2,VOID);
 		printf("BISON: exp_b (comparacion)\n");		
 	}
 	| OPERATORINITPARENT exp_b OPERATORENPARENT {
 		printf("BISON: exp_b (parentesis)\n");
+		$$->true=$2->true;
+		$$->false=$2->false;
 	}
 ;
 M:
 	%empty {
-		printf("Found M\n");
+		$$=nextquad(&tc);
+		printf("Found M:%d\n",$$);
 	}
+	;
 expresion:
 	exp_a {
 		printf("BISON: expresion (exp_a)\n");
@@ -360,6 +387,8 @@ operando:
 operandob:
 	IDENTIFIERB {
 		printf("BISON: operando (identificadorb)\n");
+		//TODO: asignar valor
+		$$=newTemp(&ts,BOOLEANO);	
 	}
 ;
 
