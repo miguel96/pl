@@ -31,4 +31,14 @@ typedef struct {
     int nextquad;
 } tabla_cuadruplas;
 
+typedef struct nodo_tabla nodo_tabla;
+struct nodo_tabla {
+     int value;
+     tabla_enteros *next;
+}
+
+typedef struct {
+     tabla_enteros *first;
+     tabla_enteros *next;
+}
 #endif
