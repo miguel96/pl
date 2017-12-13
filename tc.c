@@ -79,3 +79,12 @@ tabla_enteros* merge(tabla_enteros *a, tabla_enteros *b) {
 int nextquad(tabla_cuadruplas *tc) {
      return tc->nextquad;
 }
+
+void backpatch(tabla_enteros *t,tabla_cuadruplas *tc, int quad) {
+     nodo_tabla* nodo;
+     nodo = t->first;
+     while (nodo->next != NULL) {
+          tc->tabla[nodo->value][3] = quad;
+          nodo = nodo->next;
+     }
+}
