@@ -34,11 +34,11 @@ typedef struct {
 typedef struct nodo_tabla nodo_tabla;
 struct nodo_tabla {
      int value;
-     tabla_enteros *next;
-}
+     nodo_tabla *next;
+};
 
 typedef struct {
-     tabla_enteros *first;
-     tabla_enteros *next;
-}
+     nodo_tabla *first;
+     nodo_tabla *last;
+} tabla_enteros;
 #endif

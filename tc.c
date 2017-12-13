@@ -58,7 +58,7 @@ void imprimirTablaCuadruplas(tabla_cuadruplas *tc, tabla_simbolos *ts) {
   printExtraVars(ts,OUTPUTVAR);
 }
 
-tabla_enteros makeList(int a) {
+tabla_enteros* makeList(int a) {
      tabla_enteros *lista;
      nodo_tabla *nodo;
      nodo = (nodo_tabla*)malloc(sizeof(nodo_tabla));
@@ -70,12 +70,12 @@ tabla_enteros makeList(int a) {
      return lista;
 }
 
-tabla_enteros merge(tabla_enteros *a, tabla_enteros *b) {
-     a->last->next = b->fist;
+tabla_enteros* merge(tabla_enteros *a, tabla_enteros *b) {
+     a->last->next = b->first;
      a->last = b->last;
      return a;
 }
 
 int nextquad(tabla_cuadruplas *tc) {
-     return tabla->nextquad;
+     return tc->nextquad;
 }
