@@ -68,7 +68,6 @@ int insertVarSinTipo(tabla_simbolos *tabla, char *identificador) {
 int insertTipoToVars(tabla_simbolos *tabla, int tipo,int idLista) {
   elemento *elem = tabla->primero;
   while (elem != NULL) {
-    printf("%d---> %s:%d;", elem->id, elem->sym.var.nombre, elem->sym.var.tp);
     if(elem->sym.var.tp==VACIO&&elem->sym.var.idLista==idLista) {
       elem->sym.var.tp=tipo;
     }

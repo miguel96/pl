@@ -104,14 +104,21 @@ extern int yydebug;
     OPDIV = 314,
     OPDMOD = 315,
     MINUSOP = 316,
-    COMPOP = 317,
-    BOOLEAN = 318,
-    CHARLIT = 319,
-    COMMENT = 320,
-    IDENTIFIER = 321,
-    IDENTIFIERB = 322,
-    REALLIT = 323,
-    INTLIT = 324
+    MAYOROP = 317,
+    MENOROP = 318,
+    MAYORIGOP = 319,
+    MENORIGOP = 320,
+    IGUALOP = 321,
+    DISTINTOOP = 322,
+    YOP = 323,
+    OOP = 324,
+    BOOLEAN = 325,
+    CHARLIT = 326,
+    COMMENT = 327,
+    IDENTIFIER = 328,
+    IDENTIFIERB = 329,
+    REALLIT = 330,
+    INTLIT = 331
   };
 #endif
 
@@ -120,7 +127,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 97 "parser.y" /* yacc.c:1909  */
+#line 105 "parser.y" /* yacc.c:1909  */
 
 	int ival;
 	float fval;
@@ -129,7 +136,7 @@ union YYSTYPE
 	char *tipo;
 	boolop *bool;
 
-#line 133 "parser.tab.h" /* yacc.c:1909  */
+#line 140 "parser.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

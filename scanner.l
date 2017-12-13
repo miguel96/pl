@@ -89,8 +89,14 @@ OPELEV "^"
 OPDIV "/"
 OPDMOD "%"
 MINUSOP "-"
-COMPOP ">"|"<"|">="|"<="|"=="|"!="
-LOGICOP "&"|"\|"
+MAYOROP ">"
+MENOROP "<"
+MAYORIGOP ">="
+MENORIGOP "<="
+IGUALOP "=="
+DISTINTOOP "!="
+YOP "&"
+OOP "\|"
 
 %%
 {RESERVEDWORDaccion} reservadas++;yylval.sval=parseString(yytext);return RESERVEDWORDaccion;
@@ -152,14 +158,21 @@ LOGICOP "&"|"\|"
 {OPDIV} operators++;yylval.cval=yytext[0];return OPDIV;
 {OPDMOD} operators++;yylval.cval=yytext[0];return OPDMOD;
 {MINUSOP} operators++;yylval.cval=yytext[0];return MINUSOP;
-{COMPOP} operators++;yylval.cval=yytext[0];return COMPOP;
+{MAYORIGOP} operators++;yylval.sval=parseString(yytext);return MAYORIGOP;
+{MENORIGOP} operators++;yylval.sval=parseString(yytext);return MENORIGOP;
+{MAYOROP} operators++;yylval.sval=parseString(yytext);return MAYOROP;
+{MENOROP} operators++;yylval.sval=parseString(yytext);printf("FLEX: MENOR ENCONTRADO\n");return MENOROP;
+{IGUALOP} operators++;yylval.sval=parseString(yytext);return IGUALOP;
+{DISTINTOOP} operators++;yylval.sval=parseString(yytext);return DISTINTOOP;
+{YOP} operators++;yylval.sval=parseString(yytext);return YOP;
+{OOP} operators++;yylval.sval=parseString(yytext);return OOP;
 {BOOLEAN} ++boolLits;yylval.sval=yytext;return BOOLEAN;
 {SPACE}{SPACE}*;
 {CHARLIT} ++charLits;yylval.sval=yytext;return CHARLIT ;
 {PREC} ++coments;yylval.sval=parseString(yytext);return COMMENT;
 {POST} ++coments;yylval.sval=parseString(yytext);return COMMENT;
 {COMMENT} ++coments;//No return anything
-{IDENTIFIERB} ++boolIdent;yylval.sval=parseString(yytext);return IDENTIFIER;
+{IDENTIFIERB} ++boolIdent;yylval.sval=parseString(yytext);return IDENTIFIERB;
 {IDENTIFIER} ++identifiers;yylval.sval=parseString(yytext);return IDENTIFIER;
 {REALLIT} ++realLits;yylval.sval=yytext;return REALLIT;
 {INTLIT} ++intLits;yylval.ival=atoi(yytext);return INTLIT;

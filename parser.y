@@ -71,7 +71,14 @@ void yyerror (char const *);
 %token <cval> OPDIV
 %token <cval> OPDMOD
 %token <sval> MINUSOP
-%token <sval> COMPOP
+%token <sval> MAYOROP
+%token <sval> MENOROP
+%token <sval> MAYORIGOP
+%token <sval> MENORIGOP
+%token <sval> IGUALOP
+%token <sval> DISTINTOOP
+%token <sval> YOP
+%token <sval> OOP
 %token <sval> BOOLEAN
 %token <sval> CHARLIT
 %token <sval> COMMENT
@@ -92,6 +99,7 @@ void yyerror (char const *);
 %type <ival> M
 %type <bool> exp_b
 %type <ival> operandob
+%type <ival> compop
 
 
 %union {
@@ -285,7 +293,7 @@ exp_b:
 	| BOOLEAN {
 		printf("BISON: exp_b (booleano)\n");
 	}
-	| expresion COMPOP expresion {
+	| expresion compop expresion {
 		int nquad=nextquad(&tc);
 		$$->true=makeList(nquad);
 		$$->false=makeList(nquad+1);
@@ -298,6 +306,31 @@ exp_b:
 		$$->false=$2->false;
 	}
 ;
+compop:
+	MAYOROP {
+		printf("BISON: compop MAYOR\n");
+		$$=MAYOR;
+	}
+	| MENOROP {
+		printf("BISON: compop MENOR\n");
+		$$=MENOR;
+	}
+	| MAYORIGOP {
+		printf("BISON: compop MAYORIGOP\n");
+		$$=MAYOROIG;
+	}
+	| MENORIGOP {
+		printf("BISON: compop MENORIG\n");
+		$$=MENOROIG;
+	}
+	| IGUALOP {
+		printf("BISON: compop IGUALOP\n");
+		$$=IGUAL;
+	}
+	| DISTINTOOP {
+		printf("BISON: compop DISTINTOOP\n");
+		$$=DISTINTO;
+	}
 M:
 	%empty {
 		$$=nextquad(&tc);

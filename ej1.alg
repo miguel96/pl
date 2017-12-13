@@ -6,8 +6,6 @@ var
     b1, b2 : booleano;
     ent1: entero;
 fvar;
-ent1:= 2;
-b3 := b1 > b2;
-{c := a * ent1;}
+b1 < b2;
 {Post: b=A AND a = B}
 falgoritmo.

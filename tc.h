@@ -20,6 +20,7 @@
 #define ASIGNVAL 14
 #define SI 15
 #define GOTO 16
+#define DISTINTO 18
 #define FALSE 0
 #define TRUE 1
 
