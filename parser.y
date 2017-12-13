@@ -140,7 +140,9 @@ lista_d_tipo:
 ;
 d_tipo:
 	RESERVEDWORDtupla lista_campos RESERVEDWORDftupla {printf("BISON: d_tipo\n");}
-	| RESERVEDWORDtabla OPERATORINITARR expresion_t OPERATORDOTDOT expresion_t OPERATORENDARR RESERVEDWORDde d_tipo {printf("BISON: d_tipo\n");}
+	| RESERVEDWORDtabla OPERATORINITARR expresion_t OPERATORDOTDOT expresion_t OPERATORENDARR RESERVEDWORDde d_tipo {
+		printf("BISON: d_tipo\n");
+		}
 	| IDENTIFIER {printf("BISON: d_tipo\n");}
 	| expresion_t OPERATORDOTDOT expresion_t {printf("BISON: d_tipo\n");}
 	| RESERVEDWORDref d_tipo {printf("BISON: tipo ref encontrado\n");}
