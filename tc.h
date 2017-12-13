@@ -2,6 +2,7 @@
 
 #define tc_aitor_miguel_h
 
+#include "ts.h"
 #define ASIGN 0
 #define MAS 1
 #define MENOS 2
@@ -52,4 +53,14 @@ typedef struct
     tabla_enteros * true;
     tabla_enteros * false;
 } boolop;
+
+int initTable(tabla_cuadruplas *tabla);
+int gen(tabla_cuadruplas *tabla, int op, int op1, int op2, int dest);
+void imprimirTupla(tabla_simbolos *ts, int i,int op, int op1, int op2, int dest);
+void imprimirTablaCuadruplas(tabla_cuadruplas *tc, tabla_simbolos *ts);
+tabla_enteros* makeList(int a);
+tabla_enteros* merge(tabla_enteros *a, tabla_enteros *b);
+int nextquad(tabla_cuadruplas *tc);
+void backpatch(tabla_cuadruplas *tc,tabla_enteros *t, int quad);
+
 #endif

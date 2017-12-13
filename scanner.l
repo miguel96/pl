@@ -1,5 +1,10 @@
 %top{
     #include <stdio.h>
+    #include <stdlib.h>
+    #include <math.h>
+    #include "ts.h"
+    #include "tc.h"
+
     #include "parser.tab.h"
 }
   int identifiers=0,boolIdent=0,err=0,coments=0,intLits=0,realLits=0,boolLits=0,charLits=0, reservadas = 0,operators=0;

@@ -43,6 +43,21 @@ typedef struct {
 
 elemento *buscaNombre(tabla_simbolos *tabla, char *nombre);
 int nombreUsado(tabla_simbolos *tabla, char *nombre);
+void init(tabla_simbolos *tabla);
+int insertVariable(tabla_simbolos *tabla, symbol sym);
+int insertVarTS(tabla_simbolos *tabla, char *identificador, int tipo);
+int insertVarSinTipo(tabla_simbolos *tabla, char *identificador);
+int insertTipoToVars(tabla_simbolos *tabla, int tipo,int idLista);
+int getId(tabla_simbolos *tabla, char *name);
+char * getName(tabla_simbolos *tabla, int id);
+char *getTipo(int tipo);
+void imprimirTabla(tabla_simbolos *tabla);
+char *getExtraName(int extra);
+int printExtraVars(tabla_simbolos *tabla,int extra);
+int newTemp(tabla_simbolos *tabla,int tipo);
+int setVarsExtra(tabla_simbolos *tabla,int listId,int extra);
+int setVarsId(tabla_simbolos *tabla, int id);
+int newIdList(tabla_simbolos *tabla);
 
 
 #endif

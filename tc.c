@@ -1,6 +1,7 @@
 #include "tc.h"
-#include "ts.c"
+#include "ts.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 int initTable(tabla_cuadruplas *tabla) {

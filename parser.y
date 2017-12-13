@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-#include "tc.c"
+#include "ts.h"
+#include "tc.h"
 int yylex(void);
 int yyparse(void);
 extern FILE *yyin;
@@ -98,8 +99,8 @@ void yyerror (char const *);
 	float fval;
 	char *sval;
   	char cval;
-	char *tipo;	
-	struct boolop *bool;	
+	char *tipo;
+	boolop *bool;
 }
 
 %% /* Grammar rules and actions follow.  */
@@ -220,13 +221,13 @@ lista_id:
 	}
 	| IDENTIFIER {
 		printf("BISON: id en la lista: .%s. Termina la lista\n",$1);
-		$$=newIdList(&ts);		
-		insertVarSinTipo(&ts,$1);			
+		$$=newIdList(&ts);
+		insertVarSinTipo(&ts,$1);
 	}
 	| IDENTIFIERB {
 		printf("Identb %s\n",$1);
 		insertVarSinTipo(&ts,$1);
-		$$=newIdList(&ts);		
+		$$=newIdList(&ts);
 	}
 ;
 /**Variables ent sal No se si hay que delcararlas*/
@@ -281,15 +282,15 @@ exp_b:
 		gen(&tc,GOTO,VOID,VOID,VOID);
 		printf("BISON: exp_b (operando) (NQUAD: %d)\n",nquad);
 	}
-	| BOOLEAN {	
-		printf("BISON: exp_b (booleano)\n");		
+	| BOOLEAN {
+		printf("BISON: exp_b (booleano)\n");
 	}
 	| expresion COMPOP expresion {
 		int nquad=nextquad(&tc);
 		$$->true=makeList(nquad);
 		$$->false=makeList(nquad+1);
-		gen(&tc,SI,$1,$2,VOID);
-		printf("BISON: exp_b (comparacion)\n");		
+		gen(&tc,SI,$1,$3,VOID);
+		printf("BISON: exp_b (comparacion)\n");
 	}
 	| OPERATORINITPARENT exp_b OPERATORENPARENT {
 		printf("BISON: exp_b (parentesis)\n");
@@ -322,7 +323,7 @@ exp_a aritop exp_a {
 	idTempVar=newTemp(&ts,ENTERO);
 	gen(&tc,$2,$1,$3,idTempVar);
 	$$=idTempVar;
-	printf("Nueva temporal id:%d",idTempVar);	
+	printf("Nueva temporal id:%d",idTempVar);
 }
 | exp_a MINUSOP exp_a {
 	printf("BISON: exp_a (aritop)\n");
@@ -388,7 +389,7 @@ operandob:
 	IDENTIFIERB {
 		printf("BISON: operando (identificadorb)\n");
 		//TODO: asignar valor
-		$$=newTemp(&ts,BOOLEANO);	
+		$$=newTemp(&ts,BOOLEANO);
 	}
 ;
 
@@ -435,7 +436,7 @@ instruccion:
 		printf("BISON: continuar (resWord)\n");
 	}
 	| asignacion {
-		printf("BISON: encontrada asignacion\n");		
+		printf("BISON: encontrada asignacion\n");
 	}
 	| alternativa {
 		printf("BISON: encontrada alternativa\n");
@@ -589,7 +590,7 @@ int main(int argc, char *argv[]) {
       yyin = stdin;
   }
 
-  do{    
+  do{
     yyparse();
   } while(!feof(yyin));
   //printf("identifiers:%d err:%d com:%d,intLits:%d,realLits:%d,boolLits:%d,charLits:%d,reservadas:%d,operadores:%d\n",

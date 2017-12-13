@@ -120,14 +120,14 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 96 "parser.y" /* yacc.c:1909  */
+#line 97 "parser.y" /* yacc.c:1909  */
 
 	int ival;
 	float fval;
 	char *sval;
   	char cval;
-	char *tipo;	
-	struct boolop *bool;	
+	char *tipo;
+	boolop *bool;
 
 #line 133 "parser.tab.h" /* yacc.c:1909  */
 };
