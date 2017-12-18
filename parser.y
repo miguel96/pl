@@ -12,6 +12,7 @@ tabla_cuadruplas tc;
 void yyerror (char const *);
 %}
 
+%define parse.error verbose
 %token <sval> RESERVEDWORDaccion
 %token <sval> RESERVEDWORDalgoritmo
 %token <sval> RESERVEDWORDbooleano
@@ -77,8 +78,6 @@ void yyerror (char const *);
 %token <sval> MENORIGOP
 %token <sval> IGUALOP
 %token <sval> DISTINTOOP
-%token <sval> YOP
-%token <sval> OOP
 %token <sval> BOOLEAN
 %token <sval> CHARLIT
 %token <sval> COMMENT

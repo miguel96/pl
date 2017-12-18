@@ -15,12 +15,14 @@ op2: operando2;
 dest: operando destino;
 */
 int gen(tabla_cuadruplas *tabla, int op, int op1, int op2, int dest) {
-  printf("Generating op:%d op1:%d op2:%d dest: %d\n",op,op1,op2,dest);
-  tabla->tabla[tabla->nextquad][0] = op;
-  tabla->tabla[tabla->nextquad][1] = op1;
-  tabla->tabla[tabla->nextquad][2] = op2;
-  tabla->tabla[tabla->nextquad][3] = dest;
-  tabla->nextquad++;
+  printf("Generating operacion:%d op1:%d op2:%d dest: %d\n",op,op1,op2,dest);
+  int num=tabla->nextquad;  
+  tabla->tabla[num][0] = op;  
+  tabla->tabla[num][1] = op1;  
+  tabla->tabla[num][2] = op2;
+  tabla->tabla[num][3] = dest;  
+  num++;  
+  tabla->nextquad=num;
   return 0;
 }
 void imprimirTupla(tabla_simbolos *ts, int i,int op, int op1, int op2, int dest) {
@@ -51,7 +53,7 @@ void imprimirTupla(tabla_simbolos *ts, int i,int op, int op1, int op2, int dest)
   }
 }
 void imprimirTablaCuadruplas(tabla_cuadruplas *tc, tabla_simbolos *ts) {
-  printf("------>Codigo en 3 direcciones<-----\n");
+  printf("------>Codigo en 3 direcciones<-----\n");    
   printExtraVars(ts,INPUTVAR);
   for (int i = 0; i < tc->nextquad; i++) {
     imprimirTupla(ts,i,tc->tabla[i][0],tc->tabla[i][1], tc->tabla[i][2], tc->tabla[i][3]);

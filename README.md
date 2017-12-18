@@ -6,7 +6,19 @@
 
 ## Instrucciones
   Para compilar el fichero simplemente ejecute el make sin ningún argumento.
-  Para ejecutar el escáner use a.out y como primer argumento el nombre del
-  fichero de entrada en su defecto podrá utilizar la entrada estándar
+  Para ejecutar el escáner use ./a.out y como primer argumento el nombre del
+  fichero de entrada, en su defecto podrá utilizar la entrada estándar.
 
-d183d64e-2714-44f3-8dcc-9c88b6683f08
+  ###Ejemplo:
+  :::bash
+    make
+    ./a.out programa1.alg
+
+## Objetivos conseguidos
+ * Declaracion de variables
+ * Expresiones aritméticas
+ * Asignaciones (aritmeticas)
+
+## Porcentaje de trabajo
+  * 55% Miguel Echenique
+  * 45% Aitor Chorda

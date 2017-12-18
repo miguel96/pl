@@ -110,15 +110,13 @@ extern int yydebug;
     MENORIGOP = 320,
     IGUALOP = 321,
     DISTINTOOP = 322,
-    YOP = 323,
-    OOP = 324,
-    BOOLEAN = 325,
-    CHARLIT = 326,
-    COMMENT = 327,
-    IDENTIFIER = 328,
-    IDENTIFIERB = 329,
-    REALLIT = 330,
-    INTLIT = 331
+    BOOLEAN = 323,
+    CHARLIT = 324,
+    COMMENT = 325,
+    IDENTIFIER = 326,
+    IDENTIFIERB = 327,
+    REALLIT = 328,
+    INTLIT = 329
   };
 #endif
 
@@ -127,7 +125,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 105 "parser.y" /* yacc.c:1909  */
+#line 104 "parser.y" /* yacc.c:1909  */
 
 	int ival;
 	float fval;
@@ -139,7 +137,7 @@ union YYSTYPE
 		tabla_enteros* false;
 	}bool;
 
-#line 143 "parser.tab.h" /* yacc.c:1909  */
+#line 141 "parser.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

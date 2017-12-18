@@ -15,7 +15,6 @@
     solucion[strlen(solucion)]='\0';
     return solucion;
   }
-
 DIGIT   [0-9]
 NUMBER {DIGIT}{DIGIT}*
 CHAR [a-zA-z]
@@ -98,7 +97,11 @@ DISTINTOOP "!="
 YOP "&"
 OOP "\|"
 
+
 %%
+{PREC} ++coments;printf("FLEX fount prec\n");yylval.sval=parseString(yytext);return COMMENT;
+{POST} ++coments;printf("FLEX found post\n");yylval.sval=parseString(yytext);return COMMENT;
+{COMMENT} ++coments;printf("FLEX found comment");return COMMENT;//No return anything
 {RESERVEDWORDaccion} reservadas++;yylval.sval=parseString(yytext);return RESERVEDWORDaccion;
 {RESERVEDWORDalgoritmo} reservadas++;yylval.sval=parseString(yytext);return RESERVEDWORDalgoritmo;
 {RESERVEDWORDbooleano} reservadas++;yylval.sval=parseString(yytext);return RESERVEDWORDbooleano;
@@ -164,16 +167,12 @@ OOP "\|"
 {MENOROP} operators++;yylval.sval=parseString(yytext);printf("FLEX: MENOR ENCONTRADO\n");return MENOROP;
 {IGUALOP} operators++;yylval.sval=parseString(yytext);return IGUALOP;
 {DISTINTOOP} operators++;yylval.sval=parseString(yytext);return DISTINTOOP;
-{YOP} operators++;yylval.sval=parseString(yytext);return YOP;
-{OOP} operators++;yylval.sval=parseString(yytext);return OOP;
 {BOOLEAN} ++boolLits;yylval.sval=yytext;return BOOLEAN;
-{SPACE}{SPACE}*;
 {CHARLIT} ++charLits;yylval.sval=yytext;return CHARLIT ;
-{PREC} ++coments;yylval.sval=parseString(yytext);return COMMENT;
-{POST} ++coments;yylval.sval=parseString(yytext);return COMMENT;
-{COMMENT} ++coments;//No return anything
 {IDENTIFIERB} ++boolIdent;yylval.sval=parseString(yytext);return IDENTIFIERB;
 {IDENTIFIER} ++identifiers;yylval.sval=parseString(yytext);return IDENTIFIER;
 {REALLIT} ++realLits;yylval.sval=yytext;return REALLIT;
 {INTLIT} ++intLits;yylval.ival=atoi(yytext);return INTLIT;
+{SPACE}{SPACE}*;
+
 %%
