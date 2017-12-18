@@ -108,7 +108,10 @@ void yyerror (char const *);
 	char *sval;
   	char cval;
 	char *tipo;
-	boolop *bool;
+	struct boolexp {
+		tabla_enteros* true;
+		tabla_enteros* false;
+	}bool;
 }
 
 %% /* Grammar rules and actions follow.  */
@@ -265,27 +268,27 @@ decl_sal:
 /**Expresiones*/
 exp_b:
 	exp_b RESERVEDWORDy M exp_b {
-		backpatch(&tc,$1->true,$3);
-		$$->false=merge($1->false,$4->false);
-		$$->true=$4->true;
+		backpatch(&tc,$1.true,$3);
+		$$.false=merge($1.false,$4.false);
+		$$.true=$4.true;
 		printf("BISON: exp_b (y)\n");
 
 	}
 	| exp_b RESERVEDWORDo M exp_b {
-		backpatch(&tc,$1->true,$3);
-		$$->true=merge($1->true,$4->true);
-		$$->false=$4->false;
+		backpatch(&tc,$1.true,$3);
+		$$.true=merge($1.true,$4.true);
+		$$.false=$4.false;
 		printf("BISON: exp_b (o)\n");
 	}
 	| RESERVEDWORDno exp_b {
 		printf("BISON: exp_b (no)\n");
-		$$->true=$2->false;
-		$$->false=$2->false;
+		$$.true=$2.false;
+		$$.false=$2.false;
 	}
 	| operandob {
 		int nquad=nextquad(&tc);
-		$$->true=makeList(nquad);
-		$$->false=makeList(nquad+1);
+		$$.true=makeList(nquad);
+		$$.false=makeList(nquad+1);
 		gen(&tc,SI,$1,VOID,VOID);
 		gen(&tc,GOTO,VOID,VOID,VOID);
 		printf("BISON: exp_b (operando) (NQUAD: %d)\n",nquad);
@@ -295,15 +298,15 @@ exp_b:
 	}
 	| expresion compop expresion {
 		int nquad=nextquad(&tc);
-		$$->true=makeList(nquad);
-		$$->false=makeList(nquad+1);
+		$$.true=makeList(nquad);
+		$$.false=makeList(nquad+1);
 		gen(&tc,SI,$1,$3,VOID);
 		printf("BISON: exp_b (comparacion)\n");
 	}
 	| OPERATORINITPARENT exp_b OPERATORENPARENT {
 		printf("BISON: exp_b (parentesis)\n");
-		$$->true=$2->true;
-		$$->false=$2->false;
+		$$.true=$2.true;
+		$$.false=$2.false;
 	}
 ;
 compop:

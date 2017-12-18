@@ -134,9 +134,12 @@ union YYSTYPE
 	char *sval;
   	char cval;
 	char *tipo;
-	boolop *bool;
+	struct boolexp {
+		tabla_enteros* true;
+		tabla_enteros* false;
+	}bool;
 
-#line 140 "parser.tab.h" /* yacc.c:1909  */
+#line 143 "parser.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
