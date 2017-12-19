@@ -9,7 +9,7 @@
   Para ejecutar el escáner use ./a.out y como primer argumento el nombre del
   fichero de entrada, en su defecto podrá utilizar la entrada estándar.
 
-  ###Ejemplo:
+  ###Ejemplo:  
   :::bash  
   make  
   ./a.out programa1.alg
