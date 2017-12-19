@@ -10,8 +10,8 @@
   fichero de entrada, en su defecto podrá utilizar la entrada estándar.
 
   ###Ejemplo:
-  :::bash
-    make
+  :::bash  \n
+    make  \n
     ./a.out programa1.alg
 
 ## Objetivos conseguidos
