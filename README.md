@@ -10,9 +10,7 @@
   fichero de entrada, en su defecto podrá utilizar la entrada estándar.
 
   ###Ejemplo:
-  :::bash  \n
-    make  \n
-    ./a.out programa1.alg
+  :::bash  \nmake  \n./a.out programa1.alg
 
 ## Objetivos conseguidos
  * Declaracion de variables
